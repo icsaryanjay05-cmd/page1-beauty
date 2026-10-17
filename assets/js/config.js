@@ -8,7 +8,7 @@ https://script.google.com/macros/s/AKfycbxxxxxxxxxxxxxxxx/exec
 */
 
 window.PAGE1_CONFIG = {
-  API_URL: "https://script.google.com/macros/s/AKfycbxZ9jhk6--sAppjdOCfBIdixIWOcrzK5c21fbxclE4qTv2dRP3E8O7gKW8aJ3ZrlJUh/exec",
+  API_URL: "https://script.google.com/macros/s/AKfycbylVyNtAEFn7cqmFUWZBUiLSiCMg57GhwmOVcQ8nKXtksJEiUzBpQKDfZjIVNVPhAB4/exec",
   API_TIMEOUT_MS: 60000,
   APP_NAME: "PAGE.1 Beauty Salon"
 };
