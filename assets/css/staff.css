@@ -3192,3 +3192,35 @@ body:not(.auth-locked) #loginScreen{display:none!important}
   }
 }
 
+
+/* =========================================================
+   PAGE.1 V10.2 — STAFF PORTAL VISUAL POLISH
+   No business logic changes.
+   ========================================================= */
+html{scroll-behavior:smooth}
+body{background:
+  radial-gradient(circle at 100% 0,rgba(255,255,255,.45),transparent 26%),
+  radial-gradient(circle at 0 52%,rgba(202,186,173,.20),transparent 24%),
+  var(--cream)!important}
+header{backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);background:rgba(233,226,208,.91)!important;box-shadow:0 9px 30px rgba(29,29,27,.045)!important;border-bottom:1px solid rgba(202,186,173,.55)!important}
+.brand img{transition:.28s ease}.brand img:hover{transform:scale(1.02)}
+main{animation:p1PortalRise .48s cubic-bezier(.22,.8,.24,1) both}
+.card,.kpi,.ops-card,.manager-card,.appt-card{transition:transform .24s ease,box-shadow .24s ease,border-color .24s ease!important}
+.card:hover,.ops-card:hover,.manager-card:hover{transform:translateY(-2px);box-shadow:0 15px 36px rgba(29,29,27,.075)!important;border-color:#CBB8A9!important}
+input,select,textarea{transition:border-color .18s ease,box-shadow .18s ease,background .18s ease!important}
+input:focus,select:focus,textarea:focus{border-color:#A78F7E!important;box-shadow:0 0 0 4px rgba(167,143,126,.10)!important;background:#fff!important}
+nav button,.main-nav button,.btn,.smallbtn,.logout-btn{transition:transform .2s ease,box-shadow .2s ease,background .2s ease!important}
+nav button:hover,.main-nav button:hover,.btn:hover,.smallbtn:hover{transform:translateY(-1px)}
+.summary{overflow:hidden}.summary:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;border:1px solid rgba(233,226,208,.09);right:-78px;top:-82px;pointer-events:none}
+.login-screen{background:
+  radial-gradient(circle at 15% 12%,rgba(255,255,255,.56),transparent 25%),
+  radial-gradient(circle at 85% 82%,rgba(202,186,173,.42),transparent 28%),
+  var(--cream)!important}
+.login-shell{animation:p1LoginRise .65s cubic-bezier(.22,.8,.24,1) both!important;box-shadow:0 35px 90px rgba(29,29,27,.16)!important}
+.login-brand-panel{position:relative;overflow:hidden!important}.login-brand-panel:after{content:"01";position:absolute;right:-18px;bottom:-42px;font-family:Georgia,"Times New Roman",serif;font-size:190px;color:rgba(233,226,208,.035);pointer-events:none}
+.login-card{position:relative;overflow:hidden!important}.login-card:before{content:"";position:absolute;width:180px;height:180px;border-radius:50%;border:1px solid rgba(29,29,27,.055);right:-90px;top:-90px;pointer-events:none}
+.login-button{border-radius:999px!important;transition:.25s ease!important}.login-button:hover{transform:translateY(-2px);box-shadow:0 12px 26px rgba(29,29,27,.17)}
+.app-loading-card{animation:p1LoginRise .5s cubic-bezier(.22,.8,.24,1) both}
+@keyframes p1PortalRise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@keyframes p1LoginRise{from{opacity:0;transform:translateY(20px) scale(.985)}to{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}

@@ -1,0 +1,49 @@
+PAGE.1 V10.2 ANIMATED LUXURY — GITHUB UPDATE
+=============================================
+
+GOOD NEWS: NO APPS SCRIPT / BACKEND CHANGE IS REQUIRED.
+
+This update pack intentionally DOES NOT contain assets/js/config.js.
+Your working Apps Script API URL will therefore stay untouched.
+
+UPLOAD / REPLACE THESE ITEMS IN YOUR EXISTING GITHUB REPOSITORY:
+
+index.html
+service-worker.js
+assets/css/site.css
+assets/css/booking.css
+assets/css/staff.css
+assets/js/site.js
+book/index.html
+
+After GitHub Pages finishes publishing:
+1. Open your website.
+2. Press Ctrl + Shift + R once.
+3. If the old design still appears, close the tab and reopen the site.
+   The V10.2 service worker uses a new cache version and will remove the old cache.
+
+WHAT V10.2 ADDS
+---------------
+- Luxury animated homepage
+- Scroll reveal animations
+- Animated hero composition
+- Subtle mouse parallax on desktop
+- Animated marquee strip
+- Scroll progress indicator
+- Sticky glass navigation
+- Mobile navigation menu
+- Animated service cards
+- Animated team cards
+- Refined contact / CTA sections
+- More premium typography and spacing
+- Better mobile responsive presentation
+- Booking page visual upgrade + booking step indicator
+- Staff portal visual polish
+- Reduced-motion accessibility support
+- Improved service worker caching
+- config.js is no longer cached, helping prevent stale Apps Script URLs
+
+BACKEND
+-------
+No Apps Script files need to be changed.
+Do not redeploy Apps Script for this visual update.
