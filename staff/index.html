@@ -1,0 +1,1065 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="theme-color" content="#E9E2D0">
+<link rel="manifest" href="../manifest.json">
+<link rel="icon" href="../assets/images/icon-192.png">
+<title>PAGE.1 Staff Portal</title>
+<meta name="description" content="Secure PAGE.1 Beauty Salon staff management portal.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="stylesheet" href="../assets/css/staff.css">
+</head>
+<body class="auth-locked">
+
+
+<div id="appLoadingScreen" class="app-loading-screen">
+  <div class="app-loading-card">
+    <img src="../assets/images/page1-logo.png" alt="PAGE.1 Beauty Salon" class="app-loading-logo">
+    <div class="app-loading-divider"></div>
+    <div class="app-loading-spinner"><span></span><span></span><span></span></div>
+    <div id="appLoadingTitle" class="app-loading-title">Loading PAGE.1</div>
+    <div id="appLoadingText" class="app-loading-text">Preparing salon system...</div>
+  </div>
+</div>
+
+<div id="loginScreen" class="login-screen">
+  <div class="login-shell">
+    <section class="login-brand-panel">
+      <img src="../assets/images/page1-logo.png" alt="PAGE.1 Beauty Salon" class="login-logo">
+      <div class="login-brand-line"></div>
+      <div>
+        <div class="login-eyebrow">SALON MANAGEMENT SYSTEM</div>
+        <h1>Welcome to PAGE.1</h1>
+        <p>Sales, appointments, client history and reporting in one secure workspace.</p>
+      </div>
+      <div class="login-footer-note">PAGE.1 Beauty Salon • Kuwait</div>
+    </section>
+
+    <section class="login-card">
+      <div class="login-mobile-logo"><img src="../assets/images/page1-logo.png" alt="PAGE.1 Beauty Salon"></div>
+      <div class="login-kicker">SECURE ACCESS</div>
+      <h2>Welcome Back</h2>
+      <p class="login-sub">Sign in with your PAGE.1 staff account.</p>
+
+      <div class="login-field">
+        <label>Username</label>
+        <input id="loginUsername" type="text" autocomplete="username" placeholder="Enter username" onkeydown="if(event.key==='Enter')loginPassword.focus()">
+      </div>
+
+      <div class="login-field">
+        <label>Password</label>
+        <div class="password-wrap">
+          <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Enter password" onkeydown="if(event.key==='Enter')loginUser()">
+          <button type="button" class="show-password" onclick="toggleLoginPassword()">Show</button>
+        </div>
+      </div>
+
+      <div id="loginMessage" class="login-message"></div>
+      <button id="loginButton" class="login-button" onclick="loginUser()">Sign In</button>
+      <a class="online-booking-link" href="../book/" >Book an Appointment Online</a>
+      <div class="login-security-note">🔒 Secure staff access • Automatic sign-out after inactivity</div>
+    </section>
+  </div>
+</div>
+
+<header><div class="brand"><img src="../assets/images/page1-logo.png" alt="PAGE.1"><div class="brandcopy"><b>BEAUTY SALON SYSTEM</b><span>Sales entry & reporting</span></div></div><div class="header-actions"><nav class="main-nav"><button id="navSale" class="active" onclick="showView('sale')">New Sale</button><button id="navAppointments" onclick="showView('appointments')">Appointments</button><button id="navDash" onclick="showView('dash')">Dashboard</button><button id="navOps" onclick="showView('ops')">Operations</button><button id="navManager" onclick="openManagerConsole()">Manager</button></nav><div class="user-chip"><div class="user-avatar" id="authAvatar">U</div><div class="user-copy"><strong id="authUserName">User</strong><span id="authUserRole">Role</span></div><button class="logout-btn" onclick="logoutUser()" title="Sign out">Logout</button></div></div></header>
+<main>
+<section id="sale" class="view active">
+<div class="layout"><div>
+<div class="card"><div class="title"><h2>Client Information</h2></div><div class="grid3"><div><label>Date</label><input id="date" type="date"></div><div><label>Client Name</label><input id="client"></div><div><label>Mobile Number</label><div class="phone"><select id="cc"><option value="+965" selected>🇰🇼 Kuwait +965</option>
+                <option value="+93">🇦🇫 Afghanistan +93</option>
+                <option value="+355">🇦🇱 Albania +355</option>
+                <option value="+213">🇩🇿 Algeria +213</option>
+                <option value="+1684">🇦🇸 American Samoa +1684</option>
+                <option value="+376">🇦🇩 Andorra +376</option>
+                <option value="+244">🇦🇴 Angola +244</option>
+                <option value="+1264">🇦🇮 Anguilla +1264</option>
+                <option value="+1268">🇦🇬 Antigua and Barbuda +1268</option>
+                <option value="+54">🇦🇷 Argentina +54</option>
+                <option value="+374">🇦🇲 Armenia +374</option>
+                <option value="+297">🇦🇼 Aruba +297</option>
+                <option value="+61">🇦🇺 Australia +61</option>
+                <option value="+43">🇦🇹 Austria +43</option>
+                <option value="+994">🇦🇿 Azerbaijan +994</option>
+                <option value="+1242">🇧🇸 Bahamas +1242</option>
+                <option value="+973">🇧🇭 Bahrain +973</option>
+                <option value="+880">🇧🇩 Bangladesh +880</option>
+                <option value="+1246">🇧🇧 Barbados +1246</option>
+                <option value="+375">🇧🇾 Belarus +375</option>
+                <option value="+32">🇧🇪 Belgium +32</option>
+                <option value="+501">🇧🇿 Belize +501</option>
+                <option value="+229">🇧🇯 Benin +229</option>
+                <option value="+1441">🇧🇲 Bermuda +1441</option>
+                <option value="+975">🇧🇹 Bhutan +975</option>
+                <option value="+591">🇧🇴 Bolivia +591</option>
+                <option value="+387">🇧🇦 Bosnia and Herzegovina +387</option>
+                <option value="+267">🇧🇼 Botswana +267</option>
+                <option value="+55">🇧🇷 Brazil +55</option>
+                <option value="+1284">🇻🇬 British Virgin Islands +1284</option>
+                <option value="+673">🇧🇳 Brunei +673</option>
+                <option value="+359">🇧🇬 Bulgaria +359</option>
+                <option value="+226">🇧🇫 Burkina Faso +226</option>
+                <option value="+257">🇧🇮 Burundi +257</option>
+                <option value="+855">🇰🇭 Cambodia +855</option>
+                <option value="+237">🇨🇲 Cameroon +237</option>
+                <option value="+1">🇨🇦 Canada +1</option>
+                <option value="+238">🇨🇻 Cape Verde +238</option>
+                <option value="+1345">🇰🇾 Cayman Islands +1345</option>
+                <option value="+236">🇨🇫 Central African Republic +236</option>
+                <option value="+235">🇹🇩 Chad +235</option>
+                <option value="+56">🇨🇱 Chile +56</option>
+                <option value="+86">🇨🇳 China +86</option>
+                <option value="+57">🇨🇴 Colombia +57</option>
+                <option value="+269">🇰🇲 Comoros +269</option>
+                <option value="+243">🇨🇩 Congo (DRC) +243</option>
+                <option value="+242">🇨🇬 Congo (Republic) +242</option>
+                <option value="+682">🇨🇰 Cook Islands +682</option>
+                <option value="+506">🇨🇷 Costa Rica +506</option>
+                <option value="+385">🇭🇷 Croatia +385</option>
+                <option value="+53">🇨🇺 Cuba +53</option>
+                <option value="+599">🇨🇼 Curaçao +599</option>
+                <option value="+357">🇨🇾 Cyprus +357</option>
+                <option value="+420">🇨🇿 Czech Republic +420</option>
+                <option value="+45">🇩🇰 Denmark +45</option>
+                <option value="+253">🇩🇯 Djibouti +253</option>
+                <option value="+1767">🇩🇲 Dominica +1767</option>
+                <option value="+1809">🇩🇴 Dominican Republic +1809</option>
+                <option value="+1829">🇩🇴 Dominican Republic +1829</option>
+                <option value="+1849">🇩🇴 Dominican Republic +1849</option>
+                <option value="+593">🇪🇨 Ecuador +593</option>
+                <option value="+20">🇪🇬 Egypt +20</option>
+                <option value="+503">🇸🇻 El Salvador +503</option>
+                <option value="+240">🇬🇶 Equatorial Guinea +240</option>
+                <option value="+291">🇪🇷 Eritrea +291</option>
+                <option value="+372">🇪🇪 Estonia +372</option>
+                <option value="+268">🇸🇿 Eswatini +268</option>
+                <option value="+251">🇪🇹 Ethiopia +251</option>
+                <option value="+500">🇫🇰 Falkland Islands +500</option>
+                <option value="+298">🇫🇴 Faroe Islands +298</option>
+                <option value="+679">🇫🇯 Fiji +679</option>
+                <option value="+358">🇫🇮 Finland +358</option>
+                <option value="+33">🇫🇷 France +33</option>
+                <option value="+594">🇬🇫 French Guiana +594</option>
+                <option value="+689">🇵🇫 French Polynesia +689</option>
+                <option value="+241">🇬🇦 Gabon +241</option>
+                <option value="+220">🇬🇲 Gambia +220</option>
+                <option value="+995">🇬🇪 Georgia +995</option>
+                <option value="+49">🇩🇪 Germany +49</option>
+                <option value="+233">🇬🇭 Ghana +233</option>
+                <option value="+350">🇬🇮 Gibraltar +350</option>
+                <option value="+30">🇬🇷 Greece +30</option>
+                <option value="+299">🇬🇱 Greenland +299</option>
+                <option value="+1473">🇬🇩 Grenada +1473</option>
+                <option value="+590">🇬🇵 Guadeloupe +590</option>
+                <option value="+1671">🇬🇺 Guam +1671</option>
+                <option value="+502">🇬🇹 Guatemala +502</option>
+                <option value="+44">🇬🇬 Guernsey +44</option>
+                <option value="+224">🇬🇳 Guinea +224</option>
+                <option value="+245">🇬🇼 Guinea-Bissau +245</option>
+                <option value="+592">🇬🇾 Guyana +592</option>
+                <option value="+509">🇭🇹 Haiti +509</option>
+                <option value="+504">🇭🇳 Honduras +504</option>
+                <option value="+852">🇭🇰 Hong Kong +852</option>
+                <option value="+36">🇭🇺 Hungary +36</option>
+                <option value="+354">🇮🇸 Iceland +354</option>
+                <option value="+91">🇮🇳 India +91</option>
+                <option value="+62">🇮🇩 Indonesia +62</option>
+                <option value="+98">🇮🇷 Iran +98</option>
+                <option value="+964">🇮🇶 Iraq +964</option>
+                <option value="+353">🇮🇪 Ireland +353</option>
+                <option value="+44">🇮🇲 Isle of Man +44</option>
+                <option value="+972">🇮🇱 Israel +972</option>
+                <option value="+39">🇮🇹 Italy +39</option>
+                <option value="+225">🇨🇮 Ivory Coast +225</option>
+                <option value="+1876">🇯🇲 Jamaica +1876</option>
+                <option value="+1658">🇯🇲 Jamaica +1658</option>
+                <option value="+81">🇯🇵 Japan +81</option>
+                <option value="+44">🇯🇪 Jersey +44</option>
+                <option value="+962">🇯🇴 Jordan +962</option>
+                <option value="+7">🇰🇿 Kazakhstan +7</option>
+                <option value="+254">🇰🇪 Kenya +254</option>
+                <option value="+686">🇰🇮 Kiribati +686</option>
+                <option value="+383">🌐 Kosovo +383</option>
+                <option value="+996">🇰🇬 Kyrgyzstan +996</option>
+                <option value="+856">🇱🇦 Laos +856</option>
+                <option value="+371">🇱🇻 Latvia +371</option>
+                <option value="+961">🇱🇧 Lebanon +961</option>
+                <option value="+266">🇱🇸 Lesotho +266</option>
+                <option value="+231">🇱🇷 Liberia +231</option>
+                <option value="+218">🇱🇾 Libya +218</option>
+                <option value="+423">🇱🇮 Liechtenstein +423</option>
+                <option value="+370">🇱🇹 Lithuania +370</option>
+                <option value="+352">🇱🇺 Luxembourg +352</option>
+                <option value="+853">🇲🇴 Macau +853</option>
+                <option value="+261">🇲🇬 Madagascar +261</option>
+                <option value="+265">🇲🇼 Malawi +265</option>
+                <option value="+60">🇲🇾 Malaysia +60</option>
+                <option value="+960">🇲🇻 Maldives +960</option>
+                <option value="+223">🇲🇱 Mali +223</option>
+                <option value="+356">🇲🇹 Malta +356</option>
+                <option value="+692">🇲🇭 Marshall Islands +692</option>
+                <option value="+596">🇲🇶 Martinique +596</option>
+                <option value="+222">🇲🇷 Mauritania +222</option>
+                <option value="+230">🇲🇺 Mauritius +230</option>
+                <option value="+262">🇾🇹 Mayotte +262</option>
+                <option value="+52">🇲🇽 Mexico +52</option>
+                <option value="+691">🇫🇲 Micronesia +691</option>
+                <option value="+373">🇲🇩 Moldova +373</option>
+                <option value="+377">🇲🇨 Monaco +377</option>
+                <option value="+976">🇲🇳 Mongolia +976</option>
+                <option value="+382">🇲🇪 Montenegro +382</option>
+                <option value="+1664">🇲🇸 Montserrat +1664</option>
+                <option value="+212">🇲🇦 Morocco +212</option>
+                <option value="+258">🇲🇿 Mozambique +258</option>
+                <option value="+95">🇲🇲 Myanmar +95</option>
+                <option value="+264">🇳🇦 Namibia +264</option>
+                <option value="+674">🇳🇷 Nauru +674</option>
+                <option value="+977">🇳🇵 Nepal +977</option>
+                <option value="+31">🇳🇱 Netherlands +31</option>
+                <option value="+687">🇳🇨 New Caledonia +687</option>
+                <option value="+64">🇳🇿 New Zealand +64</option>
+                <option value="+505">🇳🇮 Nicaragua +505</option>
+                <option value="+227">🇳🇪 Niger +227</option>
+                <option value="+234">🇳🇬 Nigeria +234</option>
+                <option value="+683">🇳🇺 Niue +683</option>
+                <option value="+850">🇰🇵 North Korea +850</option>
+                <option value="+389">🇲🇰 North Macedonia +389</option>
+                <option value="+1670">🇲🇵 Northern Mariana Islands +1670</option>
+                <option value="+47">🇳🇴 Norway +47</option>
+                <option value="+968">🇴🇲 Oman +968</option>
+                <option value="+92">🇵🇰 Pakistan +92</option>
+                <option value="+680">🇵🇼 Palau +680</option>
+                <option value="+970">🇵🇸 Palestine +970</option>
+                <option value="+507">🇵🇦 Panama +507</option>
+                <option value="+675">🇵🇬 Papua New Guinea +675</option>
+                <option value="+595">🇵🇾 Paraguay +595</option>
+                <option value="+51">🇵🇪 Peru +51</option>
+                <option value="+63">🇵🇭 Philippines +63</option>
+                <option value="+48">🇵🇱 Poland +48</option>
+                <option value="+351">🇵🇹 Portugal +351</option>
+                <option value="+1787">🇵🇷 Puerto Rico +1787</option>
+                <option value="+1939">🇵🇷 Puerto Rico +1939</option>
+                <option value="+974">🇶🇦 Qatar +974</option>
+                <option value="+40">🇷🇴 Romania +40</option>
+                <option value="+7">🇷🇺 Russia +7</option>
+                <option value="+250">🇷🇼 Rwanda +250</option>
+                <option value="+262">🇷🇪 Réunion +262</option>
+                <option value="+590">🇧🇱 Saint Barthélemy +590</option>
+                <option value="+290">🇸🇭 Saint Helena +290</option>
+                <option value="+1869">🇰🇳 Saint Kitts and Nevis +1869</option>
+                <option value="+1758">🇱🇨 Saint Lucia +1758</option>
+                <option value="+590">🇲🇫 Saint Martin +590</option>
+                <option value="+508">🇵🇲 Saint Pierre and Miquelon +508</option>
+                <option value="+1784">🇻🇨 Saint Vincent and the Grenadines +1784</option>
+                <option value="+685">🇼🇸 Samoa +685</option>
+                <option value="+378">🇸🇲 San Marino +378</option>
+                <option value="+966">🇸🇦 Saudi Arabia +966</option>
+                <option value="+221">🇸🇳 Senegal +221</option>
+                <option value="+381">🇷🇸 Serbia +381</option>
+                <option value="+248">🇸🇨 Seychelles +248</option>
+                <option value="+232">🇸🇱 Sierra Leone +232</option>
+                <option value="+65">🇸🇬 Singapore +65</option>
+                <option value="+1721">🇸🇽 Sint Maarten +1721</option>
+                <option value="+421">🇸🇰 Slovakia +421</option>
+                <option value="+386">🇸🇮 Slovenia +386</option>
+                <option value="+677">🇸🇧 Solomon Islands +677</option>
+                <option value="+252">🇸🇴 Somalia +252</option>
+                <option value="+27">🇿🇦 South Africa +27</option>
+                <option value="+82">🇰🇷 South Korea +82</option>
+                <option value="+211">🇸🇸 South Sudan +211</option>
+                <option value="+34">🇪🇸 Spain +34</option>
+                <option value="+94">🇱🇰 Sri Lanka +94</option>
+                <option value="+249">🇸🇩 Sudan +249</option>
+                <option value="+597">🇸🇷 Suriname +597</option>
+                <option value="+46">🇸🇪 Sweden +46</option>
+                <option value="+41">🇨🇭 Switzerland +41</option>
+                <option value="+963">🇸🇾 Syria +963</option>
+                <option value="+239">🇸🇹 São Tomé and Príncipe +239</option>
+                <option value="+886">🇹🇼 Taiwan +886</option>
+                <option value="+992">🇹🇯 Tajikistan +992</option>
+                <option value="+255">🇹🇿 Tanzania +255</option>
+                <option value="+66">🇹🇭 Thailand +66</option>
+                <option value="+670">🇹🇱 Timor-Leste +670</option>
+                <option value="+228">🇹🇬 Togo +228</option>
+                <option value="+690">🇹🇰 Tokelau +690</option>
+                <option value="+676">🇹🇴 Tonga +676</option>
+                <option value="+1868">🇹🇹 Trinidad and Tobago +1868</option>
+                <option value="+216">🇹🇳 Tunisia +216</option>
+                <option value="+90">🇹🇷 Turkey +90</option>
+                <option value="+993">🇹🇲 Turkmenistan +993</option>
+                <option value="+1649">🇹🇨 Turks and Caicos Islands +1649</option>
+                <option value="+688">🇹🇻 Tuvalu +688</option>
+                <option value="+256">🇺🇬 Uganda +256</option>
+                <option value="+380">🇺🇦 Ukraine +380</option>
+                <option value="+971">🇦🇪 United Arab Emirates +971</option>
+                <option value="+44">🇬🇧 United Kingdom +44</option>
+                <option value="+1">🇺🇸 United States +1</option>
+                <option value="+598">🇺🇾 Uruguay +598</option>
+                <option value="+1340">🇻🇮 US Virgin Islands +1340</option>
+                <option value="+998">🇺🇿 Uzbekistan +998</option>
+                <option value="+678">🇻🇺 Vanuatu +678</option>
+                <option value="+39">🇻🇦 Vatican City +39</option>
+                <option value="+58">🇻🇪 Venezuela +58</option>
+                <option value="+84">🇻🇳 Vietnam +84</option>
+                <option value="+681">🇼🇫 Wallis and Futuna +681</option>
+                <option value="+212">🇪🇭 Western Sahara +212</option>
+                <option value="+967">🇾🇪 Yemen +967</option>
+                <option value="+260">🇿🇲 Zambia +260</option>
+                <option value="+263">🇿🇼 Zimbabwe +263</option></select><input id="phone" type="tel" inputmode="numeric" onblur="clientLookup()"></div></div></div><div id="clientInfo" class="clientinfo"></div></div>
+<div class="card"><div class="title"><h2>Services</h2><span id="serviceCount" class="muted">0 services</span></div><div class="service-head"><div>Service</div><div>Price</div><div>Discount</div><div>Technician</div><div>Net</div><div></div></div><div id="services"></div><button class="smallbtn add-service-main" onclick="addService()">+ Add Another Service</button></div>
+<div class="card notes-card"><div class="title"><h2>Notes</h2><span class="muted">Optional</span></div><textarea id="note" placeholder="Special request, offer, or transaction note..."></textarea></div>
+</div><aside class="sale-side">
+<div class="card payment-card"><div class="title"><h2>Payment</h2><span class="muted">Full or split payment</span></div><div class="paygrid"><div class="pay"><label>Cash</label><input id="cash" type="number" value="0" oninput="totals()"><button class="smallbtn" onclick="payFull('cash')">Pay Full</button></div><div class="pay"><label>Knet</label><input id="knet" type="number" value="0" oninput="totals()"><button class="smallbtn" onclick="payFull('knet')">Pay Full</button></div><div class="pay"><label>Link</label><input id="link" type="number" value="0" oninput="totals()"><button class="smallbtn" onclick="payFull('link')">Pay Full</button></div></div></div>
+<div class="summary"><div class="sum"><span>Gross</span><b id="gross">0.000 KD</b></div><div class="sum"><span>Discount</span><b id="disc">0.000 KD</b></div><div class="sum total"><span>Sale Total</span><b id="net">0.000 KD</b></div><div class="sum"><span>Paid</span><b id="paid">0.000 KD</b></div><div class="sum balance-row"><span>Balance</span><b id="diff">0.000 KD</b></div><div id="status" class="status">Add services</div></div>
+<div class="actions sale-actions"><button class="btn light" onclick="resetForm()">Clear</button><button class="btn primary" id="save" onclick="saveSale()">✓ Save Sale</button></div>
+</aside></div>
+</section>
+
+
+
+<section id="manager" class="view">
+  <div class="manager-shell">
+    <aside class="manager-sidebar">
+      <div class="card">
+        <div class="title">
+          <h2>Manager Console</h2>
+          <span class="muted">Private</span>
+        </div>
+
+        <div class="manager-menu">
+          <button id="mgrClientBtn" class="active" onclick="showManagerPanel('clients')">Client History</button>
+          <button id="mgrTxBtn" onclick="showManagerPanel('transactions')">Transactions</button>
+          <button id="mgrStaffBtn" onclick="showManagerPanel('staff')">Staff</button>
+          <button id="mgrServicesBtn" onclick="showManagerPanel('services')">Services</button>
+          <button id="mgrPayrollBtn" onclick="showManagerPanel('payroll')">Payroll</button>
+          <button id="mgrPermissionsBtn" onclick="showManagerPanel('permissions')">Permissions</button>
+          <button onclick="managerLogout()">Exit Manager</button>
+        </div>
+      </div>
+    </aside>
+
+    <div>
+      <section id="managerClients" class="manager-panel active">
+        <div class="card">
+          <div class="title">
+            <h2>Client History</h2>
+            <span class="muted">Search by name or mobile number</span>
+          </div>
+
+          <div class="manager-search">
+            <input id="managerClientSearch" type="text" placeholder="Example: Sara or +965..." onkeydown="if(event.key==='Enter')searchManagerClient()">
+            <button class="btn primary" onclick="searchManagerClient()">Search</button>
+          </div>
+        </div>
+
+        <div id="managerClientResult">
+          <div class="card manager-empty">Search for a client to view their history.</div>
+        </div>
+      </section>
+
+      <section id="managerTransactions" class="manager-panel">
+        <div class="card">
+          <div class="title">
+            <h2>Transaction History</h2>
+            <span class="muted">Sale ID, client, phone, or date</span>
+          </div>
+
+          <div class="manager-search">
+            <input id="managerTxSearch" type="text" placeholder="Search transactions..." onkeydown="if(event.key==='Enter')searchManagerTransactions()">
+            <button class="btn primary" onclick="searchManagerTransactions()">Search</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div id="managerTransactionsResult" class="manager-empty">Enter a search above.</div>
+        </div>
+      </section>
+      <section id="managerStaff" class="manager-panel">
+        <div class="card">
+          <div class="title">
+            <h2>Staff Management</h2>
+            <span class="muted">Add, edit or deactivate staff</span>
+          </div>
+
+          <div class="manager-edit-grid">
+            <input id="mgrStaffOldName" type="hidden">
+            <div>
+              <label>Staff Name</label>
+              <input id="mgrStaffName" placeholder="Employee name">
+            </div>
+            <div>
+              <label>Monthly Target (KD)</label>
+              <input id="mgrStaffTarget" type="number" min="0" step="0.001" value="0">
+            </div>
+            <button class="btn primary" onclick="saveManagerStaff()">Save Staff</button>
+            <button class="btn light" onclick="clearManagerStaffForm()">Clear</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div id="managerStaffResult" class="manager-empty">Loading staff...</div>
+        </div>
+      </section>
+
+      <section id="managerServices" class="manager-panel">
+        <div class="card">
+          <div class="title">
+            <h2>Service Management</h2>
+            <span class="muted">Updates New Sale, website & online booking</span>
+          </div>
+
+          <div class="manager-edit-grid service-manager-form">
+            <input id="mgrServiceOldName" type="hidden">
+            <div>
+              <label>Category</label>
+              <input id="mgrServiceCategory" placeholder="Example: Nails">
+            </div>
+            <div>
+              <label>Service Name</label>
+              <input id="mgrServiceName" placeholder="Service name">
+            </div>
+            <div>
+              <label>Price (KD)</label>
+              <input id="mgrServicePrice" type="number" min="0" step="0.001" value="0">
+            </div>
+            <div>
+              <label>Duration (min)</label>
+              <input id="mgrServiceDuration" type="number" min="15" step="15" value="60">
+            </div>
+            <button class="btn primary" onclick="saveManagerService()">Save Service</button>
+            <button class="btn light" onclick="clearManagerServiceForm()">Clear</button>
+          </div>
+        </div>
+
+        <div class="card">
+          <div id="managerServicesResult" class="manager-empty">Loading services...</div>
+        </div>
+      </section>
+
+      <section id="managerPayroll" class="manager-panel">
+        <div class="card">
+          <div class="title">
+            <h2>Commission & Payroll</h2>
+            <span class="muted">Estimated base salary + commission</span>
+          </div>
+
+          <div class="payroll-toolbar">
+            <div>
+              <label>Report Month</label>
+              <input id="payrollMonth" type="month" onchange="loadPayrollReport()">
+            </div>
+            <button class="btn primary" onclick="loadPayrollReport()">Refresh Report</button>
+          </div>
+        </div>
+
+        <div id="payrollRuleCard" class="card">
+          <div class="title">
+            <h2>Commission Rule</h2>
+            <span class="muted">Per-staff percentage and base salary</span>
+          </div>
+
+          <div class="payroll-rule-grid">
+            <div>
+              <label>Staff</label>
+              <select id="payrollStaff"></select>
+            </div>
+            <div>
+              <label>Commission %</label>
+              <input id="payrollCommission" type="number" min="0" max="100" step="0.01" value="0">
+            </div>
+            <div>
+              <label>Base Salary KD</label>
+              <input id="payrollBase" type="number" min="0" step="0.001" value="0">
+            </div>
+            <button class="btn primary" onclick="savePayrollRule()">Save Rule</button>
+          </div>
+        </div>
+
+        <div class="payroll-kpis">
+          <div class="inventory-kpi dark"><small>Service Sales</small><strong id="payrollSalesTotal">0.000</strong></div>
+          <div class="inventory-kpi"><small>Commission</small><strong id="payrollCommissionTotal">0.000</strong></div>
+          <div class="inventory-kpi"><small>Base Salary</small><strong id="payrollBaseTotal">0.000</strong></div>
+          <div class="inventory-kpi warning"><small>Estimated Payroll</small><strong id="payrollGrandTotal">0.000</strong></div>
+        </div>
+
+        <div class="card">
+          <div id="payrollResult" class="manager-empty">Choose a month to load payroll.</div>
+        </div>
+      </section>
+
+      <section id="managerPermissions" class="manager-panel">
+        <div class="card">
+          <div class="title">
+            <h2>Role Permissions</h2>
+            <span class="muted">Control exactly what each role can access</span>
+          </div>
+          <p class="muted">
+            ADMIN always keeps full access to prevent lockout. Changes are enforced
+            on the backend, not only by hiding buttons.
+          </p>
+        </div>
+
+        <div class="card">
+          <div id="permissionResult" class="manager-empty">Loading permissions...</div>
+          <div class="permission-actions">
+            <button id="savePermissionsBtn" class="btn primary" onclick="savePermissions()">Save Permissions</button>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</section>
+
+<section id="appointments" class="view">
+  <div class="card">
+    <div class="title">
+      <h2>Appointments</h2>
+      <span class="muted">Manage salon bookings by staff and time</span>
+    </div>
+
+    <div class="appointment-toolbar">
+      <div class="appointment-toolbar-left">
+        <button class="calendar-nav-btn" onclick="changeAppointmentDate(-1)">‹</button>
+        <div id="appointmentDateLabel" class="calendar-date-label">—</div>
+        <button class="calendar-nav-btn" onclick="changeAppointmentDate(1)">›</button>
+        <button class="smallbtn" onclick="goAppointmentToday()">Today</button>
+      </div>
+
+      <div class="appointment-toolbar-right">
+        <div class="view-toggle">
+          <button id="apptDayBtn" class="active" onclick="setAppointmentMode('day')">Day</button>
+          <button id="apptWeekBtn" onclick="setAppointmentMode('week')">Week</button>
+        </div>
+        <button class="add-appointment-btn" onclick="openAppointmentModal()">+ Add Appointment</button>
+      </div>
+    </div>
+
+    <div id="appointmentCalendar" class="calendar-shell">
+      <div class="appt-empty">Loading appointments...</div>
+    </div>
+  </div>
+</section>
+
+<section id="dash" class="view">
+<div class="card"><div class="title"><h2>Sales Dashboard</h2><span class="muted">Performance overview</span></div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button id="dailyBtn" class="smallbtn active" onclick="dashMode='daily';loadDash()">Daily</button><button id="monthlyBtn" class="smallbtn" onclick="dashMode='monthly';loadDash()">Monthly</button><input id="dashDate" type="date" onchange="loadDash()"><select id="dashMonth" onchange="loadDash()" style="display:none"></select><button class="smallbtn print-btn" onclick="printDashboard()">🖨 Print / Save PDF</button></div></div>
+<div class="kpis"><div class="kpi dark"><small>Total Sales</small><strong id="dTotal">0.000 KD</strong></div><div class="kpi"><small>Transactions</small><strong id="dCount">0</strong></div><div class="kpi"><small>Average Sale</small><strong id="dAvg">0.000 KD</strong></div><div class="kpi"><small>Cash</small><strong id="dCash">0.000 KD</strong></div><div class="kpi"><small>Knet</small><strong id="dKnet">0.000 KD</strong></div><div class="kpi"><small>Link</small><strong id="dLink">0.000 KD</strong></div></div>
+<div class="dashgrid"><div class="card"><div class="title"><h2>Top Staff</h2></div><div id="topStaff" class="bars"></div></div><div class="card"><div class="title"><h2>Top Services</h2></div><div id="topServices" class="bars"></div></div></div>
+<div id="trendCard" class="card" style="display:none"><div class="title"><h2>Daily Sales Trend</h2></div><div id="trend" class="trend"></div></div>
+</section>
+<section id="ops" class="view">
+  <div class="ops-head card">
+    <div>
+      <div class="ops-eyebrow">STAFF OPERATIONS</div>
+      <h2>Daily Salon Tools</h2>
+      <p class="muted">Inventory, receipt correction, staff scheduling, WhatsApp reminders, CRM and encoding.</p>
+    </div>
+    <div class="ops-tabs">
+      <button id="opsInventoryBtn" class="active" onclick="showOpsPanel('inventory')">Inventory</button>
+      <button id="opsVoidBtn" onclick="showOpsPanel('void')">Void Receipt</button>
+      <button id="opsStaffBtn" onclick="showOpsPanel('staff')">Staff</button>
+      <button id="opsServicesBtn" onclick="showOpsPanel('services')">Services</button>
+      <button id="opsScheduleBtn" onclick="showOpsPanel('schedule')">Schedule</button>
+      <button id="opsWhatsAppBtn" onclick="showOpsPanel('whatsapp')">WhatsApp</button>
+      <button id="opsCRMBtn" onclick="showOpsPanel('crm')">CRM</button>
+    </div>
+  </div>
+
+  <section id="opsInventory" class="ops-panel active">
+    <div class="inventory-kpis">
+      <div class="inventory-kpi dark"><small>Active Items</small><strong id="invCountItems">0</strong></div>
+      <div class="inventory-kpi"><small>Opened Batches</small><strong id="invCountOpened">0</strong></div>
+      <div class="inventory-kpi warning"><small>Expiring Soon</small><strong id="invCountExpiring">0</strong></div>
+      <div class="inventory-kpi danger"><small>Expired</small><strong id="invCountExpired">0</strong></div>
+      <div class="inventory-kpi warning"><small>Low Stock</small><strong id="invCountLow">0</strong></div>
+    </div>
+
+    <div class="inventory-forms">
+      <div class="card">
+        <div class="title"><h2>Add / Edit Item</h2><span class="muted">Inventory master</span></div>
+        <input id="invOldItemId" type="hidden">
+        <div class="inventory-form-grid">
+          <div>
+            <label>Category</label>
+            <input id="invItemCategory" placeholder="Example: Hair Color">
+          </div>
+          <div>
+            <label>Item Name</label>
+            <input id="invItemName" placeholder="Product / item name">
+          </div>
+          <div>
+            <label>Unit</label>
+            <input id="invItemUnit" placeholder="pcs / bottle / box" value="pcs">
+          </div>
+          <div>
+            <label>Low Stock Warning</label>
+            <input id="invItemLow" type="number" min="0" step="0.01" value="1">
+          </div>
+        </div>
+        <div class="inventory-form-actions">
+          <button class="btn light" onclick="clearInventoryItemForm()">Clear</button>
+          <button class="btn primary" onclick="saveInventoryItem()">Save Item</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="title"><h2>Item Received</h2><span class="muted">Create a stock batch</span></div>
+        <div class="inventory-form-grid">
+          <div class="inv-wide">
+            <label>Item</label>
+            <select id="invReceiveItem"></select>
+          </div>
+          <div>
+            <label>Quantity Received</label>
+            <input id="invReceiveQty" type="number" min="0.01" step="0.01" value="1">
+          </div>
+          <div>
+            <label>Received Date</label>
+            <input id="invReceivedDate" type="date">
+          </div>
+          <div>
+            <label>Expiry Date</label>
+            <input id="invExpiryDate" type="date">
+          </div>
+          <div class="inv-wide">
+            <label>Note</label>
+            <input id="invReceiveNote" placeholder="Supplier, shade, batch note, etc.">
+          </div>
+        </div>
+        <div class="inventory-form-actions">
+          <button class="btn primary" onclick="receiveInventoryItem()">Record Received Item</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="title">
+        <h2>Inventory Items</h2>
+        <span id="invWarningText" class="muted">Expiry warnings are automatic</span>
+      </div>
+      <div id="inventoryItemsResult" class="manager-empty">Loading inventory...</div>
+    </div>
+
+    <div class="card">
+      <div class="title">
+        <h2>Stock Batches</h2>
+        <span class="muted">Received • Opened • Expiry • Remaining quantity</span>
+      </div>
+      <div id="inventoryBatchesResult" class="manager-empty">Loading batches...</div>
+    </div>
+  </section>
+
+  <section id="opsVoid" class="ops-panel">
+    <div class="card">
+      <div class="title">
+        <h2>Receipt Correction</h2>
+        <span class="muted">Void an incorrect transaction — records are never deleted</span>
+      </div>
+
+      <div class="manager-search">
+        <input id="opsTxSearch" type="text" placeholder="Sale ID, client, phone, or date..." onkeydown="if(event.key==='Enter')searchOpsTransactions()">
+        <button class="btn primary" onclick="searchOpsTransactions()">Search Receipt</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div id="opsTxResult" class="manager-empty">Search for the receipt that needs correction.</div>
+    </div>
+  </section>
+
+  <section id="opsStaff" class="ops-panel">
+    <div class="card">
+      <div class="title">
+        <h2>Staff Encoding</h2>
+        <span class="muted">Add, edit, activate or deactivate staff</span>
+      </div>
+
+      <div class="manager-edit-grid">
+        <input id="opsStaffOldName" type="hidden">
+        <div>
+          <label>Staff Name</label>
+          <input id="opsStaffName" placeholder="Employee name">
+        </div>
+        <div>
+          <label>Monthly Target (KD)</label>
+          <input id="opsStaffTarget" type="number" min="0" step="0.001" value="0">
+        </div>
+        <button class="btn primary" onclick="saveOpsStaff()">Save Staff</button>
+        <button class="btn light" onclick="clearOpsStaffForm()">Clear</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div id="opsStaffResult" class="manager-empty">Loading staff...</div>
+    </div>
+  </section>
+
+  <section id="opsServices" class="ops-panel">
+    <div class="card">
+      <div class="title">
+        <h2>Service Encoding</h2>
+        <span class="muted">Changes sync to POS, website and online booking</span>
+      </div>
+
+      <div class="manager-edit-grid service-manager-form">
+        <input id="opsServiceOldName" type="hidden">
+        <div>
+          <label>Category</label>
+          <input id="opsServiceCategory" placeholder="Example: Nails">
+        </div>
+        <div>
+          <label>Service Name</label>
+          <input id="opsServiceName" placeholder="Service name">
+        </div>
+        <div>
+          <label>Price (KD)</label>
+          <input id="opsServicePrice" type="number" min="0" step="0.001" value="0">
+        </div>
+        <div>
+          <label>Duration (min)</label>
+          <input id="opsServiceDuration" type="number" min="15" step="15" value="60">
+        </div>
+        <button class="btn primary" onclick="saveOpsService()">Save Service</button>
+        <button class="btn light" onclick="clearOpsServiceForm()">Clear</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <div id="opsServicesResult" class="manager-empty">Loading services...</div>
+    </div>
+  </section>
+
+  <section id="opsSchedule" class="ops-panel">
+    <div id="scheduleManageCard" class="card schedule-manage">
+      <div class="title">
+        <h2>Staff Schedule</h2>
+        <span class="muted">Working hours, breaks and days off</span>
+      </div>
+
+      <div class="schedule-form-grid">
+        <div>
+          <label>Staff</label>
+          <select id="scheduleStaff"></select>
+        </div>
+        <div>
+          <label>Day</label>
+          <select id="scheduleDay">
+            <option>Monday</option>
+            <option>Tuesday</option>
+            <option>Wednesday</option>
+            <option>Thursday</option>
+            <option>Friday</option>
+            <option>Saturday</option>
+            <option>Sunday</option>
+          </select>
+        </div>
+        <div class="schedule-check">
+          <label>Working</label>
+          <label class="toggle-line"><input id="scheduleWorking" type="checkbox" checked> Scheduled to work</label>
+        </div>
+        <div>
+          <label>Start</label>
+          <input id="scheduleStart" type="time" value="09:00">
+        </div>
+        <div>
+          <label>End</label>
+          <input id="scheduleEnd" type="time" value="20:00">
+        </div>
+        <div>
+          <label>Break Start</label>
+          <input id="scheduleBreakStart" type="time">
+        </div>
+        <div>
+          <label>Break End</label>
+          <input id="scheduleBreakEnd" type="time">
+        </div>
+        <div class="schedule-save-cell">
+          <button class="btn primary" onclick="saveStaffSchedule()">Save Schedule</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="timeOffManageCard" class="card schedule-manage">
+      <div class="title">
+        <h2>Time Off / Leave</h2>
+        <span class="muted">Vacation, appointment block or partial-day absence</span>
+      </div>
+
+      <div class="schedule-form-grid timeoff-grid">
+        <div>
+          <label>Staff</label>
+          <select id="timeOffStaff"></select>
+        </div>
+        <div>
+          <label>Date</label>
+          <input id="timeOffDate" type="date">
+        </div>
+        <div class="schedule-check">
+          <label>Type</label>
+          <label class="toggle-line"><input id="timeOffAllDay" type="checkbox" checked onchange="toggleTimeOffTimes()"> All day</label>
+        </div>
+        <div>
+          <label>Start</label>
+          <input id="timeOffStart" type="time" disabled>
+        </div>
+        <div>
+          <label>End</label>
+          <input id="timeOffEnd" type="time" disabled>
+        </div>
+        <div class="schedule-reason">
+          <label>Reason</label>
+          <input id="timeOffReason" placeholder="Vacation / day off / personal">
+        </div>
+        <div class="schedule-save-cell">
+          <button class="btn primary" onclick="addStaffTimeOff()">Add Time Off</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="title">
+        <h2>Weekly Schedule</h2>
+        <span class="muted">Online Booking follows these working hours</span>
+      </div>
+      <div id="scheduleResult" class="manager-empty">Loading schedule...</div>
+    </div>
+
+    <div class="card">
+      <div class="title">
+        <h2>Upcoming Time Off</h2>
+        <span class="muted">Blocked from appointment availability</span>
+      </div>
+      <div id="timeOffResult" class="manager-empty">Loading time off...</div>
+    </div>
+  </section>
+
+  <section id="opsWhatsApp" class="ops-panel">
+    <div class="card">
+      <div class="title">
+        <h2>WhatsApp Confirmation & Reminder Center</h2>
+        <span class="muted">One-click prefilled WhatsApp messages</span>
+      </div>
+
+      <div class="wa-note">
+        V9 prepares confirmations plus 24-hour and 2-hour reminders. Open WhatsApp,
+        send the message, then press <b>Mark Done</b>. Fully unattended sending
+        requires a WhatsApp Business API connection.
+      </div>
+    </div>
+
+    <div class="inventory-kpis wa-kpis">
+      <div class="inventory-kpi dark">
+        <small>Messages Due</small>
+        <strong id="waDueCount">0</strong>
+      </div>
+      <div class="inventory-kpi">
+        <small>Next 7 Days</small>
+        <strong>7d</strong>
+      </div>
+    </div>
+
+    <div class="card">
+      <div id="whatsappResult" class="manager-empty">Loading reminders...</div>
+    </div>
+  </section>
+
+  <section id="opsCRM" class="ops-panel">
+    <div class="card">
+      <div class="title">
+        <h2>Client CRM & Loyalty</h2>
+        <span class="muted">Client notes, preferred staff, birthdays and points</span>
+      </div>
+
+      <div class="manager-search">
+        <input id="crmSearch" placeholder="Search name or mobile..." onkeydown="if(event.key==='Enter')searchCRM()">
+        <button class="btn primary" onclick="searchCRM()">Search Client</button>
+      </div>
+    </div>
+
+    <div id="crmSearchResult" class="card">
+      <div class="manager-empty">Search for a client.</div>
+    </div>
+
+    <div id="crmProfileCard" class="card" style="display:none">
+      <div class="title">
+        <h2>Client Profile</h2>
+        <span id="crmProfileStats" class="muted">—</span>
+      </div>
+
+      <div class="crm-kpis">
+        <div class="inventory-kpi dark"><small>Loyalty Points</small><strong id="crmPoints">0</strong></div>
+        <div class="inventory-kpi"><small>Visits</small><strong id="crmVisits">0</strong></div>
+        <div class="inventory-kpi"><small>Lifetime Spend</small><strong id="crmSpend">0.000</strong></div>
+        <div class="inventory-kpi"><small>Rewards Available</small><strong id="crmRewards">0</strong></div>
+      </div>
+
+      <div class="crm-form-grid">
+        <div>
+          <label>Mobile</label>
+          <input id="crmPhone" readonly>
+        </div>
+        <div>
+          <label>Client Name</label>
+          <input id="crmName">
+        </div>
+        <div>
+          <label>Birthday</label>
+          <input id="crmBirthday" type="date">
+        </div>
+        <div>
+          <label>Preferred Staff</label>
+          <select id="crmPreferredStaff"></select>
+        </div>
+        <div class="crm-notes">
+          <label>Client Notes</label>
+          <textarea id="crmNotes" placeholder="Preferences, sensitivities, favorite services, important notes..."></textarea>
+        </div>
+      </div>
+
+      <div class="crm-actions">
+        <button class="btn primary" onclick="saveCRMClient()">Save CRM Profile</button>
+        <button class="btn light" onclick="adjustCRMPoints()">Adjust Points</button>
+      </div>
+
+      <div class="title crm-history-title">
+        <h2>Recent Visits</h2>
+      </div>
+      <div id="crmRecent"></div>
+    </div>
+  </section>
+</section>
+
+</main>
+
+
+<div id="managerLoginModal" class="manager-login-modal">
+  <div class="manager-login-box">
+    <div class="manager-lock-icon">🔒</div>
+    <h2>Manager Access</h2>
+    <p>Enter the manager PIN to open the private console.</p>
+
+    <input id="managerPin" class="manager-pin" type="password" inputmode="numeric" maxlength="12" placeholder="••••" onkeydown="if(event.key==='Enter')managerLogin()">
+
+    <div class="manager-login-actions">
+      <button class="btn light" onclick="closeManagerLogin()">Cancel</button>
+      <button class="btn primary" onclick="managerLogin()">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<div id="appointmentModal" class="appt-modal">
+  <div class="appt-modal-box">
+    <div class="appt-modal-title">
+      <div>
+        <h2 id="appointmentModalTitle">New Appointment</h2>
+        <div id="appointmentModalStatus" class="muted"></div>
+      </div>
+      <button class="modal-close" onclick="closeAppointmentModal()">×</button>
+    </div>
+
+    <input id="appointmentId" type="hidden">
+
+    <div class="appt-form-grid">
+      <div class="appt-full">
+        <label>Client Name</label>
+        <input id="apptClient" type="text" placeholder="Client name">
+      </div>
+
+      <div class="appt-full">
+        <label>Mobile Number</label>
+        <div class="phone">
+          <select id="apptCountryCode"></select>
+          <input id="apptPhone" type="tel" inputmode="numeric" placeholder="Mobile number">
+        </div>
+      </div>
+
+      <div>
+        <label>Date</label>
+        <input id="apptDate" type="date">
+      </div>
+
+      <div>
+        <label>Technician</label>
+        <select id="apptStaff"></select>
+      </div>
+
+      <div>
+        <label>Start Time</label>
+        <input id="apptStart" type="time" step="900">
+      </div>
+
+      <div>
+        <label>End Time</label>
+        <input id="apptEnd" type="time" step="900">
+      </div>
+
+      <div class="appt-full">
+        <label>Service</label>
+        <select id="apptService"></select>
+      </div>
+
+      <div class="appt-full">
+        <label>Notes</label>
+        <textarea id="apptNote" placeholder="Booking notes, requests, reminders..."></textarea>
+      </div>
+
+      <div>
+        <label>Status</label>
+        <select id="apptStatus">
+          <option value="Booked">Booked</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Arrived">Arrived</option>
+          <option value="Completed">Completed</option>
+          <option value="Cancelled">Cancelled</option>
+          <option value="No Show">No Show</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="appt-actions">
+      <div>
+        <button id="apptDeleteBtn" class="btn light" style="display:none" onclick="cancelAppointment()">Cancel Booking</button>
+      </div>
+
+      <div class="appt-actions-right">
+        <button id="apptStartSaleBtn" class="btn light" style="display:none" onclick="startSaleFromAppointment()">Start Sale</button>
+        <button class="btn primary" onclick="saveAppointment()">Save Appointment</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="overlay" class="overlay">Loading...</div>
+
+<div id="voidModal" class="success">
+  <div class="successbox void-box">
+    <h2>Void Transaction</h2>
+    <p id="voidSaleText">—</p>
+
+    <label style="text-align:left">Void Reason</label>
+    <select id="voidReasonSelect">
+      <option value="">Select reason...</option>
+      <option>Wrong amount</option>
+      <option>Duplicate transaction</option>
+      <option>Client cancelled</option>
+      <option>Wrong payment method</option>
+      <option value="Other">Other</option>
+    </select>
+
+    <label style="text-align:left;margin-top:10px">Manager Note</label>
+    <textarea id="voidReasonNote" placeholder="Add details..."></textarea>
+
+    <div class="success-actions">
+      <button class="btn light" onclick="closeVoidModal()">Cancel</button>
+      <button class="btn primary danger-action" onclick="confirmVoidTransaction()">Confirm Void</button>
+    </div>
+  </div>
+</div>
+
+<div id="success" class="success"><div class="successbox"><h2>✓ Sale Saved</h2><h1 id="successTotal">0.000 KD</h1><p id="successText"></p><div class="success-actions"><button class="btn light" onclick="printReceipt()">🖨 Print / Save PDF</button><button class="btn primary" onclick="newSale()">New Sale</button></div></div></div>
+<script>document.documentElement.dataset.sw="../service-worker.js";</script>
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/api.js"></script>
+<script src="../assets/js/staff.js"></script>
+<script src="../assets/js/pwa.js"></script>
+</body>
+</html>
