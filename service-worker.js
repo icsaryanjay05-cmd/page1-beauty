@@ -1,4 +1,4 @@
-const CACHE = "page1-v10-2-static-1";
+const CACHE = "page1-v10-2-1-nav-fix";
 
 const CORE = [
   "./",
@@ -10,6 +10,7 @@ const CORE = [
   "./assets/css/site.css",
   "./assets/css/booking.css",
   "./assets/css/staff.css",
+  "./assets/css/nav-fix.css",
   "./assets/js/api.js",
   "./assets/js/site.js",
   "./assets/js/booking.js",
