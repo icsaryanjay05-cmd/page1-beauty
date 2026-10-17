@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="../assets/css/staff.css">
 <link rel="stylesheet" href="../assets/css/nav-fix.css">
+<link rel="stylesheet" href="../assets/css/v10-3.css">
 </head>
 <body class="auth-locked">
 
@@ -63,7 +64,7 @@
   </div>
 </div>
 
-<header><div class="brand"><img src="../assets/images/page1-logo.png" alt="PAGE.1"><div class="brandcopy"><b>BEAUTY SALON SYSTEM</b><span>Sales entry & reporting</span></div></div><div class="header-actions"><nav class="main-nav"><button id="navSale" class="active" onclick="showView('sale')">New Sale</button><button id="navAppointments" onclick="showView('appointments')">Appointments</button><button id="navDash" onclick="showView('dash')">Dashboard</button><button id="navOps" onclick="showView('ops')">Operations</button><button id="navManager" onclick="openManagerConsole()">Manager</button></nav><div class="user-chip"><div class="user-avatar" id="authAvatar">U</div><div class="user-copy"><strong id="authUserName">User</strong><span id="authUserRole">Role</span></div><button class="logout-btn" onclick="logoutUser()" title="Sign out">Logout</button></div></div></header>
+<header><div class="brand"><img src="../assets/images/page1-logo.png" alt="PAGE.1"><div class="brandcopy"><b>BEAUTY SALON SYSTEM</b><span>Sales entry & reporting</span></div></div><div class="header-actions"><nav class="main-nav"><button id="navSale" class="active" onclick="showView('sale')">New Sale</button><button id="navAppointments" onclick="showView('appointments')">Appointments</button><button id="navDash" onclick="showView('dash')">Dashboard</button><button id="navOps" onclick="showView('ops')">Operations</button><button id="navManager" onclick="openManagerConsole()">Manager</button></nav><div class="notification-wrap" id="notificationWrap"><button id="notificationBtn" class="notification-btn" onclick="toggleNotificationPanel()" title="Notifications" aria-label="Notifications">🔔<span id="notificationBadge" class="notification-badge">0</span></button><div id="notificationPanel" class="notification-panel"><div class="notification-head"><strong>PAGE.1 Notifications</strong><button class="notification-refresh" onclick="loadSalonNotifications()">Refresh</button></div><div id="notificationContent"><div class="notification-empty">Loading notifications...</div></div></div></div><div class="user-chip"><div class="user-avatar" id="authAvatar">U</div><div class="user-copy"><strong id="authUserName">User</strong><span id="authUserRole">Role</span></div><button class="logout-btn" onclick="logoutUser()" title="Sign out">Logout</button></div></div></header>
 <main>
 <section id="sale" class="view active">
 <div class="layout"><div>
@@ -546,6 +547,12 @@
 <div class="kpis"><div class="kpi dark"><small>Total Sales</small><strong id="dTotal">0.000 KD</strong></div><div class="kpi"><small>Transactions</small><strong id="dCount">0</strong></div><div class="kpi"><small>Average Sale</small><strong id="dAvg">0.000 KD</strong></div><div class="kpi"><small>Cash</small><strong id="dCash">0.000 KD</strong></div><div class="kpi"><small>Knet</small><strong id="dKnet">0.000 KD</strong></div><div class="kpi"><small>Link</small><strong id="dLink">0.000 KD</strong></div></div>
 <div class="dashgrid"><div class="card"><div class="title"><h2>Top Staff</h2></div><div id="topStaff" class="bars"></div></div><div class="card"><div class="title"><h2>Top Services</h2></div><div id="topServices" class="bars"></div></div></div>
 <div id="trendCard" class="card" style="display:none"><div class="title"><h2>Daily Sales Trend</h2></div><div id="trend" class="trend"></div></div>
+<div id="staffMonthlyCard" class="card" style="display:none">
+  <div class="title">
+    <div><h2>Full Staff Monthly Sales</h2><span id="staffMonthlySummary" class="muted">All staff performance for the selected month</span></div>
+  </div>
+  <div id="staffMonthlyResult" class="manager-table-wrap"><div class="manager-empty">Select Monthly to view each staff member's complete sales.</div></div>
+</div>
 </section>
 <section id="ops" class="view">
   <div class="ops-head card">
@@ -1056,6 +1063,7 @@
   </div>
 </div>
 
+<div id="page1Toast" class="page1-toast"><b id="page1ToastTitle"></b><span id="page1ToastText"></span></div>
 <div id="success" class="success"><div class="successbox"><h2>✓ Sale Saved</h2><h1 id="successTotal">0.000 KD</h1><p id="successText"></p><div class="success-actions"><button class="btn light" onclick="printReceipt()">🖨 Print / Save PDF</button><button class="btn primary" onclick="newSale()">New Sale</button></div></div></div>
 <script>document.documentElement.dataset.sw="../service-worker.js";</script>
 <script src="../assets/js/config.js"></script>

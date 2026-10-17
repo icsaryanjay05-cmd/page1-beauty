@@ -1,5 +1,5 @@
 
-let initData={services:[],staff:[],months:[]},rowId=0,currentNet=0,dashMode="daily",lastReceiptData=null,lastDashData=null,appointmentMode="day",appointmentDate=null,currentAppointments=[],managerUnlocked=false;
+let initData={services:[],staff:[],months:[]},rowId=0,currentNet=0,dashMode="daily",lastReceiptData=null,lastDashData=null,appointmentMode="day",appointmentDate=null,currentAppointments=[],managerUnlocked=false,staffMonthlyData=null,salonNotifications=null,notificationsToastShown=false;
 let authToken=sessionStorage.getItem("PAGE1_AUTH_TOKEN")||"";
 let authUser=null;
 let authPermissions={newSale:false,appointments:false,dashboard:false,operations:false,manager:false,admin:false,features:{}};
@@ -100,6 +100,7 @@ function loadAuthenticatedApp(){
       );
 
       setTimeout(hideAppLoading,420);
+      setTimeout(loadSalonNotifications,650);
     })
     .withFailureHandler(err)
     .webInit(authToken);
@@ -217,6 +218,9 @@ function applyAuthUI(){
   navDash.style.display=canFeature("DASHBOARD")?"":"none";
   navOps.style.display=authPermissions.operations?"":"none";
   navManager.style.display=authPermissions.manager?"":"none";
+  if(typeof notificationWrap!=="undefined"&&notificationWrap){
+    notificationWrap.style.display=(canFeature("INVENTORY")||canFeature("CRM"))?"":"none";
+  }
 
   setFeatureVisible(opsInventoryBtn,canFeature("INVENTORY"));
   setFeatureVisible(opsVoidBtn,canFeature("VOID_RECEIPT"));
@@ -291,8 +295,50 @@ function clientLookup(){let p=fullPhone();if(!p)return;google.script.run.withSuc
 function formServices(){return [...document.querySelectorAll(".service-row")].filter(r=>r.querySelector(".svc").value).map(r=>{let x={service:r.querySelector(".svc").value,price:r.querySelector(".pricebox input").value,discount:r.querySelector(".discounts input").value,staffMode:r.dataset.mode,technician:"",allocations:[]};if(r.dataset.mode==="single")x.technician=r.querySelector(".tech").value;else r.querySelectorAll(".alloc").forEach(a=>x.allocations.push({technician:a.querySelector(".atech").value,amount:a.querySelector(".aamt").value}));return x})}
 function saveSale(){let f={date:date.value,name:client.value,phone:fullPhone(),services:formServices(),cash:cash.value,knet:knet.value,link:link.value,note:note.value};overlay.classList.add("show");google.script.run.withSuccessHandler(x=>{overlay.classList.remove("show");lastReceiptData={form:JSON.parse(JSON.stringify(f)),result:x};successTotal.textContent=kd(x.total);successText.textContent=x.client+" • "+x.paymentMethod+" • "+x.saleId;success.classList.add("show")}).withFailureHandler(err).webSave(authToken,f)}
 function resetForm(){client.value=phone.value=note.value="";cc.value="+965";cash.value=knet.value=link.value=0;clientInfo.style.display="none";services.innerHTML="";rowId=0;addService()}function newSale(){success.classList.remove("show");resetForm()}
-function loadDash(){dailyBtn.classList.toggle("active",dashMode==="daily");monthlyBtn.classList.toggle("active",dashMode==="monthly");dashDate.style.display=dashMode==="daily"?"block":"none";dashMonth.style.display=dashMode==="monthly"?"block":"none";trendCard.style.display=dashMode==="monthly"?"block":"none";overlay.classList.add("show");let fn=dashMode==="daily"?"webDashDaily":"webDashMonthly",v=dashMode==="daily"?dashDate.value:dashMonth.value;google.script.run.withSuccessHandler(renderDash).withFailureHandler(err)[fn](authToken,v)}
+function loadDash(){
+  dailyBtn.classList.toggle("active",dashMode==="daily");
+  monthlyBtn.classList.toggle("active",dashMode==="monthly");
+  dashDate.style.display=dashMode==="daily"?"block":"none";
+  dashMonth.style.display=dashMode==="monthly"?"block":"none";
+  trendCard.style.display=dashMode==="monthly"?"block":"none";
+  staffMonthlyCard.style.display=dashMode==="monthly"?"block":"none";
+  overlay.classList.add("show");
+  let fn=dashMode==="daily"?"webDashDaily":"webDashMonthly",v=dashMode==="daily"?dashDate.value:dashMonth.value;
+  if(dashMode==="monthly")loadStaffMonthlySales(v);
+  else staffMonthlyData=null;
+  google.script.run.withSuccessHandler(renderDash).withFailureHandler(err)[fn](authToken,v);
+}
 function renderDash(d){overlay.classList.remove("show");lastDashData=JSON.parse(JSON.stringify(d));dTotal.textContent=kd(d.total);dCount.textContent=d.count;dAvg.textContent=kd(d.average);dCash.textContent=kd(d.cash);dKnet.textContent=kd(d.knet);dLink.textContent=kd(d.link);bars(topStaff,d.topStaff);bars(topServices,d.topServices);if(dashMode==="monthly"){trend.innerHTML="";let max=Math.max(...d.daily.map(x=>x.sales),1);d.daily.forEach(x=>{let b=document.createElement("div");b.className="day";b.style.height=Math.max(2,x.sales/max*140)+"px";b.title=x.date+" "+kd(x.sales);trend.append(b)})}}
+
+function loadStaffMonthlySales(monthValue){
+  staffMonthlyResult.innerHTML='<div class="manager-empty">Loading complete staff sales...</div>';
+  google.script.run
+    .withSuccessHandler(renderStaffMonthlySales)
+    .withFailureHandler(e=>{staffMonthlyResult.innerHTML='<div class="manager-empty">'+esc(e&&e.message?e.message:String(e))+'</div>'})
+    .webStaffMonthlySales(authToken,monthValue);
+}
+
+function renderStaffMonthlySales(data){
+  staffMonthlyData=data||{rows:[]};
+  const rows=(staffMonthlyData.rows||[]).map((x,i)=>`
+    <tr>
+      <td>${i+1}</td>
+      <td><span class="staff-sales-name">${esc(x.name)}</span></td>
+      <td>${Number(x.transactions||0)}</td>
+      <td>${Number(x.serviceLines||0)}</td>
+      <td>${Number(x.clients||0)}</td>
+      <td class="money">${Number(x.gross||0).toFixed(3)} KD</td>
+      <td class="money">${Number(x.discount||0).toFixed(3)} KD</td>
+      <td class="money"><b>${Number(x.net||0).toFixed(3)} KD</b></td>
+      <td>${Number(x.target||0)>0?Number(x.target||0).toFixed(3)+" KD":"—"}</td>
+      <td class="staff-sales-progress">
+        ${Number(x.target||0)>0?`<span class="${Number(x.targetPct||0)>=100?"staff-target-hit":""}">${Number(x.targetPct||0).toFixed(1)}%</span><div class="staff-progress-track"><div class="staff-progress-fill" style="width:${Math.min(100,Math.max(0,Number(x.targetPct||0)))}%"></div></div>`:"—"}
+      </td>
+    </tr>`).join("");
+  staffMonthlySummary.innerHTML=`${esc(staffMonthlyData.month||"")} • <span class="staff-monthly-total">Net ${kd(staffMonthlyData.totalNet||0)}</span> • Gross ${kd(staffMonthlyData.totalGross||0)} • Discounts ${kd(staffMonthlyData.totalDiscount||0)}`;
+  staffMonthlyResult.innerHTML=`<table class="manager-table"><thead><tr><th>#</th><th>Staff</th><th>Transactions</th><th>Services</th><th>Clients</th><th>Gross</th><th>Discount</th><th>Net Sales</th><th>Target</th><th>Target %</th></tr></thead><tbody>${rows||'<tr><td colspan="10" class="manager-empty">No staff sales for this month.</td></tr>'}</tbody></table>`;
+}
+
 function bars(el,a){el.innerHTML="";if(!a.length){el.innerHTML='<div class="muted">No data yet.</div>';return}let m=Math.max(...a.map(x=>x.sales),1);a.forEach(x=>{let r=document.createElement("div");r.className="bar";r.innerHTML='<b>'+esc(x.name)+'</b><div class="track"><div class="fill" style="width:'+Math.max(2,x.sales/m*100)+'%"></div></div><b>'+Number(x.sales).toFixed(3)+'</b>';el.append(r)})}
 
 function printableLogo(){return '../assets/images/page1-logo.png'}
@@ -314,6 +360,7 @@ function printWindow(title,content){
   .kpi{background:#F6F0E6;border-radius:8px;padding:10px}.kpi small{display:block;color:#756E65;text-transform:uppercase;font-size:9px;font-weight:bold}.kpi b{display:block;font-size:16px;margin-top:4px}
   table{width:100%;border-collapse:collapse;margin-top:8px}th{background:#1D1D1B;color:#E9E2D0;text-align:left;padding:7px;font-size:10px}td{padding:7px;border-bottom:1px solid #E5DDD3;vertical-align:top}.right{text-align:right}
   .total{font-size:18px;font-weight:bold}.summary-row{display:flex;justify-content:space-between;padding:5px 0}
+  .ar{font-family:Arial,Tahoma,sans-serif;font-weight:600;line-height:1.45}
   .foot{margin-top:20px;padding-top:10px;border-top:1px solid #D6C9BD;text-align:center;color:#756E65;font-size:10px}
   @media print{button{display:none!important}}
   </style></head><body><div class="head"><img class="logo" src="${logo}"><div class="doc-title"><h1>${esc(title)}</h1><div class="muted">PAGE.1 BEAUTY SALON</div></div></div>${content}<div class="foot">PAGE.1 Beauty Salon • Generated from PAGE.1 Salon System</div><script>window.onload=function(){setTimeout(function(){window.print()},250)};<\/script></body></html>`);
@@ -323,6 +370,9 @@ function printWindow(title,content){
 function printReceipt(){
   if(!lastReceiptData){alert("Save a sale first before printing a receipt.");return}
   const f=lastReceiptData.form,r=lastReceiptData.result;
+  const bi=(en,ar)=>`${en}<br><span class="ar" dir="rtl">${ar}</span>`;
+  const paymentAr={Cash:"نقداً",Knet:"كي نت",Link:"رابط الدفع",Split:"دفع مختلط","No Charge":"بدون رسوم"};
+  const paymentLabel=esc(r.paymentMethod)+(paymentAr[r.paymentMethod]?`<br><span class="ar" dir="rtl">${paymentAr[r.paymentMethod]}</span>`:"");
   const serviceRows=(f.services||[]).map(s=>{
     const price=Number(s.price)||0,discount=Number(s.discount)||0,net=price*(1-discount/100);
     let staff="";
@@ -333,12 +383,13 @@ function printReceipt(){
   }).join("");
   const gross=(f.services||[]).reduce((x,s)=>x+(Number(s.price)||0),0);
   const totalDiscount=(f.services||[]).reduce((x,s)=>{let p=Number(s.price)||0,d=Number(s.discount)||0;return x+p*d/100},0);
-  const body=`<div class="box"><div class="grid"><div><b>Client</b><br>${esc(f.name)}</div><div><b>Mobile</b><br>${esc(f.phone)}</div><div><b>Date</b><br>${esc(f.date)}</div><div><b>Transaction ID</b><br>${esc(r.saleId)}</div></div></div>
-  <div class="box"><b>Services</b><table><thead><tr><th>Service</th><th>Technician</th><th class="right">Price</th><th class="right">Discount</th><th class="right">Net</th></tr></thead><tbody>${serviceRows}</tbody></table></div>
-  <div class="grid"><div class="box"><b>Payment</b><div class="summary-row"><span>Cash</span><b>${Number(f.cash||0).toFixed(3)} KD</b></div><div class="summary-row"><span>Knet</span><b>${Number(f.knet||0).toFixed(3)} KD</b></div><div class="summary-row"><span>Link</span><b>${Number(f.link||0).toFixed(3)} KD</b></div><div class="summary-row"><span>Method</span><b>${esc(r.paymentMethod)}</b></div></div>
-  <div class="box"><b>Summary</b><div class="summary-row"><span>Gross</span><b>${gross.toFixed(3)} KD</b></div><div class="summary-row"><span>Discount</span><b>${totalDiscount.toFixed(3)} KD</b></div><div class="summary-row total"><span>Total</span><span>${Number(r.total||0).toFixed(3)} KD</span></div></div></div>
-  ${f.note?`<div class="box"><b>Note</b><br>${esc(f.note)}</div>`:""}`;
-  printWindow("Sales Receipt",body);
+  const body=`<div class="box"><div class="grid"><div><b>${bi("Client","العميل")}</b><br>${esc(f.name)}</div><div><b>${bi("Mobile","الهاتف")}</b><br>${esc(f.phone)}</div><div><b>${bi("Date","التاريخ")}</b><br>${esc(f.date)}</div><div><b>${bi("Transaction ID","رقم العملية")}</b><br>${esc(r.saleId)}</div></div></div>
+  <div class="box"><b>${bi("Services","الخدمات")}</b><table><thead><tr><th>${bi("Service","الخدمة")}</th><th>${bi("Technician","الفني")}</th><th class="right">${bi("Price","السعر")}</th><th class="right">${bi("Discount","الخصم")}</th><th class="right">${bi("Net","الصافي")}</th></tr></thead><tbody>${serviceRows}</tbody></table></div>
+  <div class="grid"><div class="box"><b>${bi("Payment","الدفع")}</b><div class="summary-row"><span>${bi("Cash","نقداً")}</span><b>${Number(f.cash||0).toFixed(3)} KD</b></div><div class="summary-row"><span>${bi("Knet","كي نت")}</span><b>${Number(f.knet||0).toFixed(3)} KD</b></div><div class="summary-row"><span>${bi("Link","رابط الدفع")}</span><b>${Number(f.link||0).toFixed(3)} KD</b></div><div class="summary-row"><span>${bi("Method","طريقة الدفع")}</span><b>${paymentLabel}</b></div></div>
+  <div class="box"><b>${bi("Summary","الملخص")}</b><div class="summary-row"><span>${bi("Gross","الإجمالي قبل الخصم")}</span><b>${gross.toFixed(3)} KD</b></div><div class="summary-row"><span>${bi("Discount","الخصم")}</span><b>${totalDiscount.toFixed(3)} KD</b></div><div class="summary-row total"><span>${bi("Total","الإجمالي")}</span><span>${Number(r.total||0).toFixed(3)} KD</span></div></div></div>
+  ${f.note?`<div class="box"><b>${bi("Note","ملاحظة")}</b><br>${esc(f.note)}</div>`:""}
+  <div class="box" style="text-align:center"><b>Thank you for visiting PAGE.1</b><br><span class="ar" dir="rtl">شكراً لزيارتكم صالون PAGE.1</span></div>`;
+  printWindow("Sales Receipt | إيصال المبيعات",body);
 }
 
 function printDashboard(){
@@ -347,18 +398,80 @@ function printDashboard(){
   const period=dashMode==="daily"?dashDate.value:(dashMonth.options[dashMonth.selectedIndex]?dashMonth.options[dashMonth.selectedIndex].text:dashMonth.value);
   const topStaff=(d.topStaff||[]).map((x,i)=>`<tr><td>${i+1}</td><td>${esc(x.name)}</td><td class="right"><b>${Number(x.sales||0).toFixed(3)} KD</b></td></tr>`).join("");
   const topServices=(d.topServices||[]).map((x,i)=>`<tr><td>${i+1}</td><td>${esc(x.name)}</td><td class="right"><b>${Number(x.sales||0).toFixed(3)} KD</b></td></tr>`).join("");
+  let staffFull="";
+  if(dashMode==="monthly"&&staffMonthlyData&&Array.isArray(staffMonthlyData.rows)){
+    const staffRows=staffMonthlyData.rows.map((x,i)=>`<tr><td>${i+1}</td><td>${esc(x.name)}</td><td class="right">${Number(x.transactions||0)}</td><td class="right">${Number(x.serviceLines||0)}</td><td class="right">${Number(x.gross||0).toFixed(3)} KD</td><td class="right">${Number(x.discount||0).toFixed(3)} KD</td><td class="right"><b>${Number(x.net||0).toFixed(3)} KD</b></td><td class="right">${Number(x.target||0)>0?Number(x.targetPct||0).toFixed(1)+"%":"—"}</td></tr>`).join("");
+    staffFull=`<div class="box"><b>Full Staff Monthly Sales</b><table><thead><tr><th>#</th><th>Staff</th><th class="right">Transactions</th><th class="right">Services</th><th class="right">Gross</th><th class="right">Discount</th><th class="right">Net</th><th class="right">Target %</th></tr></thead><tbody>${staffRows||'<tr><td colspan="8">No staff sales</td></tr>'}</tbody></table></div>`;
+  }
   let daily="";
   if(dashMode==="monthly"&&d.daily){
     daily=`<div class="box"><b>Daily Sales</b><table><thead><tr><th>Date</th><th class="right">Sales</th></tr></thead><tbody>${d.daily.map(x=>`<tr><td>${esc(x.date)}</td><td class="right">${Number(x.sales||0).toFixed(3)} KD</td></tr>`).join("")}</tbody></table></div>`;
   }
   const body=`<div class="box"><b>Report Period</b><br>${esc(period)}</div>
   <div class="kpis"><div class="kpi"><small>Total Sales</small><b>${kd(d.total)}</b></div><div class="kpi"><small>Transactions</small><b>${Number(d.count||0)}</b></div><div class="kpi"><small>Average Sale</small><b>${kd(d.average)}</b></div><div class="kpi"><small>Cash</small><b>${kd(d.cash)}</b></div><div class="kpi"><small>Knet</small><b>${kd(d.knet)}</b></div><div class="kpi"><small>Link</small><b>${kd(d.link)}</b></div></div>
-  <div class="grid"><div class="box"><b>Top Staff</b><table><thead><tr><th>#</th><th>Staff</th><th class="right">Sales</th></tr></thead><tbody>${topStaff||'<tr><td colspan="3">No data</td></tr>'}</tbody></table></div><div class="box"><b>Top Services</b><table><thead><tr><th>#</th><th>Service</th><th class="right">Sales</th></tr></thead><tbody>${topServices||'<tr><td colspan="3">No data</td></tr>'}</tbody></table></div></div>${daily}`;
+  <div class="grid"><div class="box"><b>Top Staff</b><table><thead><tr><th>#</th><th>Staff</th><th class="right">Sales</th></tr></thead><tbody>${topStaff||'<tr><td colspan="3">No data</td></tr>'}</tbody></table></div><div class="box"><b>Top Services</b><table><thead><tr><th>#</th><th>Service</th><th class="right">Sales</th></tr></thead><tbody>${topServices||'<tr><td colspan="3">No data</td></tr>'}</tbody></table></div></div>${staffFull}${daily}`;
   printWindow(dashMode==="daily"?"Daily Sales Report":"Monthly Sales Report",body);
 }
 
 
 
+
+function toggleNotificationPanel(){
+  if(!notificationPanel)return;
+  notificationPanel.classList.toggle("show");
+  if(notificationPanel.classList.contains("show"))loadSalonNotifications();
+}
+
+function loadSalonNotifications(){
+  if(!authToken || !(canFeature("INVENTORY")||canFeature("CRM")))return;
+  google.script.run
+    .withSuccessHandler(renderSalonNotifications)
+    .withFailureHandler(e=>{
+      if(notificationContent)notificationContent.innerHTML='<div class="notification-empty">'+esc(e&&e.message?e.message:String(e))+'</div>';
+    })
+    .webSalonNotifications(authToken);
+}
+
+function renderSalonNotifications(data){
+  salonNotifications=data||{counts:{},expiredProducts:[],birthdaysToday:[],birthdaysUpcoming:[]};
+  const c=salonNotifications.counts||{};
+  const total=Number(c.total||0);
+  notificationBadge.textContent=total>99?"99+":String(total);
+  notificationBadge.classList.toggle("show",total>0);
+
+  const expired=(salonNotifications.expiredProducts||[]).map(x=>`<div class="notification-item danger"><div class="notification-icon">⚠️</div><div class="notification-copy"><b>${esc(x.itemName)}</b><span>Expired ${esc(x.expiryDate||"")} • ${Number(x.qtyRemaining||0).toFixed(2)} remaining${Number(x.daysExpired||0)>0?" • "+Number(x.daysExpired||0)+" day(s) expired":""}</span></div></div>`).join("");
+  const today=(salonNotifications.birthdaysToday||[]).map(x=>`<div class="notification-item birthday"><div class="notification-icon">🎂</div><div class="notification-copy"><b>${esc(x.name)} — Birthday today</b><span>${esc(x.phone||"")}${x.age?" • Turning "+Number(x.age):""}</span></div></div>`).join("");
+  const upcoming=(salonNotifications.birthdaysUpcoming||[]).map(x=>`<div class="notification-item birthday"><div class="notification-icon">🎁</div><div class="notification-copy"><b>${esc(x.name)}</b><span>Birthday in ${Number(x.daysUntil||0)} day(s) • ${esc(x.birthday||"")}${x.phone?" • "+esc(x.phone):""}</span></div></div>`).join("");
+
+  let html="";
+  if(expired)html+=`<div class="notification-group"><h4>Expired Products (${Number(c.expired||0)})</h4>${expired}</div>`;
+  if(today)html+=`<div class="notification-group"><h4>Birthdays Today (${Number(c.birthdayToday||0)})</h4>${today}</div>`;
+  if(upcoming)html+=`<div class="notification-group"><h4>Upcoming Birthdays — 7 Days (${Number(c.birthdayUpcoming||0)})</h4>${upcoming}</div>`;
+  notificationContent.innerHTML=html||'<div class="notification-empty">✓ No expired products or client birthdays due in the next 7 days.</div>';
+
+  if(!notificationsToastShown&&total>0){
+    notificationsToastShown=true;
+    let parts=[];
+    if(Number(c.expired||0))parts.push(Number(c.expired||0)+" expired product"+(Number(c.expired||0)===1?"":"s"));
+    if(Number(c.birthdayToday||0))parts.push(Number(c.birthdayToday||0)+" birthday"+(Number(c.birthdayToday||0)===1?"":"s")+" today");
+    if(Number(c.birthdayUpcoming||0))parts.push(Number(c.birthdayUpcoming||0)+" upcoming birthday"+(Number(c.birthdayUpcoming||0)===1?"":"s"));
+    showPage1Toast("Notifications",parts.join(" • "));
+  }
+}
+
+function showPage1Toast(title,text){
+  if(!page1Toast)return;
+  page1ToastTitle.textContent=title||"PAGE.1";
+  page1ToastText.textContent=text||"";
+  page1Toast.classList.add("show");
+  setTimeout(()=>page1Toast.classList.remove("show"),6500);
+}
+
+document.addEventListener("click",e=>{
+  if(notificationPanel&&notificationPanel.classList.contains("show")&&notificationWrap&&!notificationWrap.contains(e.target)){
+    notificationPanel.classList.remove("show");
+  }
+});
 
 let inventoryData={items:[],batches:[],counts:{},settings:{}};
 
@@ -540,6 +653,7 @@ function renderInventory(data){
   if(!invReceivedDate.value){
     invReceivedDate.value=initData.today||"";
   }
+  setTimeout(loadSalonNotifications,120);
 }
 
 function editInventoryItem(itemId){
