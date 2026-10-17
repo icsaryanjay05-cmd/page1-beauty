@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="theme-color" content="#E9E2D0">
+<link rel="manifest" href="manifest.json">
+<link rel="icon" href="assets/images/icon-192.png">
+<meta name="description" content="PAGE.1 Beauty Salon - services, team and online booking.">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PAGE.1 Beauty Salon</title>
+<link rel="stylesheet" href="assets/css/site.css">
+</head>
+<body>
+<div id="loading" class="loading">
+  <div class="loading-box">
+    <img src="assets/images/page1-logo.png" alt="PAGE.1">
+    <div class="dots"><i></i><i></i><i></i></div>
+  </div>
+</div>
+
+<header class="site-header">
+  <nav class="nav">
+    <a href="#"><img class="nav-logo" src="assets/images/page1-logo.png" alt="PAGE.1 Beauty Salon"></a>
+    <div class="nav-links">
+      <a href="#services">Services</a>
+      <a href="#about">About</a>
+      <a href="#team">Our Team</a>
+      <a href="#contact">Contact</a>
+      <a class="nav-staff" href="./staff/" >Staff Portal</a>
+      <a class="nav-book" href="./book/" >Book Now</a>
+    </div>
+  </nav>
+</header>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="eyebrow">PAGE.1 BEAUTY SALON</div>
+      <h1 id="tagline">Beauty, Defined Your Way.</h1>
+      <p id="subtitle">Premium hair, nails and beauty services.</p>
+      <div class="hero-actions">
+        <a class="btn btn-dark" href="./book/" >Book Appointment</a>
+        <a class="btn btn-light" href="#services">Explore Services</a>
+      </div>
+      <div id="heroNote" class="eyebrow" style="margin-top:20px;letter-spacing:1px"></div>
+    </div>
+    <div class="hero-art">
+      <div class="art-card art-main"></div>
+      <div class="art-card art-mini"></div>
+    </div>
+  </div>
+</section>
+
+<section id="services" class="section services-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="eyebrow">OUR MENU</div><h2>Services & Prices</h2></div>
+      <p>Explore our active salon services. Prices shown here come directly from the same service list used by the PAGE.1 staff system.</p>
+    </div>
+    <div id="categoryFilter" class="category-filter"></div>
+    <div id="serviceGrid" class="service-grid"></div>
+  </div>
+</section>
+
+<section id="about" class="section">
+  <div class="wrap about-grid">
+    <div class="about-art"></div>
+    <div class="about-copy">
+      <div class="eyebrow">THE PAGE.1 EXPERIENCE</div>
+      <h2>Beauty with a more personal touch.</h2>
+      <p id="aboutText"></p>
+      <a class="btn btn-dark" href="./book/" >Plan Your Visit</a>
+    </div>
+  </div>
+</section>
+
+<section id="team" class="section team-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="eyebrow">MEET THE TEAM</div><h2>Our Beauty Professionals</h2></div>
+      <p>Active team members are automatically synchronized from your salon staff list.</p>
+    </div>
+    <div id="teamGrid" class="team-grid"></div>
+  </div>
+</section>
+
+<section id="gallerySection" class="section" style="display:none">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="eyebrow">PAGE.1 MOMENTS</div><h2>Gallery</h2></div>
+      <p>A glimpse of PAGE.1 style and salon work.</p>
+    </div>
+    <div id="gallery" class="gallery"></div>
+  </div>
+</section>
+
+<section id="contact" class="section contact-section">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="eyebrow">VISIT PAGE.1</div><h2>Contact & Opening Hours</h2></div>
+      <p>Book online anytime, or contact the salon directly using the details below.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-card">
+        <h3>Visit the Salon</h3>
+        <div class="contact-list">
+          <div class="contact-row"><small>Location</small><b id="location">Kuwait</b></div>
+          <div class="contact-row"><small>Opening Hours</small><b id="hours">—</b></div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <h3>Get in Touch</h3>
+        <div id="contactList" class="contact-list"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cta">
+  <div class="wrap">
+    <div class="eyebrow">YOUR NEXT APPOINTMENT</div>
+    <h2>Ready for your PAGE.1 moment?</h2>
+    <p>Choose your service, technician and available time online.</p>
+    <div class="hero-actions" style="justify-content:center">
+      <a class="btn btn-dark" href="./book/" >Book Online</a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="wrap footer-inner">
+    <img class="footer-logo" src="assets/images/page1-logo.png" alt="PAGE.1">
+    <small id="footerCopy">PAGE.1 Beauty Salon • Kuwait</small>
+  </div>
+</footer>
+
+<script>document.documentElement.dataset.sw="service-worker.js";</script>
+<script src="assets/js/config.js"></script>
+<script src="assets/js/api.js"></script>
+<script src="assets/js/site.js"></script>
+<script src="assets/js/pwa.js"></script>
+</body>
+</html>
