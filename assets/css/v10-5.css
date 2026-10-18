@@ -325,3 +325,222 @@ body:not(.auth-locked) .card{border-color:rgba(202,186,173,.58)!important;border
     padding-left:10px!important;
   }
 }
+
+
+/* =========================================================
+   PAGE.1 V10.5.4 — CONTAINER-AWARE SERVICE LAYOUT
+   Uses the actual left sales-column width, not viewport width.
+   ========================================================= */
+
+#sale .layout > *{
+  min-width:0!important;
+}
+
+#sale .sale-main{
+  min-width:0!important;
+  width:100%!important;
+  container-type:inline-size;
+  container-name:saleMain;
+}
+
+#sale .sale-main > .card{
+  min-width:0!important;
+  max-width:100%!important;
+  overflow:hidden!important;
+}
+
+#sale .service-row{
+  width:100%!important;
+  max-width:100%!important;
+  min-width:0!important;
+  overflow:hidden!important;
+  box-sizing:border-box!important;
+}
+
+#sale .service-row > *,
+#sale .service-picker,
+#sale .pricebox,
+#sale .discounts,
+#sale .staff,
+#sale .staff-single,
+#sale .service-net{
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+
+/* Spacious sales column: compact single-row layout. */
+@container saleMain (min-width:1101px){
+  #sale .service-head,
+  #sale .service-row{
+    grid-template-columns:
+      minmax(220px,1.55fr)
+      112px
+      188px
+      minmax(178px,1fr)
+      86px
+      34px!important;
+    gap:7px!important;
+  }
+
+  #sale .service-head{
+    display:grid!important;
+  }
+
+  #sale .service-row{
+    grid-template-areas:none!important;
+  }
+}
+
+/* Typical desktop/laptop sales column: clean two-line layout. */
+@container saleMain (min-width:760px) and (max-width:1100px){
+  #sale .service-head{
+    display:none!important;
+  }
+
+  #sale .service-row{
+    display:grid!important;
+    grid-template-columns:
+      minmax(230px,1.25fr)
+      116px
+      minmax(225px,1fr)
+      88px
+      34px!important;
+    grid-template-areas:
+      "picker price staff net remove"
+      "picker discount discount net remove"!important;
+    gap:8px!important;
+    align-items:center!important;
+    padding:11px!important;
+  }
+
+  #sale .service-picker{
+    grid-area:picker!important;
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    grid-template-rows:auto auto!important;
+    gap:7px!important;
+    align-self:stretch!important;
+  }
+
+  #sale .pricebox{
+    grid-area:price!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 42px!important;
+    gap:5px!important;
+  }
+
+  #sale .pricebox .smallbtn{
+    width:42px!important;
+    min-width:42px!important;
+    padding:0!important;
+  }
+
+  #sale .discounts{
+    grid-area:discount!important;
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    gap:5px!important;
+    width:100%!important;
+  }
+
+  #sale .discounts .chip{
+    flex:1 1 0!important;
+    min-width:0!important;
+    padding:0 6px!important;
+  }
+
+  #sale .discounts input{
+    flex:0 0 58px!important;
+    width:58px!important;
+    min-width:58px!important;
+  }
+
+  #sale .staff{
+    grid-area:staff!important;
+    width:100%!important;
+  }
+
+  #sale .staff-single{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 70px!important;
+    gap:6px!important;
+    width:100%!important;
+  }
+
+  #sale .staff-single .smallbtn{
+    width:70px!important;
+    min-width:70px!important;
+    padding:0 5px!important;
+  }
+
+  #sale .service-net,
+  #sale .service-row > .money{
+    grid-area:net!important;
+    width:100%!important;
+    min-width:0!important;
+    height:92px!important;
+    display:grid!important;
+    place-content:center!important;
+    justify-items:center!important;
+    padding:8px 4px!important;
+    text-align:center!important;
+    overflow:hidden!important;
+    border-radius:10px!important;
+    background:rgba(255,255,255,.68)!important;
+    border:1px solid rgba(214,201,189,.8)!important;
+  }
+
+  #sale .service-net::before{
+    margin-bottom:6px!important;
+  }
+
+  #sale .remove{
+    grid-area:remove!important;
+    width:34px!important;
+    min-width:34px!important;
+    height:92px!important;
+    justify-self:stretch!important;
+    align-self:stretch!important;
+  }
+}
+
+/* Narrow sales column / mobile: fully stacked and impossible to clip. */
+@container saleMain (max-width:759px){
+  #sale .service-head{
+    display:none!important;
+  }
+
+  #sale .service-row{
+    display:grid!important;
+    grid-template-columns:1fr!important;
+    grid-template-areas:
+      "picker"
+      "price"
+      "discount"
+      "staff"
+      "net"
+      "remove"!important;
+    gap:8px!important;
+  }
+
+  #sale .service-picker{grid-area:picker!important}
+  #sale .pricebox{grid-area:price!important}
+  #sale .discounts{grid-area:discount!important}
+  #sale .staff{grid-area:staff!important}
+  #sale .service-net,
+  #sale .service-row > .money{
+    grid-area:net!important;
+    width:100%!important;
+    justify-content:flex-start!important;
+    justify-items:start!important;
+    text-align:left!important;
+    padding:10px!important;
+  }
+  #sale .remove{
+    grid-area:remove!important;
+    justify-self:end!important;
+    width:42px!important;
+    height:42px!important;
+  }
+}
