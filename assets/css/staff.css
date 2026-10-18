@@ -3170,3 +3170,74 @@ body:not(.auth-locked) .card{border-color:rgba(202,186,173,.58)!important;border
 #sale .service-quick-grid{grid-template-columns:1fr 1fr}
 #sale .service-row>.remove{min-height:43px!important}
 }
+
+/* ============================================================
+   PAGE.1 V10.5.7 — CLIENT MOBILE NUMBER WIDTH FIX
+   Keeps the country-code selector and phone input inside the card.
+   ============================================================ */
+
+#sale .grid3{
+  grid-template-columns:
+    minmax(170px,.70fr)
+    minmax(220px,1fr)
+    minmax(340px,1.55fr) !important;
+  gap:12px !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+}
+
+#sale .grid3 > *{
+  min-width:0 !important;
+  max-width:100% !important;
+}
+
+#sale .phone{
+  display:grid !important;
+  grid-template-columns:minmax(160px,.95fr) minmax(0,1.05fr) !important;
+  gap:8px !important;
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+  overflow:hidden !important;
+}
+
+#sale .phone select,
+#sale .phone input{
+  width:100% !important;
+  min-width:0 !important;
+  max-width:100% !important;
+  box-sizing:border-box !important;
+}
+
+/* At narrower desktop widths, give the phone section its own full row. */
+@media (min-width:900px) and (max-width:1180px){
+  #sale .grid3{
+    grid-template-columns:minmax(170px,.72fr) minmax(220px,1.1fr) !important;
+  }
+
+  #sale .grid3 > div:nth-child(3){
+    grid-column:1/-1 !important;
+  }
+
+  #sale .phone{
+    grid-template-columns:minmax(180px,.42fr) minmax(0,1fr) !important;
+  }
+}
+
+@media (max-width:899px){
+  #sale .grid3{
+    grid-template-columns:1fr !important;
+  }
+
+  #sale .phone{
+    grid-template-columns:minmax(145px,.48fr) minmax(0,1fr) !important;
+  }
+}
+
+@media (max-width:520px){
+  #sale .phone{
+    grid-template-columns:1fr !important;
+  }
+}

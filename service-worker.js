@@ -1,4 +1,4 @@
-const CACHE = "page1-v10-5-6-stable-service";
+const CACHE = "page1-v10-5-7-client-phone-fix";
 
 const CORE = [
   "./",
