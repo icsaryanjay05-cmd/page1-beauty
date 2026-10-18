@@ -140,3 +140,188 @@ body:not(.auth-locked) .card{border-color:rgba(202,186,173,.58)!important;border
     column-gap:6px!important;
   }
 }
+
+/* =========================================================
+   PAGE.1 V10.5.3 — RESPONSIVE SERVICE ROW FIX
+   Prevents Net/remove clipping on laptop-width screens.
+   ========================================================= */
+
+/* Kill legacy intrinsic widths that can force the grid wider than its card. */
+#sale .service-row,
+#sale .service-row > *,
+#sale .service-picker,
+#sale .pricebox,
+#sale .discounts,
+#sale .staff,
+#sale .staff-single,
+#sale .service-net,
+#sale .service-row > .money{
+  min-width:0!important;
+  max-width:100%!important;
+  box-sizing:border-box!important;
+}
+
+#sale .service-row{
+  width:100%!important;
+  overflow:visible!important;
+}
+
+#sale .service-net,
+#sale .service-row > .money{
+  width:auto!important;
+  min-width:0!important;
+  justify-content:center!important;
+  text-align:center!important;
+  white-space:nowrap!important;
+}
+
+/* Wide desktop: one compact horizontal row. */
+@media (min-width:1351px){
+  #sale .service-head,
+  #sale .service-row{
+    grid-template-columns:
+      minmax(220px,1.55fr)
+      118px
+      190px
+      minmax(175px,1fr)
+      86px
+      36px!important;
+    gap:7px!important;
+  }
+
+  #sale .discounts{
+    gap:4px!important;
+  }
+
+  #sale .staff-single{
+    grid-template-columns:minmax(0,1fr) 66px!important;
+    gap:5px!important;
+  }
+}
+
+/* Laptop / tablet landscape: use a clean two-line service card.
+   This is intentionally roomier instead of squeezing Net off-screen. */
+@media (min-width:901px) and (max-width:1350px){
+  #sale .service-head{
+    display:none!important;
+  }
+
+  #sale .service-row{
+    display:grid!important;
+    grid-template-columns:
+      minmax(230px,1.35fr)
+      120px
+      minmax(220px,1.15fr)
+      88px
+      38px!important;
+    grid-template-areas:
+      "picker price discount discount discount"
+      "picker staff staff net remove"!important;
+    gap:8px!important;
+    align-items:center!important;
+    padding:11px!important;
+  }
+
+  #sale .service-picker{
+    grid-area:picker!important;
+    align-self:stretch!important;
+    display:grid!important;
+    grid-template-rows:1fr 1fr!important;
+    gap:7px!important;
+  }
+
+  #sale .pricebox{
+    grid-area:price!important;
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 42px!important;
+    gap:5px!important;
+  }
+
+  #sale .pricebox .smallbtn{
+    width:42px!important;
+    min-width:42px!important;
+    padding:0!important;
+  }
+
+  #sale .discounts{
+    grid-area:discount!important;
+    display:flex!important;
+    flex-wrap:nowrap!important;
+    gap:5px!important;
+    min-width:0!important;
+  }
+
+  #sale .discounts input{
+    width:54px!important;
+    min-width:54px!important;
+    flex:0 0 54px!important;
+  }
+
+  #sale .discounts .chip{
+    min-width:0!important;
+    flex:1 1 0!important;
+    padding:0 7px!important;
+  }
+
+  #sale .staff{
+    grid-area:staff!important;
+  }
+
+  #sale .staff-single{
+    display:grid!important;
+    grid-template-columns:minmax(0,1fr) 68px!important;
+    gap:6px!important;
+  }
+
+  #sale .staff-single .smallbtn{
+    width:68px!important;
+    min-width:68px!important;
+    padding:0 5px!important;
+  }
+
+  #sale .service-net,
+  #sale .service-row > .money{
+    grid-area:net!important;
+    min-width:0!important;
+    width:100%!important;
+    height:42px!important;
+    padding:0 4px!important;
+    font-size:15px!important;
+    border-radius:9px!important;
+    background:rgba(255,255,255,.64)!important;
+    border:1px solid rgba(214,201,189,.78)!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+
+  #sale .remove{
+    grid-area:remove!important;
+    width:38px!important;
+    min-width:38px!important;
+    height:42px!important;
+    justify-self:end!important;
+  }
+
+  /* Small field labels keep the two-row layout obvious. */
+  #sale .pricebox,
+  #sale .discounts,
+  #sale .staff,
+  #sale .service-net,
+  #sale .service-row > .money{
+    position:relative!important;
+  }
+}
+
+/* Smaller widths already use the stacked mobile layout. Ensure no overflow leaks. */
+@media (max-width:900px){
+  #sale .service-row{
+    overflow:hidden!important;
+  }
+
+  #sale .service-net,
+  #sale .service-row > .money{
+    width:100%!important;
+    justify-content:flex-start!important;
+    padding-left:10px!important;
+  }
+}
