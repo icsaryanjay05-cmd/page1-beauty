@@ -42,7 +42,7 @@ main{max-width:1640px;margin:0 auto;padding:18px 20px 24px;width:100%}.view{disp
 .card{background:var(--paper);border:1px solid rgba(214,201,189,.9);border-radius:17px;padding:16px;margin-bottom:14px;box-shadow:var(--shadow)}.title{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:13px}.title h2{font-size:15px;margin:0;font-weight:850;letter-spacing:.05px}.muted{color:var(--muted);font-size:11px}
 .grid3{display:grid;grid-template-columns:180px minmax(280px,1.05fr) minmax(470px,1.25fr);gap:12px;align-items:end}label{display:block;font-size:10px;color:var(--muted);font-weight:800;margin-bottom:6px;text-transform:uppercase;letter-spacing:.35px}input,select,textarea{width:100%;border:1px solid var(--line);background:#fff;border-radius:10px;padding:10px 11px;font:inherit;outline:none;transition:border-color .16s ease,box-shadow .16s ease,background .16s ease}textarea{min-height:70px}input,select{height:46px}textarea{height:auto}input:focus,select:focus,textarea:focus{border-color:#B9A898;box-shadow:0 0 0 3px rgba(202,186,173,.22);background:#fff}input[type=number]::-webkit-outer-spin-button,input[type=number]::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}input[type=number]{-moz-appearance:textfield;appearance:textfield}
 .phone{display:grid;grid-template-columns:220px minmax(150px,1fr);gap:8px}
-.service-head,.service-row{display:grid;grid-template-columns:minmax(260px,1.55fr) 175px 210px minmax(245px,1.25fr) 105px 42px;gap:10px;align-items:center}.service-head{font-size:9px;color:var(--muted);font-weight:800;padding:0 10px 7px;text-transform:uppercase;letter-spacing:.45px}.service-row{background:linear-gradient(180deg,#F9F5EE 0%,#F4EDE3 100%);border:1px solid var(--line);border-radius:13px;padding:10px;margin-bottom:9px;box-shadow:0 2px 8px rgba(29,29,27,.025)}.service-row>*{min-width:0}.svc,.tech,.pricebox input,.discounts input,.staff select{width:100%}.pricebox{display:grid;grid-template-columns:minmax(0,1fr) 84px;gap:6px;align-items:center}.pricebox input{min-width:0;text-align:right;font-weight:800}.smallbtn{border:1px solid var(--taupe);background:#fff;border-radius:9px;padding:0 10px;height:42px;font-size:10px;font-weight:850;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;line-height:1.1;text-align:center;transition:.16s ease;box-shadow:0 1px 2px rgba(29,29,27,.03)}.smallbtn:hover{background:#F5EEE5;border-color:#BBAA9A}.smallbtn.active{background:var(--ink);color:var(--cream)}.money{height:42px;display:flex;align-items:center;justify-content:flex-end;text-align:right;font-weight:900;font-size:17px;padding-right:4px;letter-spacing:.1px}.remove{border:0;background:var(--dangerSoft);color:var(--danger);border-radius:10px;height:42px;width:42px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;justify-self:center;transition:.16s ease}.remove:hover{background:#EBCFCD}.discounts{display:grid;grid-template-columns:76px repeat(3,minmax(54px,max-content));gap:6px;align-items:center}.discounts input{height:42px}.chip{border:1px solid var(--line);background:#fff;border-radius:9px;padding:0 10px;height:42px;font-size:10px;font-weight:850;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;transition:.16s ease}.chip:hover{background:#F5EEE5;border-color:#BBAA9A}.staff{min-width:0}.staff-single{display:grid;grid-template-columns:minmax(0,1fr) 82px;gap:6px;align-items:center}.split-panel{display:none;background:white;border:1px solid var(--taupe);border-radius:8px;padding:8px;margin-top:6px}.split-panel.show{display:block}.alloc{display:grid;grid-template-columns:1fr 88px 30px;gap:6px;margin-bottom:6px;align-items:center}.alloc input,.alloc select{padding:8px;font-size:11px;height:38px}.split-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.split-actions .smallbtn{height:36px;font-size:10px;padding:0 8px}.add-service-main{width:100%;height:44px;border-style:dashed;background:#FCF9F4;color:var(--ink);font-size:11px}.add-service-main:hover{background:#F0E8DD}.paygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.pay{background:linear-gradient(180deg,#F7F1E8,#F2EADF);border:1px solid rgba(214,201,189,.75);border-radius:13px;padding:11px}.pay input{text-align:right;font-weight:850;font-size:15px}.pay button{width:100%;margin-top:7px;height:36px}
+.smallbtn{border:1px solid var(--taupe);background:#fff;border-radius:9px;padding:0 10px;height:42px;font-size:10px;font-weight:850;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;line-height:1.1;text-align:center;transition:.16s ease;box-shadow:0 1px 2px rgba(29,29,27,.03)}.smallbtn:hover{background:#F5EEE5;border-color:#BBAA9A}.smallbtn.active{background:var(--ink);color:var(--cream)}.money{height:42px;display:flex;align-items:center;justify-content:flex-end;text-align:right;font-weight:900;font-size:17px;padding-right:4px;letter-spacing:.1px}.remove{border:0;background:var(--dangerSoft);color:var(--danger);border-radius:10px;height:42px;width:42px;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;justify-self:center;transition:.16s ease}.remove:hover{background:#EBCFCD}.chip{border:1px solid var(--line);background:#fff;border-radius:9px;padding:0 10px;height:42px;font-size:10px;font-weight:850;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;white-space:nowrap;transition:.16s ease}.chip:hover{background:#F5EEE5;border-color:#BBAA9A}.staff{min-width:0}.split-panel{display:none;background:white;border:1px solid var(--taupe);border-radius:8px;padding:8px;margin-top:6px}.split-panel.show{display:block}.alloc{display:grid;grid-template-columns:1fr 88px 30px;gap:6px;margin-bottom:6px;align-items:center}.alloc input,.alloc select{padding:8px;font-size:11px;height:38px}.split-actions{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}.split-actions .smallbtn{height:36px;font-size:10px;padding:0 8px}.add-service-main{width:100%;height:44px;border-style:dashed;background:#FCF9F4;color:var(--ink);font-size:11px}.add-service-main:hover{background:#F0E8DD}.paygrid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px}.pay{background:linear-gradient(180deg,#F7F1E8,#F2EADF);border:1px solid rgba(214,201,189,.75);border-radius:13px;padding:11px}.pay input{text-align:right;font-weight:850;font-size:15px}.pay button{width:100%;margin-top:7px;height:36px}
 .layout{display:grid;grid-template-columns:minmax(0,1.8fr) minmax(360px,.78fr);gap:15px;align-items:start}.summary{background:linear-gradient(145deg,#1D1D1B,#292826);color:var(--cream);border-radius:17px;padding:18px;box-shadow:0 14px 30px rgba(29,29,27,.18);position:sticky;top:110px}.sum{display:flex;justify-content:space-between;align-items:center;margin:9px 0;gap:12px}.sum.total{font-size:21px;border-top:1px solid rgba(255,255,255,.15);border-bottom:1px solid rgba(255,255,255,.12);padding:13px 0;margin:13px 0}.sum.total b{font-size:26px}.status{margin-top:13px;padding:11px;border-radius:10px;text-align:center;font-weight:850;background:#3d3935;letter-spacing:.1px}.status.good{background:#305b48}.status.bad{background:#693c37}
 .actions{display:flex;justify-content:flex-end;gap:9px;position:sticky;bottom:0;z-index:4;background:linear-gradient(180deg,rgba(233,226,208,0) 0%,rgba(233,226,208,.96) 28%,var(--cream) 100%);padding:22px 0 10px;margin-top:-4px}.btn{border:0;border-radius:11px;padding:12px 20px;font-weight:900;cursor:pointer;min-width:105px;transition:.17s ease}.btn:hover{transform:translateY(-1px)}.btn.primary{background:var(--ink);color:var(--cream);box-shadow:0 8px 18px rgba(29,29,27,.16)}.btn.light{background:var(--taupe);color:var(--ink)}
 .clientinfo{display:none;margin-top:10px;background:var(--successSoft);border:1px solid #CEDDD3;padding:10px 12px;border-radius:10px;color:#355a49}
@@ -52,10 +52,10 @@ main{max-width:1640px;margin:0 auto;padding:18px 20px 24px;width:100%}.view{disp
 
 @media(max-width:1250px) and (min-width:1001px){
   .layout{grid-template-columns:minmax(0,1.45fr) minmax(340px,.8fr)}
-  .service-head,.service-row{grid-template-columns:minmax(220px,1.4fr) 155px 190px minmax(210px,1.05fr) 92px 40px;gap:8px}
-  .discounts{grid-template-columns:66px repeat(3,minmax(50px,max-content));gap:4px}
-  .pricebox{grid-template-columns:minmax(0,1fr) 72px}
-  .staff-single{grid-template-columns:minmax(0,1fr) 76px}
+  
+  
+  
+  
   .kpis{grid-template-columns:repeat(3,1fr)}
 }
 @media(max-width:1000px){
@@ -122,23 +122,11 @@ main{max-width:1640px;margin:0 auto;padding:18px 20px 24px;width:100%}.view{disp
         grid-template-columns:repeat(2,1fr);
       }
 
-      .service-head{
-        display:none;
-      }
+      
 
-      .service-row{
-        grid-template-columns:1fr;
-        padding:10px;
-      }
+      
 
-      .service-row .svc,
-      .service-row .pricebox,
-      .service-row .discounts,
-      .service-row .staff,
-      .service-row .money,
-      .service-row .remove{
-        grid-column:1/-1;
-      }
+      
 
       .money{
         justify-content:flex-start;
@@ -151,17 +139,11 @@ main{max-width:1640px;margin:0 auto;padding:18px 20px 24px;width:100%}.view{disp
         justify-self:end;
       }
 
-      .discounts{
-        grid-template-columns:72px repeat(3,1fr);
-      }
+      
 
-      .pricebox{
-        grid-template-columns:1fr 86px;
-      }
+      
 
-      .staff-single{
-        grid-template-columns:1fr 90px;
-      }
+      
 
       .summary{
         position:static;
@@ -178,17 +160,17 @@ main{max-width:1640px;margin:0 auto;padding:18px 20px 24px;width:100%}.view{disp
       .grid3{grid-template-columns:1fr}
       .phone{grid-template-columns:145px 1fr}
       .kpis{grid-template-columns:repeat(2,1fr)}
-      .service-head{display:none}
-      .service-row{grid-template-columns:1fr;padding:10px}
-      .service-row .svc,.service-row .pricebox,.service-row .discounts,.service-row .staff,.service-row .money,.service-row .remove{grid-column:1/-1}
+      
+      
+      
       .money{justify-content:flex-start;height:auto;padding:3px 0;font-size:18px}
       .remove{justify-self:end}
-      .discounts{grid-template-columns:72px repeat(3,1fr)}
-      .pricebox{grid-template-columns:1fr 86px}
-      .staff-single{grid-template-columns:1fr 90px}
+      
+      
+      
       .summary{position:static}
       .actions{padding-bottom:12px}
-    }.grid3{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.service-head{display:none}.service-row{grid-template-columns:1fr}.service-row .svc,.service-row .pricebox,.service-row .discounts,.service-row .staff,.service-row .money,.service-row .remove{grid-column:1/-1}.money{justify-content:flex-start}.remove{justify-self:end}.phone{grid-template-columns:150px 1fr}header{flex-direction:column;align-items:flex-start}}
+    }.grid3{grid-template-columns:1fr}.kpis{grid-template-columns:repeat(2,1fr)}.money{justify-content:flex-start}.remove{justify-self:end}.phone{grid-template-columns:150px 1fr}header{flex-direction:column;align-items:flex-start}}
 
 @media(max-width:600px){
       .brand{
@@ -257,10 +239,10 @@ main{max-width:1640px;margin:0 auto;padding:18px 20px 24px;width:100%}.view{disp
   .phone{grid-template-columns:1fr}
   .kpis{grid-template-columns:1fr 1fr}
   .paygrid{grid-template-columns:1fr}
-  .discounts{grid-template-columns:1fr 1fr}
-  .discounts input{grid-column:1/-1}
-  .pricebox{grid-template-columns:1fr}
-  .staff-single{grid-template-columns:1fr}
+  
+  
+  
+  
   .actions{display:grid;grid-template-columns:1fr 1fr}
   .btn{width:100%}
 }
@@ -378,32 +360,15 @@ input,select,textarea{
   padding:8px 10px !important;
 }
 
-.service-head,.service-row{
-  grid-template-columns:minmax(225px,1.5fr) 150px 185px minmax(220px,1.18fr) 90px 38px !important;
-  gap:8px !important;
-  align-items:center !important;
-}
 
-.service-row{
-  padding:8px !important;
-  margin-bottom:7px !important;
-  border-radius:11px !important;
-}
 
-.pricebox{
-  grid-template-columns:minmax(0,1fr) 74px !important;
-  gap:5px !important;
-}
 
-.discounts{
-  grid-template-columns:64px repeat(3,minmax(48px,1fr)) !important;
-  gap:4px !important;
-}
 
-.staff-single{
-  grid-template-columns:minmax(0,1fr) 76px !important;
-  gap:5px !important;
-}
+
+
+
+
+
 
 .smallbtn,
 .chip{
@@ -531,23 +496,13 @@ input,select,textarea{
     grid-template-columns:175px 1fr !important;
   }
 
-  .service-head,.service-row{
-    grid-template-columns:minmax(175px,1.3fr) 130px 160px minmax(170px,1fr) 74px 34px !important;
-    gap:5px !important;
-  }
+  
 
-  .pricebox{
-    grid-template-columns:minmax(0,1fr) 62px !important;
-  }
+  
 
-  .discounts{
-    grid-template-columns:58px repeat(3,minmax(42px,1fr)) !important;
-    gap:3px !important;
-  }
+  
 
-  .staff-single{
-    grid-template-columns:minmax(0,1fr) 66px !important;
-  }
+  
 
   .smallbtn,.chip{
     font-size:9px !important;
@@ -615,35 +570,17 @@ input,select,textarea{
     grid-template-columns:1fr 1fr !important;
   }
 
-  .service-head{
-    display:none !important;
-  }
+  
 
-  .service-row{
-    grid-template-columns:1fr !important;
-    padding:9px !important;
-  }
+  
 
-  .service-row .svc,
-  .service-row .pricebox,
-  .service-row .discounts,
-  .service-row .staff,
-  .service-row .money,
-  .service-row .remove{
-    grid-column:1/-1 !important;
-  }
+  
 
-  .pricebox{
-    grid-template-columns:1fr 80px !important;
-  }
+  
 
-  .discounts{
-    grid-template-columns:65px repeat(3,1fr) !important;
-  }
+  
 
-  .staff-single{
-    grid-template-columns:1fr 84px !important;
-  }
+  
 
   .money{
     justify-content:flex-start !important;
@@ -684,18 +621,11 @@ input,select,textarea{
     grid-template-columns:1fr !important;
   }
 
-  .discounts{
-    grid-template-columns:1fr 1fr !important;
-  }
+  
 
-  .discounts input{
-    grid-column:1/-1 !important;
-  }
+  
 
-  .pricebox,
-  .staff-single{
-    grid-template-columns:1fr !important;
-  }
+  
 }
 
 
@@ -1119,54 +1049,19 @@ input,select,textarea{
     align-items:start !important;
   }
 
-  #sale .service-head{
-    display:grid !important;
-  }
+  
 
-  #sale .service-head,
-  #sale .service-row{
-    grid-template-columns:
-      minmax(190px,1.5fr)
-      130px
-      170px
-      minmax(180px,1fr)
-      80px
-      36px !important;
-    gap:8px !important;
-    align-items:center !important;
-  }
+  
 
-  #sale .service-row{
-    padding:8px !important;
-    margin-bottom:7px !important;
-  }
+  
 
-  #sale .service-row .svc,
-  #sale .service-row .pricebox,
-  #sale .service-row .discounts,
-  #sale .service-row .staff,
-  #sale .service-row .money,
-  #sale .service-row .remove{
-    grid-column:auto !important;
-  }
+  
 
-  #sale .pricebox{
-    display:grid !important;
-    grid-template-columns:minmax(0,1fr) 62px !important;
-    gap:5px !important;
-  }
+  
 
-  #sale .discounts{
-    display:grid !important;
-    grid-template-columns:56px repeat(3,minmax(42px,1fr)) !important;
-    gap:4px !important;
-  }
+  
 
-  #sale .staff-single{
-    display:grid !important;
-    grid-template-columns:minmax(0,1fr) 66px !important;
-    gap:5px !important;
-  }
+  
 
   #sale .money{
     height:38px !important;
@@ -1219,44 +1114,17 @@ input,select,textarea{
     grid-template-columns:1fr !important;
   }
 
-  #sale .service-head{
-    display:grid !important;
-  }
+  
 
-  #sale .service-head,
-  #sale .service-row{
-    grid-template-columns:
-      minmax(185px,1.45fr)
-      125px
-      165px
-      minmax(175px,1fr)
-      76px
-      36px !important;
-    gap:6px !important;
-    align-items:center !important;
-  }
+  
 
-  #sale .service-row .svc,
-  #sale .service-row .pricebox,
-  #sale .service-row .discounts,
-  #sale .service-row .staff,
-  #sale .service-row .money,
-  #sale .service-row .remove{
-    grid-column:auto !important;
-  }
+  
 
-  #sale .pricebox{
-    grid-template-columns:minmax(0,1fr) 58px !important;
-  }
+  
 
-  #sale .discounts{
-    grid-template-columns:54px repeat(3,minmax(40px,1fr)) !important;
-    gap:3px !important;
-  }
+  
 
-  #sale .staff-single{
-    grid-template-columns:minmax(0,1fr) 62px !important;
-  }
+  
 
   #sale .money{
     justify-content:flex-end !important;
@@ -1284,22 +1152,11 @@ input,select,textarea{
 
 /* True phone layout only */
 @media (max-width:760px){
-  #sale .service-head{
-    display:none !important;
-  }
+  
 
-  #sale .service-row{
-    grid-template-columns:1fr !important;
-  }
+  
 
-  #sale .service-row .svc,
-  #sale .service-row .pricebox,
-  #sale .service-row .discounts,
-  #sale .service-row .staff,
-  #sale .service-row .money,
-  #sale .service-row .remove{
-    grid-column:1/-1 !important;
-  }
+  
 
   #sale .money{
     justify-content:flex-start !important;
@@ -1627,34 +1484,13 @@ input,select,textarea{
     min-width:0 !important;
   }
 
-  #sale .service-head,
-  #sale .service-row{
-    display:grid !important;
-    grid-template-columns:
-      minmax(245px,1.55fr)
-      155px
-      205px
-      minmax(220px,1.15fr)
-      88px
-      40px !important;
-    gap:8px !important;
-    align-items:center !important;
-  }
+  
 
-  #sale .service-head{
-    padding:0 10px 7px !important;
-  }
+  
 
-  #sale .service-row{
-    padding:9px !important;
-    margin-bottom:8px !important;
-  }
+  
 
-  #sale .service-row > *{
-    min-width:0 !important;
-    width:auto !important;
-    grid-column:auto !important;
-  }
+  
 
   /* SERVICE */
   #sale .svc{
@@ -1663,48 +1499,18 @@ input,select,textarea{
   }
 
   /* PRICE */
-  #sale .pricebox{
-    display:flex !important;
-    align-items:center !important;
-    gap:5px !important;
-    min-width:0 !important;
-  }
+  
 
-  #sale .pricebox input{
-    width:90px !important;
-    min-width:0 !important;
-    flex:1 1 auto !important;
-    text-align:right !important;
-  }
+  
 
-  #sale .pricebox .smallbtn{
-    width:58px !important;
-    min-width:58px !important;
-    flex:0 0 58px !important;
-  }
+  
 
   /* DISCOUNT */
-  #sale .discounts{
-    display:flex !important;
-    align-items:center !important;
-    gap:4px !important;
-    min-width:0 !important;
-    flex-wrap:nowrap !important;
-  }
+  
 
-  #sale .discounts input{
-    width:54px !important;
-    min-width:54px !important;
-    flex:0 0 54px !important;
-  }
+  
 
-  #sale .discounts .chip{
-    width:auto !important;
-    min-width:43px !important;
-    flex:1 1 0 !important;
-    padding:0 5px !important;
-    white-space:nowrap !important;
-  }
+  
 
   /* STAFF */
   #sale .staff{
@@ -1712,24 +1518,11 @@ input,select,textarea{
     width:100% !important;
   }
 
-  #sale .staff-single{
-    display:flex !important;
-    align-items:center !important;
-    gap:5px !important;
-    min-width:0 !important;
-  }
+  
 
-  #sale .staff-single .tech{
-    min-width:0 !important;
-    width:auto !important;
-    flex:1 1 auto !important;
-  }
+  
 
-  #sale .staff-single .smallbtn{
-    width:72px !important;
-    min-width:72px !important;
-    flex:0 0 72px !important;
-  }
+  
 
   /* NET */
   #sale .money{
@@ -1802,76 +1595,27 @@ input,select,textarea{
     gap:12px !important;
   }
 
-  #sale .service-head,
-  #sale .service-row{
-    display:grid !important;
-    grid-template-columns:
-      minmax(220px,1.45fr)
-      145px
-      195px
-      minmax(205px,1.1fr)
-      82px
-      38px !important;
-    gap:7px !important;
-    align-items:center !important;
-  }
+  
 
-  #sale .service-row > *{
-    min-width:0 !important;
-    width:auto !important;
-    grid-column:auto !important;
-  }
+  
 
-  #sale .pricebox{
-    display:flex !important;
-    gap:4px !important;
-  }
+  
 
-  #sale .pricebox input{
-    min-width:0 !important;
-    flex:1 1 auto !important;
-  }
+  
 
-  #sale .pricebox .smallbtn{
-    width:56px !important;
-    min-width:56px !important;
-    flex:0 0 56px !important;
-  }
+  
 
-  #sale .discounts{
-    display:flex !important;
-    gap:4px !important;
-    flex-wrap:nowrap !important;
-    align-items:center !important;
-  }
+  
 
-  #sale .discounts input{
-    width:52px !important;
-    min-width:52px !important;
-    flex:0 0 52px !important;
-  }
+  
 
-  #sale .discounts .chip{
-    min-width:40px !important;
-    flex:1 1 0 !important;
-    padding:0 4px !important;
-  }
+  
 
-  #sale .staff-single{
-    display:flex !important;
-    gap:4px !important;
-  }
+  
 
-  #sale .staff-single .tech{
-    min-width:0 !important;
-    flex:1 1 auto !important;
-  }
+  
 
-  #sale .staff-single .smallbtn{
-    width:68px !important;
-    min-width:68px !important;
-    flex:0 0 68px !important;
-  }
+  
 
   #sale .money{
     justify-content:flex-end !important;
@@ -1913,40 +1657,17 @@ input,select,textarea{
     grid-template-columns:1fr !important;
   }
 
-  #sale .service-head{
-    display:none !important;
-  }
+  
 
-  #sale .service-row{
-    display:grid !important;
-    grid-template-columns:1fr !important;
-    gap:8px !important;
-    padding:10px !important;
-  }
+  
 
-  #sale .service-row > *{
-    grid-column:1/-1 !important;
-    width:100% !important;
-    min-width:0 !important;
-  }
+  
 
-  #sale .pricebox{
-    display:grid !important;
-    grid-template-columns:1fr 82px !important;
-    gap:6px !important;
-  }
+  
 
-  #sale .discounts{
-    display:grid !important;
-    grid-template-columns:68px repeat(3,1fr) !important;
-    gap:5px !important;
-  }
+  
 
-  #sale .staff-single{
-    display:grid !important;
-    grid-template-columns:1fr 88px !important;
-    gap:6px !important;
-  }
+  
 
   #sale .money{
     justify-content:flex-start !important;
@@ -1984,18 +1705,11 @@ input,select,textarea{
 
 @media (max-width:520px){
 
-  #sale .discounts{
-    grid-template-columns:1fr 1fr !important;
-  }
+  
 
-  #sale .discounts input{
-    grid-column:1/-1 !important;
-  }
+  
 
-  #sale .pricebox,
-  #sale .staff-single{
-    grid-template-columns:1fr !important;
-  }
+  
 }
 
 
@@ -2026,17 +1740,9 @@ input,select,textarea{
 }
 
 /* ----- Service row ----- */
-#sale .service-row{
-  background:linear-gradient(180deg,#FAF7F1 0%,#F4EEE5 100%) !important;
-  border:1px solid #DED2C5 !important;
-  border-radius:13px !important;
-  box-shadow:0 2px 7px rgba(29,29,27,.025) !important;
-}
 
-#sale .service-head{
-  color:#7A7167 !important;
-  letter-spacing:.55px !important;
-}
+
+
 
 #sale .svc,
 #sale .tech{
@@ -2044,16 +1750,9 @@ input,select,textarea{
   font-weight:650 !important;
 }
 
-#sale .pricebox input{
-  font-weight:900 !important;
-  background:#F7F2EA !important;
-}
 
-#sale .pricebox input:not([readonly]){
-  background:#FFF9EE !important;
-  border-color:#BDAA98 !important;
-  box-shadow:0 0 0 3px rgba(202,186,173,.18) !important;
-}
+
+
 
 #sale .price-edit{
   width:48px !important;
@@ -2073,25 +1772,13 @@ input,select,textarea{
   color:var(--ink) !important;
 }
 
-#sale .discounts{
-  position:relative !important;
-}
 
-#sale .discounts .chip{
-  background:#fff !important;
-  color:#524C45 !important;
-  border-color:#D8CCC0 !important;
-}
 
-#sale .discounts .chip:hover{
-  background:#F0E8DD !important;
-}
 
-#sale .discounts .chip.active{
-  background:var(--ink) !important;
-  border-color:var(--ink) !important;
-  color:var(--cream) !important;
-}
+
+
+
+
 
 #sale .discount-custom{
   background:#FFF9EE !important;
@@ -2116,33 +1803,11 @@ input,select,textarea{
   border-radius:10px !important;
 }
 
-#sale .service-net{
-  min-width:82px !important;
-  position:relative !important;
-  flex-direction:column !important;
-  align-items:flex-end !important;
-  justify-content:center !important;
-  line-height:1.05 !important;
-  overflow:visible !important;
-}
 
-#sale .service-net::before{
-  content:"NET";
-  display:block;
-  font-size:8px;
-  font-weight:850;
-  letter-spacing:.55px;
-  color:#8A8076;
-  margin-bottom:3px;
-}
 
-#sale .service-net::after{
-  content:" KD";
-  font-size:9px;
-  color:#7B736B;
-  font-weight:800;
-  margin-left:2px;
-}
+
+
+
 
 #sale .remove{
   background:#F5E7E5 !important;
@@ -2288,9 +1953,7 @@ input,select,textarea{
 
 /* ----- Responsive safety ----- */
 @media (max-width:899px){
-  #sale .service-net{
-    align-items:flex-start !important;
-  }
+  
 
   #sale .paygrid{
     grid-template-columns:1fr !important;
@@ -2298,10 +1961,7 @@ input,select,textarea{
 }
 
 @media (max-width:520px){
-  #sale .discounts{
-    display:grid !important;
-    grid-template-columns:repeat(2,1fr) !important;
-  }
+  
 
   #sale .discount-custom{
     grid-column:1/-1 !important;
@@ -2316,66 +1976,21 @@ input,select,textarea{
    ========================================================= */
 
 @media (min-width:1250px){
-  #sale .service-head,
-  #sale .service-row{
-    grid-template-columns:
-      minmax(235px,1.48fr)
-      145px
-      190px
-      minmax(195px,1.08fr)
-      110px
-      40px !important;
-  }
+  
 }
 
 @media (min-width:900px) and (max-width:1249px){
-  #sale .service-head,
-  #sale .service-row{
-    grid-template-columns:
-      minmax(210px,1.38fr)
-      138px
-      182px
-      minmax(185px,1fr)
-      100px
-      38px !important;
-  }
+  
 }
 
-#sale .service-net{
-  min-width:100px !important;
-  width:100% !important;
-  display:grid !important;
-  grid-auto-rows:min-content !important;
-  justify-items:end !important;
-  align-content:center !important;
-  line-height:1.05 !important;
-  white-space:nowrap !important;
-  overflow:hidden !important;
-  padding-right:2px !important;
-}
 
-#sale .service-net::before{
-  content:"NET" !important;
-  display:block !important;
-  font-size:8px !important;
-  font-weight:850 !important;
-  letter-spacing:.55px !important;
-  color:#8A8076 !important;
-  margin-bottom:3px !important;
-}
 
-#sale .service-net::after{
-  content:none !important;
-  display:none !important;
-}
+
+
+
 
 @media (max-width:899px){
-  #sale .service-net{
-    justify-items:start !important;
-    min-width:0 !important;
-    width:auto !important;
-    overflow:visible !important;
-  }
+  
 }
 
 
@@ -2386,23 +2001,9 @@ input,select,textarea{
    ========================================================= */
 
 @media (min-width:1250px){
-  #sale .service-head,
-  #sale .service-row{
-    grid-template-columns:
-      minmax(220px,1.42fr)
-      138px
-      176px
-      minmax(176px,1fr)
-      94px
-      34px !important;
-    gap:6px !important;
-  }
+  
 
-  #sale .pricebox .smallbtn{
-    width:44px !important;
-    min-width:44px !important;
-    flex:0 0 44px !important;
-  }
+  
 
   #sale .price-edit.active{
     width:52px !important;
@@ -2410,29 +2011,13 @@ input,select,textarea{
     flex-basis:52px !important;
   }
 
-  #sale .discounts input{
-    width:50px !important;
-    min-width:50px !important;
-    flex:0 0 50px !important;
-  }
+  
 
-  #sale .discounts .chip{
-    min-width:38px !important;
-    padding:0 4px !important;
-    font-size:9px !important;
-  }
+  
 
-  #sale .staff-single .smallbtn{
-    width:62px !important;
-    min-width:62px !important;
-    flex:0 0 62px !important;
-    font-size:9px !important;
-    padding:0 4px !important;
-  }
+  
 
-  #sale .service-net{
-    min-width:88px !important;
-  }
+  
 
   #sale .remove{
     width:34px !important;
@@ -2442,47 +2027,17 @@ input,select,textarea{
 }
 
 @media (min-width:900px) and (max-width:1249px){
-  #sale .service-head,
-  #sale .service-row{
-    grid-template-columns:
-      minmax(195px,1.28fr)
-      132px
-      170px
-      minmax(165px,.95fr)
-      90px
-      34px !important;
-    gap:6px !important;
-  }
+  
 
-  #sale .pricebox .smallbtn{
-    width:42px !important;
-    min-width:42px !important;
-    flex:0 0 42px !important;
-  }
+  
 
-  #sale .discounts input{
-    width:48px !important;
-    min-width:48px !important;
-    flex:0 0 48px !important;
-  }
+  
 
-  #sale .discounts .chip{
-    min-width:36px !important;
-    padding:0 3px !important;
-    font-size:9px !important;
-  }
+  
 
-  #sale .staff-single .smallbtn{
-    width:58px !important;
-    min-width:58px !important;
-    flex:0 0 58px !important;
-    font-size:9px !important;
-    padding:0 3px !important;
-  }
+  
 
-  #sale .service-net{
-    min-width:84px !important;
-  }
+  
 
   #sale .remove{
     width:34px !important;
@@ -2492,17 +2047,11 @@ input,select,textarea{
 }
 
 /* Safety: keep right-most items inside the card */
-#sale .service-row{
-  overflow:hidden !important;
-}
 
-#sale .service-row > .remove{
-  justify-self:end !important;
-}
 
-#sale .service-row > .money{
-  justify-self:stretch !important;
-}
+
+
+
 
 
 /* =========================================================
@@ -2617,19 +2166,11 @@ input,select,textarea{
 }
 
 /* Keep service card visually aligned with payment panel */
-#sale .service-row{
-  min-height:60px !important;
-}
 
-#sale .service-head{
-  padding-right:8px !important;
-}
 
-#sale .service-net{
-  box-sizing:border-box !important;
-  padding-left:3px !important;
-  padding-right:3px !important;
-}
+
+
+
 
 /* Clearer main form hierarchy */
 #sale .card > .title h2{
@@ -3262,14 +2803,14 @@ nav button:hover,.main-nav button:hover,.btn:hover,.smallbtn:hover{transform:tra
 
 /* ===== MERGED FROM v10-4.css ===== */
 /* PAGE.1 V10.4 — Category > Service selector */
-#sale .service-picker{display:grid!important;grid-template-columns:1fr!important;gap:6px!important;width:100%!important;min-width:0!important}
-#sale .service-picker select{width:100%!important;min-width:0!important;height:40px!important}
-#sale .svc-category{background:#F4EDE3!important;border-color:#D5C7BA!important;color:#504940!important;font-weight:850!important}
+
+
+
 #sale .svc{background:#fff!important;font-weight:700!important}
 #sale .svc:disabled{background:#F7F4EF!important;color:#9A9188!important;cursor:not-allowed!important}
-#sale .service-row{align-items:center!important}
-#sale .service-head>div:first-child{color:#5F574F!important}
-@media(max-width:899px){#sale .service-picker{grid-column:1/-1!important}#sale .service-picker::before{content:"CATEGORY / SERVICE";display:block;font-size:8px;font-weight:900;letter-spacing:.75px;color:#8A8076;margin-bottom:-1px}}
+
+
+@media(max-width:899px){}
 
 
 /* ===== MERGED FROM v10-5.css ===== */
@@ -3301,7 +2842,7 @@ body:not(.auth-locked) .card{border-color:rgba(202,186,173,.58)!important;border
 .salon-pro-dashboard{animation:p1FadeUp .28s ease both}.dashboard-hero{display:flex;justify-content:space-between;align-items:flex-end;gap:18px;padding:21px 23px!important;background:linear-gradient(135deg,#FFFEFB 0%,#F4ECE2 100%)!important}.dashboard-hero h2{font-family:Georgia,serif;font-size:27px;margin:4px 0 5px}.dash-kicker{font-size:8px;font-weight:900;letter-spacing:.15em;color:#8C8177}.dashboard-controls{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}.segmented-control{display:flex;background:#EDE5DC;padding:3px;border-radius:11px}.segmented-control .smallbtn{border:0!important;background:transparent!important}.segmented-control .smallbtn.active{background:#fff!important;box-shadow:0 3px 9px rgba(29,29,27,.08)!important}.dash-summary-grid{display:grid;grid-template-columns:1.5fr .75fr .75fr 1.2fr;gap:12px;margin:13px 0}.dash-total-card,.dash-mini-card,.dash-payment-card{position:relative;overflow:hidden;border:1px solid rgba(202,186,173,.62);border-radius:18px;background:#FFFEFB;box-shadow:0 10px 28px rgba(29,29,27,.04)}.dash-total-card{background:var(--p1-ink);color:#fff;padding:19px 21px;min-height:128px}.dash-total-card>span,.dash-mini-card>span{font-size:8px;text-transform:uppercase;letter-spacing:.11em;font-weight:850;color:#9B938B}.dash-total-card>span{color:#BEB8B0}.dash-total-card strong{display:block;font-family:Georgia,serif;font-size:31px;margin-top:12px}.dash-total-card small{display:block;color:#918A83;margin-top:7px;font-size:9px}.dash-total-accent{position:absolute;width:130px;height:130px;border:25px solid rgba(233,226,208,.08);border-radius:50%;right:-45px;top:-52px}.dash-mini-card{padding:18px}.dash-mini-card strong{display:block;font-family:Georgia,serif;font-size:24px;margin-top:15px}.dash-mini-card small{display:block;font-size:8px;color:#9A9189;margin-top:7px}.dash-payment-card{padding:10px 17px;display:grid}.dash-payment-card>div{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1px solid #EEE6DD}.dash-payment-card>div:last-child{border-bottom:0}.dash-payment-card span{font-size:9px;color:var(--p1-muted);font-weight:800}.dash-payment-card strong{font-size:12px}.dashboard-action-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:13px;margin-bottom:13px}.dashboard-quick-card,.dashboard-alert-card{margin:0!important}.quick-actions{display:grid;grid-template-columns:repeat(4,1fr);gap:9px}.quick-actions button{border:1px solid var(--p1-line);background:#F8F3EC;border-radius:14px;min-height:104px;padding:13px;text-align:left;cursor:pointer;display:grid;align-content:start;transition:.18s ease}.quick-actions button:hover{background:var(--p1-ink);color:#fff;transform:translateY(-2px);box-shadow:0 10px 24px rgba(29,29,27,.12)}.quick-actions button>span{font-size:21px;margin-bottom:9px}.quick-actions button b{font-size:10px}.quick-actions button small{font-size:8px;color:#8D8379;margin-top:3px}.quick-actions button:hover small{color:#BEB7AF}.dash-alert-summary{display:flex;gap:11px;align-items:center;background:#F8F3EC;border:1px solid #E6DCD1;border-radius:14px;padding:15px;min-height:88px}.dash-alert-summary>span{width:37px;height:37px;display:grid;place-items:center;border-radius:11px;flex:0 0 auto;font-weight:900}.alert-good{background:#EAF2E6;color:#587252}.alert-warning{background:#F7DFDB;color:#9D3E34}.dash-alert-summary div{display:grid;gap:3px}.dash-alert-summary b{font-size:10px;line-height:1.45}.dash-alert-summary small{font-size:8px;color:var(--p1-muted)}.salon-ranking-grid{margin-bottom:13px}.salon-ranking-grid .card{margin:0!important}.salon-ranking-grid .bar{grid-template-columns:minmax(90px,140px) 1fr 80px}.salon-ranking-grid .fill{background:linear-gradient(90deg,#1D1D1B,#6B625A)!important}.trend-pro{margin-top:0!important}
 
 /* New Sale — fast Category > Service cards */
-#sale .service-picker{gap:7px!important}.service-quick-grid{display:none;grid-template-columns:repeat(auto-fit,minmax(112px,1fr));gap:6px;margin-top:2px;max-height:150px;overflow:auto;padding:2px}.service-quick-grid.show{display:grid}.service-quick-card{min-width:0;border:1px solid #DED3C7;background:#FAF6F0;border-radius:10px;padding:8px 9px;text-align:left;cursor:pointer;transition:.15s ease}.service-quick-card span{display:block;font-size:9px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.service-quick-card small{display:block;font-size:7px;color:#8B8177;margin-top:3px}.service-quick-card:hover,.service-quick-card.active{background:var(--p1-ink);border-color:var(--p1-ink);color:#fff;transform:translateY(-1px)}.service-quick-card:hover small,.service-quick-card.active small{color:#CFC7BF}
+
 
 @keyframes p1FadeUp{from{opacity:0;transform:translateY(7px)}to{opacity:1;transform:none}}
 
@@ -3313,9 +2854,9 @@ body:not(.auth-locked) .card{border-color:rgba(202,186,173,.58)!important;border
   body:not(.auth-locked)>main{margin-left:0!important;padding:calc(var(--p1-topbar) + 15px) 12px 94px!important}.notification-panel{width:min(410px,100vw)!important}.dashboard-hero{align-items:flex-start;flex-direction:column}.dashboard-controls{justify-content:flex-start;width:100%}.dash-summary-grid{grid-template-columns:1fr 1fr}.dash-total-card{grid-column:1/-1}.dash-payment-card{grid-column:1/-1}.quick-actions{grid-template-columns:1fr 1fr}.salon-ranking-grid{grid-template-columns:1fr!important}
 }
 
-@media(max-width:560px){.workspace-heading>small{max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dash-summary-grid{grid-template-columns:1fr}.dash-total-card{grid-column:auto}.dash-payment-card{grid-template-columns:1fr}.dash-payment-card>div{border-right:0;border-bottom:1px solid #EEE6DD}.dashboard-controls input,.dashboard-controls select{max-width:145px}.quick-actions button{min-height:92px}.notification-overview{grid-template-columns:1fr 1fr 1fr}.service-quick-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-height:180px}}
+@media(max-width:560px){.workspace-heading>small{max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dash-summary-grid{grid-template-columns:1fr}.dash-total-card{grid-column:auto}.dash-payment-card{grid-template-columns:1fr}.dash-payment-card>div{border-right:0;border-bottom:1px solid #EEE6DD}.dashboard-controls input,.dashboard-controls select{max-width:145px}.quick-actions button{min-height:92px}.notification-overview{grid-template-columns:1fr 1fr 1fr}}
 
-@media(prefers-reduced-motion:reduce){.notification-panel,.service-quick-card,.quick-actions button,.app-sidebar .main-nav button{transition:none!important}.salon-pro-dashboard{animation:none!important}}
+@media(prefers-reduced-motion:reduce){.salon-pro-dashboard{animation:none!important}}
 
 
 /* =========================================================
@@ -3374,46 +2915,15 @@ body:not(.auth-locked) .card{border-color:rgba(202,186,173,.58)!important;border
 
 /* POS service row: keep Net comfortably inside the card. */
 @media (min-width:1101px){
-  #sale .service-head,
-  #sale .service-row{
-    grid-template-columns:
-      minmax(205px,1.55fr)
-      120px
-      190px
-      minmax(180px,1fr)
-      88px
-      36px!important;
-    column-gap:8px!important;
-  }
+  
 
-  #sale .service-head > div:nth-child(5){
-    text-align:center!important;
-  }
+  
 
-  #sale .service-row .service-net,
-  #sale .service-row > .money{
-    justify-content:center!important;
-    text-align:center!important;
-    padding:0 5px!important;
-    min-width:0!important;
-    border-radius:9px!important;
-    background:rgba(255,255,255,.58)!important;
-    border:1px solid rgba(214,201,189,.72)!important;
-  }
+  
 }
 
 @media (min-width:901px) and (max-width:1280px){
-  #sale .service-head,
-  #sale .service-row{
-    grid-template-columns:
-      minmax(175px,1.4fr)
-      105px
-      170px
-      minmax(155px,.95fr)
-      78px
-      34px!important;
-    column-gap:6px!important;
-  }
+  
 }
 
 /* =========================================================
@@ -3422,152 +2932,49 @@ body:not(.auth-locked) .card{border-color:rgba(202,186,173,.58)!important;border
    ========================================================= */
 
 /* Kill legacy intrinsic widths that can force the grid wider than its card. */
-#sale .service-row,
-#sale .service-row > *,
-#sale .service-picker,
-#sale .pricebox,
-#sale .discounts,
-#sale .staff,
-#sale .staff-single,
-#sale .service-net,
-#sale .service-row > .money{
-  min-width:0!important;
-  max-width:100%!important;
-  box-sizing:border-box!important;
-}
 
-#sale .service-row{
-  width:100%!important;
-  overflow:visible!important;
-}
 
-#sale .service-net,
-#sale .service-row > .money{
-  width:auto!important;
-  min-width:0!important;
-  justify-content:center!important;
-  text-align:center!important;
-  white-space:nowrap!important;
-}
+
+
+
 
 /* Wide desktop: one compact horizontal row. */
 @media (min-width:1351px){
-  #sale .service-head,
-  #sale .service-row{
-    grid-template-columns:
-      minmax(220px,1.55fr)
-      118px
-      190px
-      minmax(175px,1fr)
-      86px
-      36px!important;
-    gap:7px!important;
-  }
+  
 
-  #sale .discounts{
-    gap:4px!important;
-  }
+  
 
-  #sale .staff-single{
-    grid-template-columns:minmax(0,1fr) 66px!important;
-    gap:5px!important;
-  }
+  
 }
 
 /* Laptop / tablet landscape: use a clean two-line service card.
    This is intentionally roomier instead of squeezing Net off-screen. */
 @media (min-width:901px) and (max-width:1350px){
-  #sale .service-head{
-    display:none!important;
-  }
+  
 
-  #sale .service-row{
-    display:grid!important;
-    grid-template-columns:
-      minmax(230px,1.35fr)
-      120px
-      minmax(220px,1.15fr)
-      88px
-      38px!important;
-    grid-template-areas:
-      "picker price discount discount discount"
-      "picker staff staff net remove"!important;
-    gap:8px!important;
-    align-items:center!important;
-    padding:11px!important;
-  }
+  
 
-  #sale .service-picker{
-    grid-area:picker!important;
-    align-self:stretch!important;
-    display:grid!important;
-    grid-template-rows:1fr 1fr!important;
-    gap:7px!important;
-  }
+  
 
-  #sale .pricebox{
-    grid-area:price!important;
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr) 42px!important;
-    gap:5px!important;
-  }
+  
 
-  #sale .pricebox .smallbtn{
-    width:42px!important;
-    min-width:42px!important;
-    padding:0!important;
-  }
+  
 
-  #sale .discounts{
-    grid-area:discount!important;
-    display:flex!important;
-    flex-wrap:nowrap!important;
-    gap:5px!important;
-    min-width:0!important;
-  }
+  
 
-  #sale .discounts input{
-    width:54px!important;
-    min-width:54px!important;
-    flex:0 0 54px!important;
-  }
+  
 
-  #sale .discounts .chip{
-    min-width:0!important;
-    flex:1 1 0!important;
-    padding:0 7px!important;
-  }
+  
 
   #sale .staff{
     grid-area:staff!important;
   }
 
-  #sale .staff-single{
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr) 68px!important;
-    gap:6px!important;
-  }
+  
 
-  #sale .staff-single .smallbtn{
-    width:68px!important;
-    min-width:68px!important;
-    padding:0 5px!important;
-  }
+  
 
-  #sale .service-net,
-  #sale .service-row > .money{
-    grid-area:net!important;
-    min-width:0!important;
-    width:100%!important;
-    height:42px!important;
-    padding:0 4px!important;
-    font-size:15px!important;
-    border-radius:9px!important;
-    background:rgba(255,255,255,.64)!important;
-    border:1px solid rgba(214,201,189,.78)!important;
-    overflow:hidden!important;
-    text-overflow:ellipsis!important;
-  }
+  
 
   #sale .remove{
     grid-area:remove!important;
@@ -3578,27 +2985,14 @@ body:not(.auth-locked) .card{border-color:rgba(202,186,173,.58)!important;border
   }
 
   /* Small field labels keep the two-row layout obvious. */
-  #sale .pricebox,
-  #sale .discounts,
-  #sale .staff,
-  #sale .service-net,
-  #sale .service-row > .money{
-    position:relative!important;
-  }
+  
 }
 
 /* Smaller widths already use the stacked mobile layout. Ensure no overflow leaks. */
 @media (max-width:900px){
-  #sale .service-row{
-    overflow:hidden!important;
-  }
+  
 
-  #sale .service-net,
-  #sale .service-row > .money{
-    width:100%!important;
-    justify-content:flex-start!important;
-    padding-left:10px!important;
-  }
+  
 }
 
 
@@ -3624,151 +3018,49 @@ body:not(.auth-locked) .card{border-color:rgba(202,186,173,.58)!important;border
   overflow:hidden!important;
 }
 
-#sale .service-row{
-  width:100%!important;
-  max-width:100%!important;
-  min-width:0!important;
-  overflow:hidden!important;
-  box-sizing:border-box!important;
-}
 
-#sale .service-row > *,
-#sale .service-picker,
-#sale .pricebox,
-#sale .discounts,
-#sale .staff,
-#sale .staff-single,
-#sale .service-net{
-  min-width:0!important;
-  max-width:100%!important;
-  box-sizing:border-box!important;
-}
+
+
 
 /* Spacious sales column: compact single-row layout. */
 @container saleMain (min-width:1101px){
-  #sale .service-head,
-  #sale .service-row{
-    grid-template-columns:
-      minmax(220px,1.55fr)
-      112px
-      188px
-      minmax(178px,1fr)
-      86px
-      34px!important;
-    gap:7px!important;
-  }
+  
 
-  #sale .service-head{
-    display:grid!important;
-  }
+  
 
-  #sale .service-row{
-    grid-template-areas:none!important;
-  }
+  
 }
 
 /* Typical desktop/laptop sales column: clean two-line layout. */
 @container saleMain (min-width:760px) and (max-width:1100px){
-  #sale .service-head{
-    display:none!important;
-  }
+  
 
-  #sale .service-row{
-    display:grid!important;
-    grid-template-columns:
-      minmax(230px,1.25fr)
-      116px
-      minmax(225px,1fr)
-      88px
-      34px!important;
-    grid-template-areas:
-      "picker price staff net remove"
-      "picker discount discount net remove"!important;
-    gap:8px!important;
-    align-items:center!important;
-    padding:11px!important;
-  }
+  
 
-  #sale .service-picker{
-    grid-area:picker!important;
-    display:grid!important;
-    grid-template-columns:1fr!important;
-    grid-template-rows:auto auto!important;
-    gap:7px!important;
-    align-self:stretch!important;
-  }
+  
 
-  #sale .pricebox{
-    grid-area:price!important;
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr) 42px!important;
-    gap:5px!important;
-  }
+  
 
-  #sale .pricebox .smallbtn{
-    width:42px!important;
-    min-width:42px!important;
-    padding:0!important;
-  }
+  
 
-  #sale .discounts{
-    grid-area:discount!important;
-    display:flex!important;
-    flex-wrap:nowrap!important;
-    gap:5px!important;
-    width:100%!important;
-  }
+  
 
-  #sale .discounts .chip{
-    flex:1 1 0!important;
-    min-width:0!important;
-    padding:0 6px!important;
-  }
+  
 
-  #sale .discounts input{
-    flex:0 0 58px!important;
-    width:58px!important;
-    min-width:58px!important;
-  }
+  
 
   #sale .staff{
     grid-area:staff!important;
     width:100%!important;
   }
 
-  #sale .staff-single{
-    display:grid!important;
-    grid-template-columns:minmax(0,1fr) 70px!important;
-    gap:6px!important;
-    width:100%!important;
-  }
+  
 
-  #sale .staff-single .smallbtn{
-    width:70px!important;
-    min-width:70px!important;
-    padding:0 5px!important;
-  }
+  
 
-  #sale .service-net,
-  #sale .service-row > .money{
-    grid-area:net!important;
-    width:100%!important;
-    min-width:0!important;
-    height:92px!important;
-    display:grid!important;
-    place-content:center!important;
-    justify-items:center!important;
-    padding:8px 4px!important;
-    text-align:center!important;
-    overflow:hidden!important;
-    border-radius:10px!important;
-    background:rgba(255,255,255,.68)!important;
-    border:1px solid rgba(214,201,189,.8)!important;
-  }
+  
 
-  #sale .service-net::before{
-    margin-bottom:6px!important;
-  }
+  
 
   #sale .remove{
     grid-area:remove!important;
@@ -3782,36 +3074,15 @@ body:not(.auth-locked) .card{border-color:rgba(202,186,173,.58)!important;border
 
 /* Narrow sales column / mobile: fully stacked and impossible to clip. */
 @container saleMain (max-width:759px){
-  #sale .service-head{
-    display:none!important;
-  }
+  
 
-  #sale .service-row{
-    display:grid!important;
-    grid-template-columns:1fr!important;
-    grid-template-areas:
-      "picker"
-      "price"
-      "discount"
-      "staff"
-      "net"
-      "remove"!important;
-    gap:8px!important;
-  }
+  
 
-  #sale .service-picker{grid-area:picker!important}
-  #sale .pricebox{grid-area:price!important}
-  #sale .discounts{grid-area:discount!important}
+  
+  
+  
   #sale .staff{grid-area:staff!important}
-  #sale .service-net,
-  #sale .service-row > .money{
-    grid-area:net!important;
-    width:100%!important;
-    justify-content:flex-start!important;
-    justify-items:start!important;
-    text-align:left!important;
-    padding:10px!important;
-  }
+  
   #sale .remove{
     grid-area:remove!important;
     justify-self:end!important;
@@ -3825,35 +3096,77 @@ body:not(.auth-locked) .card{border-color:rgba(202,186,173,.58)!important;border
   .main-nav{width:100% !important;min-width:0 !important;max-width:none !important;box-sizing:border-box !important;overflow:hidden !important;}
   .main-nav > *,.main-nav button,.main-nav .nav-btn,.main-nav .tabbtn{width:100% !important;min-width:0 !important;max-width:100% !important;box-sizing:border-box !important;}
 }
-#sale,#sale .sale-layout,#sale .sale-left,#sale .sale-main,#sale .card,#sale .services-card,#sale .service-list,#sale .service-row{min-width:0 !important;max-width:100% !important;box-sizing:border-box !important;}
+
 #sale .services-card,#sale .service-list{container-type:inline-size;}
-#sale .service-head,#sale .service-row{
-  display:grid !important;
-  grid-template-columns:minmax(250px,1.75fr) minmax(86px,.62fr) minmax(220px,1.35fr) minmax(150px,1fr) minmax(92px,.62fr) 36px !important;
-  gap:10px !important;align-items:center !important;width:100% !important;
-}
-#sale .service-head > *,#sale .service-row > *{min-width:0 !important;max-width:100% !important;box-sizing:border-box !important;}
-#sale .service-picker{min-width:0 !important;width:100% !important;}
-#sale .service-picker select,#sale .pricebox,#sale .discounts,#sale .staff,#sale .service-net{min-width:0 !important;max-width:100% !important;box-sizing:border-box !important;}
-#sale .discounts{display:flex !important;flex-wrap:wrap !important;gap:6px !important;}
-#sale .discounts .chip,#sale .discounts button{flex:0 0 auto !important;}
-#sale .staff,#sale .staff-single{width:100% !important;min-width:0 !important;}
-#sale .staff-single{display:flex !important;gap:7px !important;align-items:center !important;}
-#sale .staff-single select{min-width:0 !important;width:100% !important;flex:1 1 auto !important;}
-#sale .staff-single .split-lite{flex:0 0 auto !important;}
-#sale .service-net{justify-self:stretch !important;text-align:center !important;white-space:nowrap !important;overflow:hidden !important;}
+
+
+
+
+
+
+
+
+
+
+
 #sale .remove{justify-self:center !important;margin:0 !important;}
 @container (max-width: 980px){
-  #sale .service-head{display:none !important;}
-  #sale .service-row{
-    grid-template-columns:minmax(220px,1.35fr) minmax(88px,.55fr) minmax(180px,1fr) minmax(92px,.58fr) 36px !important;
-    grid-template-areas:'picker price staff net remove' 'picker disc disc disc remove' !important;
-    gap:10px !important;align-items:center !important;
-  }
-  #sale .service-picker{grid-area:picker !important;} #sale .pricebox{grid-area:price !important;} #sale .discounts{grid-area:disc !important;} #sale .staff{grid-area:staff !important;} #sale .service-net{grid-area:net !important;min-width:0 !important;width:100% !important;} #sale .remove{grid-area:remove !important;}
+  
+  
+     #sale .staff{grid-area:staff !important;}  #sale .remove{grid-area:remove !important;}
 }
 @container (max-width: 720px){
-  #sale .service-row{grid-template-columns:1fr 1fr !important;grid-template-areas:'picker picker' 'price net' 'disc disc' 'staff staff' 'remove remove' !important;}
+  
   #sale .remove{justify-self:end !important;}
 }
-@media (max-width: 900px){#sale .service-head{display:none !important;} #sale .service-row{min-width:0 !important;overflow:hidden !important;}}
+@media (max-width: 900px){ }
+/* ===== PAGE.1 V10.5.6 — STABLE NEW SALE SERVICE LAYOUT ===== */
+#sale .services-card{container-type:inline-size;overflow:hidden}
+#sale .service-head{display:grid!important;grid-template-columns:minmax(250px,1.55fr) minmax(120px,.62fr) minmax(190px,1fr) minmax(105px,.55fr) 44px!important;gap:10px!important;align-items:end!important;padding:0 14px 8px!important;font-size:9px!important;font-weight:850!important;letter-spacing:.07em!important;color:#756D65!important;text-transform:uppercase!important}
+#sale .service-head>div:nth-child(1){grid-column:1}
+#sale .service-head>div:nth-child(2){grid-column:2}
+#sale .service-head>div:nth-child(3){display:none!important}
+#sale .service-head>div:nth-child(4){grid-column:3}
+#sale .service-head>div:nth-child(5){grid-column:4;text-align:center}
+#sale .service-head>div:nth-child(6){grid-column:5}
+#sale .service-row{display:grid!important;grid-template-columns:minmax(250px,1.55fr) minmax(120px,.62fr) minmax(190px,1fr) minmax(105px,.55fr) 44px!important;grid-template-areas:"picker price staff net remove" "picker discount discount discount remove"!important;gap:10px!important;align-items:center!important;width:100%!important;max-width:100%!important;min-width:0!important;box-sizing:border-box!important;padding:12px!important;margin:0 0 10px!important;overflow:hidden!important;background:linear-gradient(180deg,#FAF7F1 0%,#F5EEE5 100%)!important;border:1px solid #DED1C4!important;border-radius:15px!important}
+#sale .service-row>*{min-width:0!important;max-width:100%!important;box-sizing:border-box!important}
+#sale .service-picker{grid-area:picker!important;display:grid!important;grid-template-columns:1fr!important;gap:7px!important;width:100%!important;min-width:0!important;align-self:start!important}
+#sale .service-picker select{width:100%!important;min-width:0!important;height:43px!important;box-sizing:border-box!important}
+#sale .svc-category{background:#F1E9DE!important;border-color:#D5C7BA!important;color:#4E4841!important;font-weight:850!important}
+#sale .svc{background:#FFFDF9!important;font-weight:750!important}
+#sale .svc:disabled{background:#F7F3ED!important;color:#9A9188!important;cursor:not-allowed!important}
+#sale .service-quick-grid{display:none;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px;max-height:150px;overflow:auto;padding:1px}
+#sale .service-quick-grid.show{display:grid}
+#sale .service-quick-card{min-width:0;border:1px solid #DED3C7;background:#FFFDF9;border-radius:10px;padding:8px 9px;text-align:left;cursor:pointer;transition:.15s ease}
+#sale .service-quick-card span{display:block;font-size:9px;font-weight:850;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+#sale .service-quick-card small{display:block;font-size:7px;color:#8B8177;margin-top:3px}
+#sale .service-quick-card:hover,#sale .service-quick-card.active{background:#1D1D1B;border-color:#1D1D1B;color:#fff;transform:translateY(-1px)}
+#sale .service-quick-card:hover small,#sale .service-quick-card.active small{color:#CFC7BF}
+#sale .pricebox{grid-area:price!important;display:grid!important;grid-template-columns:minmax(0,1fr) 48px!important;gap:6px!important;align-items:center!important;width:100%!important;min-width:0!important}
+#sale .pricebox input{width:100%!important;min-width:0!important;height:43px!important;text-align:right!important;font-weight:850!important;box-sizing:border-box!important}
+#sale .pricebox .smallbtn{width:48px!important;min-width:48px!important;height:43px!important;padding:0 5px!important;overflow:hidden!important}
+#sale .discounts{grid-area:discount!important;display:flex!important;flex-wrap:nowrap!important;align-items:center!important;gap:6px!important;width:100%!important;min-width:0!important;overflow:visible!important}
+#sale .discounts::before{content:"Discount";flex:0 0 60px;font-size:8px;font-weight:850;letter-spacing:.06em;text-transform:uppercase;color:#80766D}
+#sale .discounts .chip{flex:0 0 auto!important;min-width:52px!important;height:38px!important;padding:0 10px!important;white-space:nowrap!important}
+#sale .discounts .discount-custom{flex:0 0 82px!important;width:82px!important;min-width:82px!important;height:38px!important;box-sizing:border-box!important}
+#sale .staff{grid-area:staff!important;width:100%!important;min-width:0!important}
+#sale .staff-single{display:grid!important;grid-template-columns:minmax(0,1fr) 68px!important;gap:6px!important;align-items:center!important;width:100%!important;min-width:0!important}
+#sale .staff-single select{width:100%!important;min-width:0!important;height:43px!important}
+#sale .staff-single .split-lite{width:68px!important;min-width:68px!important;height:43px!important;padding:0 6px!important}
+#sale .service-net{grid-area:net!important;width:100%!important;min-width:0!important;height:58px!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0 8px!important;border:1px solid #D9CDBF!important;border-radius:11px!important;background:#FFFDF9!important;font-size:18px!important;font-weight:900!important;text-align:center!important;white-space:nowrap!important;overflow:hidden!important;box-sizing:border-box!important}
+#sale .service-row>.remove{grid-area:remove!important;width:44px!important;min-width:44px!important;height:58px!important;align-self:stretch!important;justify-self:center!important;margin:0!important;border-radius:11px!important}
+#sale .split-panel{width:100%!important;min-width:0!important;box-sizing:border-box!important}
+@container (max-width:760px){
+#sale .service-head{display:none!important}
+#sale .service-row{grid-template-columns:minmax(0,1fr) minmax(100px,.55fr) 44px!important;grid-template-areas:"picker picker remove" "price net remove" "discount discount discount" "staff staff staff"!important}
+#sale .service-net{height:43px!important}
+#sale .service-row>.remove{height:auto!important;min-height:43px!important}
+#sale .discounts{flex-wrap:wrap!important}
+}
+@container (max-width:520px){
+#sale .service-row{grid-template-columns:1fr 44px!important;grid-template-areas:"picker remove" "price price" "discount discount" "staff staff" "net net"!important}
+#sale .discounts::before{flex-basis:100%!important}
+#sale .service-quick-grid{grid-template-columns:1fr 1fr}
+#sale .service-row>.remove{min-height:43px!important}
+}
