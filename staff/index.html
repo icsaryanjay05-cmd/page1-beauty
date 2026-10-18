@@ -8,9 +8,9 @@
 <meta name="description" content="Secure PAGE.1 Beauty Salon staff management portal.">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <link rel="stylesheet" href="../assets/css/staff.css">
-<link rel="stylesheet" href="../assets/css/nav-fix.css">
 <link rel="stylesheet" href="../assets/css/v10-3.css">
 <link rel="stylesheet" href="../assets/css/v10-4.css">
+<link rel="stylesheet" href="../assets/css/v10-5.css">
 </head>
 <body class="auth-locked">
 
@@ -65,7 +65,50 @@
   </div>
 </div>
 
-<header><div class="brand"><img src="../assets/images/page1-logo.png" alt="PAGE.1"><div class="brandcopy"><b>BEAUTY SALON SYSTEM</b><span>Sales entry & reporting</span></div></div><div class="header-actions"><nav class="main-nav"><button id="navSale" class="active" onclick="showView('sale')">New Sale</button><button id="navAppointments" onclick="showView('appointments')">Appointments</button><button id="navDash" onclick="showView('dash')">Dashboard</button><button id="navOps" onclick="showView('ops')">Operations</button><button id="navManager" onclick="openManagerConsole()">Manager</button></nav><div class="notification-wrap" id="notificationWrap"><button id="notificationBtn" class="notification-btn" onclick="toggleNotificationPanel()" title="Notifications" aria-label="Notifications">🔔<span id="notificationBadge" class="notification-badge">0</span></button><div id="notificationPanel" class="notification-panel"><div class="notification-head"><strong>PAGE.1 Notifications</strong><button class="notification-refresh" onclick="loadSalonNotifications()">Refresh</button></div><div id="notificationContent"><div class="notification-empty">Loading notifications...</div></div></div></div><div class="user-chip"><div class="user-avatar" id="authAvatar">U</div><div class="user-copy"><strong id="authUserName">User</strong><span id="authUserRole">Role</span></div><button class="logout-btn" onclick="logoutUser()" title="Sign out">Logout</button></div></div></header>
+<aside class="app-sidebar" aria-label="Staff navigation">
+  <div class="sidebar-brand">
+    <div class="sidebar-logo-wrap"><img src="../assets/images/page1-logo.png" alt="PAGE.1"></div>
+    <div class="sidebar-brand-copy"><strong>PAGE.1</strong><span>Salon Workspace</span></div>
+  </div>
+  <nav class="main-nav">
+    <button id="navSale" class="active" onclick="showView('sale')" title="New Sale"><span class="nav-icon">＋</span><span class="nav-label">New Sale</span></button>
+    <button id="navAppointments" onclick="showView('appointments')" title="Appointments"><span class="nav-icon">▦</span><span class="nav-label">Appointments</span></button>
+    <button id="navDash" onclick="showView('dash')" title="Dashboard"><span class="nav-icon">⌁</span><span class="nav-label">Dashboard</span></button>
+    <button id="navOps" onclick="showView('ops')" title="Operations"><span class="nav-icon">◇</span><span class="nav-label">Operations</span></button>
+    <button id="navManager" onclick="openManagerConsole()" title="Manager"><span class="nav-icon">⌘</span><span class="nav-label">Manager</span></button>
+  </nav>
+  <div class="sidebar-footer">
+    <span class="sidebar-status-dot"></span>
+    <div><b>PAGE.1 Online</b><small>Google Sheets connected</small></div>
+  </div>
+</aside>
+
+<header class="app-topbar">
+  <div class="workspace-heading">
+    <span id="pageEyebrow">PAGE.1 WORKSPACE</span>
+    <strong id="pageTitle">New Sale</strong>
+    <small id="workspaceGreeting">Salon management</small>
+  </div>
+  <div class="header-actions">
+    <div class="notification-wrap" id="notificationWrap">
+      <button id="notificationBtn" class="notification-btn" onclick="toggleNotificationPanel()" title="Notifications" aria-label="Notifications"><span class="bell-glyph">♢</span><span id="notificationBadge" class="notification-badge">0</span></button>
+      <div id="notificationPanel" class="notification-panel" role="dialog" aria-label="PAGE.1 notifications">
+        <div class="notification-drawer-top">
+          <div><span class="drawer-kicker">PAGE.1 ALERT CENTER</span><h3>Notifications</h3></div>
+          <button class="notification-close" onclick="closeNotificationPanel()" aria-label="Close notifications">×</button>
+        </div>
+        <div class="notification-head"><span>Inventory & client reminders</span><button class="notification-refresh" onclick="loadSalonNotifications()">↻ Refresh</button></div>
+        <div id="notificationContent"><div class="notification-empty">Loading notifications...</div></div>
+      </div>
+    </div>
+    <div class="user-chip">
+      <div class="user-avatar" id="authAvatar">U</div>
+      <div class="user-copy"><strong id="authUserName">User</strong><span id="authUserRole">Role</span></div>
+      <button class="logout-btn" onclick="logoutUser()" title="Sign out">Logout</button>
+    </div>
+  </div>
+</header>
+<div id="notificationScrim" class="notification-scrim" onclick="closeNotificationPanel()"></div>
 <main>
 <section id="sale" class="view active">
 <div class="layout"><div>
@@ -543,17 +586,63 @@
   </div>
 </section>
 
-<section id="dash" class="view">
-<div class="card"><div class="title"><h2>Sales Dashboard</h2><span class="muted">Performance overview</span></div><div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><button id="dailyBtn" class="smallbtn active" onclick="dashMode='daily';loadDash()">Daily</button><button id="monthlyBtn" class="smallbtn" onclick="dashMode='monthly';loadDash()">Monthly</button><input id="dashDate" type="date" onchange="loadDash()"><select id="dashMonth" onchange="loadDash()" style="display:none"></select><button class="smallbtn print-btn" onclick="printDashboard()">🖨 Print / Save PDF</button></div></div>
-<div class="kpis"><div class="kpi dark"><small>Total Sales</small><strong id="dTotal">0.000 KD</strong></div><div class="kpi"><small>Transactions</small><strong id="dCount">0</strong></div><div class="kpi"><small>Average Sale</small><strong id="dAvg">0.000 KD</strong></div><div class="kpi"><small>Cash</small><strong id="dCash">0.000 KD</strong></div><div class="kpi"><small>Knet</small><strong id="dKnet">0.000 KD</strong></div><div class="kpi"><small>Link</small><strong id="dLink">0.000 KD</strong></div></div>
-<div class="dashgrid"><div class="card"><div class="title"><h2>Top Staff</h2></div><div id="topStaff" class="bars"></div></div><div class="card"><div class="title"><h2>Top Services</h2></div><div id="topServices" class="bars"></div></div></div>
-<div id="trendCard" class="card" style="display:none"><div class="title"><h2>Daily Sales Trend</h2></div><div id="trend" class="trend"></div></div>
-<div id="staffMonthlyCard" class="card" style="display:none">
-  <div class="title">
-    <div><h2>Full Staff Monthly Sales</h2><span id="staffMonthlySummary" class="muted">All staff performance for the selected month</span></div>
+<section id="dash" class="view salon-pro-dashboard">
+  <div class="dashboard-hero card">
+    <div>
+      <span class="dash-kicker">BUSINESS OVERVIEW</span>
+      <h2>Salon Performance</h2>
+      <p id="dashPeriodLabel" class="muted">See sales, staff performance and alerts in one place.</p>
+    </div>
+    <div class="dashboard-controls">
+      <div class="segmented-control"><button id="dailyBtn" class="smallbtn active" onclick="dashMode='daily';loadDash()">Daily</button><button id="monthlyBtn" class="smallbtn" onclick="dashMode='monthly';loadDash()">Monthly</button></div>
+      <input id="dashDate" type="date" onchange="loadDash()">
+      <select id="dashMonth" onchange="loadDash()" style="display:none"></select>
+      <button class="smallbtn print-btn" onclick="printDashboard()">Print / PDF</button>
+    </div>
   </div>
-  <div id="staffMonthlyResult" class="manager-table-wrap"><div class="manager-empty">Select Monthly to view each staff member's complete sales.</div></div>
-</div>
+
+  <div class="dash-summary-grid">
+    <div class="dash-total-card">
+      <span>Total Sales</span>
+      <strong id="dTotal">0.000 KD</strong>
+      <small>Net completed sales for selected period</small>
+      <div class="dash-total-accent"></div>
+    </div>
+    <div class="dash-mini-card"><span>Transactions</span><strong id="dCount">0</strong><small>Completed receipts</small></div>
+    <div class="dash-mini-card"><span>Average Sale</span><strong id="dAvg">0.000 KD</strong><small>Average ticket value</small></div>
+    <div class="dash-payment-card">
+      <div><span>Cash</span><strong id="dCash">0.000 KD</strong></div>
+      <div><span>Knet</span><strong id="dKnet">0.000 KD</strong></div>
+      <div><span>Link</span><strong id="dLink">0.000 KD</strong></div>
+    </div>
+  </div>
+
+  <div class="dashboard-action-grid">
+    <div class="card dashboard-quick-card">
+      <div class="title"><div><span class="dash-kicker">QUICK ACTIONS</span><h2>Start Something</h2></div></div>
+      <div class="quick-actions">
+        <button onclick="showView('sale')"><span>＋</span><b>New Sale</b><small>Start a receipt</small></button>
+        <button onclick="showView('appointments')"><span>▦</span><b>Appointment</b><small>View or book</small></button>
+        <button onclick="openOpsShortcut('crm')"><span>◎</span><b>Find Client</b><small>Open CRM</small></button>
+        <button onclick="openOpsShortcut('inventory')"><span>◇</span><b>Inventory</b><small>Stock & expiry</small></button>
+      </div>
+    </div>
+    <div class="card dashboard-alert-card">
+      <div class="title"><div><span class="dash-kicker">ATTENTION</span><h2>Salon Alerts</h2></div><button class="smallbtn" onclick="toggleNotificationPanel()">View all</button></div>
+      <div id="dashNotificationSummary" class="dash-alert-summary"><span class="alert-good">✓</span><div><b>Checking salon alerts...</b><small>Expired stock and client birthdays</small></div></div>
+    </div>
+  </div>
+
+  <div class="dashgrid salon-ranking-grid">
+    <div class="card"><div class="title"><div><span class="dash-kicker">TEAM</span><h2>Top Staff</h2></div></div><div id="topStaff" class="bars"></div></div>
+    <div class="card"><div class="title"><div><span class="dash-kicker">SERVICES</span><h2>Top Services</h2></div></div><div id="topServices" class="bars"></div></div>
+  </div>
+
+  <div id="trendCard" class="card trend-pro" style="display:none"><div class="title"><div><span class="dash-kicker">MONTHLY TREND</span><h2>Daily Sales</h2></div></div><div id="trend" class="trend"></div></div>
+  <div id="staffMonthlyCard" class="card" style="display:none">
+    <div class="title"><div><span class="dash-kicker">FULL MONTH</span><h2>Staff Sales Performance</h2><span id="staffMonthlySummary" class="muted">All staff performance for the selected month</span></div></div>
+    <div id="staffMonthlyResult" class="manager-table-wrap"><div class="manager-empty">Select Monthly to view each staff member's complete sales.</div></div>
+  </div>
 </section>
 <section id="ops" class="view">
   <div class="ops-head card">

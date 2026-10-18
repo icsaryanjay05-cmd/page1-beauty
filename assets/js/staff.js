@@ -90,6 +90,7 @@ function loadAuthenticatedApp(){
       addService();
 
       applyAuthUI();
+      updateWorkspaceGreeting_();
       document.body.classList.remove("auth-locked");
       loginMessage.textContent="";
       startInactivityTimer();
@@ -270,7 +271,8 @@ function resetInactivityTimer(){
 
 function showView(v){
   document.querySelectorAll(".view").forEach(x=>x.classList.remove("active"));
-  document.getElementById(v).classList.add("active");
+  const target=document.getElementById(v);
+  if(target)target.classList.add("active");
 
   navSale.classList.toggle("active",v==="sale");
   navAppointments.classList.toggle("active",v==="appointments");
@@ -278,10 +280,37 @@ function showView(v){
   navOps.classList.toggle("active",v==="ops");
   navManager.classList.toggle("active",v==="manager");
 
+  const meta={
+    sale:["POINT OF SALE","New Sale"],
+    appointments:["SALON CALENDAR","Appointments"],
+    dash:["BUSINESS INSIGHTS","Dashboard"],
+    ops:["DAILY TOOLS","Operations"],
+    manager:["MANAGEMENT","Manager"]
+  };
+  if(meta[v]){
+    if(typeof pageEyebrow!=="undefined"&&pageEyebrow)pageEyebrow.textContent=meta[v][0];
+    if(typeof pageTitle!=="undefined"&&pageTitle)pageTitle.textContent=meta[v][1];
+  }
+  closeNotificationPanel();
   if(v==="dash")loadDash();
   if(v==="appointments")loadAppointments();
   if(v==="ops")loadOps();
+  window.scrollTo({top:0,behavior:"smooth"});
 }
+
+function openOpsShortcut(panel){
+  showView("ops");
+  setTimeout(()=>showOpsPanel(panel),30);
+}
+
+function updateWorkspaceGreeting_(){
+  if(typeof workspaceGreeting==="undefined"||!workspaceGreeting)return;
+  const h=new Date().getHours();
+  const greet=h<12?"Good morning":h<18?"Good afternoon":"Good evening";
+  const name=authUser&&authUser.name?String(authUser.name).split(/\s+/)[0]:"Team";
+  workspaceGreeting.textContent=greet+", "+name;
+}
+
 function staffSelect(cls){let s=document.createElement("select");s.className=cls||"";s.add(new Option("Select staff...",""));initData.staff.forEach(x=>s.add(new Option(x,x)));return s}
 
 function serviceCategoryName_(service){
@@ -325,6 +354,29 @@ function findSelectedService_(category,name){
   )||null;
 }
 
+function renderServiceQuickGrid_(grid,category,select,priceInput,adjustButton){
+  grid.innerHTML="";
+  const list=(initData.services||[]).filter(service=>serviceCategoryName_(service)===category);
+  grid.classList.toggle("show",Boolean(category&&list.length));
+  if(!category||!list.length)return;
+  list.forEach(service=>{
+    const b=document.createElement("button");
+    b.type="button";
+    b.className="service-quick-card"+(select.value===service.name?" active":"");
+    b.innerHTML=`<span>${esc(service.name)}</span><small>${Number(service.price||0).toFixed(3)} KD</small>`;
+    b.onclick=()=>{
+      select.value=service.name;
+      priceInput.value=Number(service.price||0).toFixed(3);
+      priceInput.readOnly=true;
+      adjustButton.textContent="✎";
+      adjustButton.classList.remove("active");
+      grid.querySelectorAll(".service-quick-card").forEach(x=>x.classList.toggle("active",x===b));
+      totals();
+    };
+    grid.append(b);
+  });
+}
+
 function addService(){
   rowId++;
   let r=document.createElement("div");r.className="service-row";r.dataset.mode="single";
@@ -332,7 +384,8 @@ function addService(){
   let picker=document.createElement("div");picker.className="service-picker";
   let category=document.createElement("select");category.className="svc-category";category.setAttribute("aria-label","Service category");category.title="Choose a service category";populateCategorySelect_(category);
   let s=document.createElement("select");s.className="svc";s.setAttribute("aria-label","Service");s.title="Choose a service";populateServiceSelect_(s,"");
-  picker.append(category,s);
+  let quick=document.createElement("div");quick.className="service-quick-grid";
+  picker.append(category,s,quick);
 
   let p=document.createElement("input");p.type="number";p.value="0.000";p.readOnly=true;p.title="Service price";
   let adj=document.createElement("button");adj.className="smallbtn price-edit";adj.textContent="✎";adj.title="Adjust service price";
@@ -350,11 +403,17 @@ function addService(){
   let rm=document.createElement("button");rm.className="remove";rm.innerHTML="×";rm.title="Remove service";rm.onclick=()=>{if(document.querySelectorAll(".service-row").length>1){r.remove();totals()}};
   r.append(picker,pb,chips,sw,n,rm);services.append(r);
 
-  category.onchange=()=>{populateServiceSelect_(s,category.value);s.value="";p.value="0.000";p.readOnly=true;adj.textContent="✎";adj.classList.remove("active");totals();if(category.value)setTimeout(()=>s.focus(),0)};
-  s.onchange=()=>{let x=findSelectedService_(category.value,s.value);p.value=(x?x.price:0).toFixed(3);p.readOnly=true;adj.textContent="✎";adj.classList.remove("active");totals()};
+  category.onchange=()=>{
+    populateServiceSelect_(s,category.value);s.value="";p.value="0.000";p.readOnly=true;adj.textContent="✎";adj.classList.remove("active");
+    renderServiceQuickGrid_(quick,category.value,s,p,adj);totals();
+  };
+  s.onchange=()=>{
+    let x=findSelectedService_(category.value,s.value);p.value=(x?x.price:0).toFixed(3);p.readOnly=true;adj.textContent="✎";adj.classList.remove("active");
+    quick.querySelectorAll(".service-quick-card").forEach(b=>b.classList.toggle("active",b.querySelector("span")&&b.querySelector("span").textContent===s.value));totals();
+  };
   p.oninput=di.oninput=totals;tech.onchange=totals;
   split.onclick=()=>{r.dataset.mode="split";single.style.display="none";panel.classList.add("show");if(!panel.querySelector(".alloc")){addAlloc(r,tech.value,0);addAlloc(r,"",0);splitEven(r)};totals()};
-  panel.querySelector(".addstaff").onclick=()=>{addAlloc(r,"",0);totals()};panel.querySelector(".even").onclick=()=>splitEven(r);panel.querySelector(".back").onclick=()=>{r.dataset.mode="single";single.style.display="flex";panel.classList.remove("show");totals()};totals()
+  panel.querySelector(".addstaff").onclick=()=>{addAlloc(r,"",0);totals()};panel.querySelector(".even").onclick=()=>splitEven(r);panel.querySelector(".back").onclick=()=>{r.dataset.mode="single";single.style.display="flex";panel.classList.remove("show");totals()};totals();
 }
 function addAlloc(r,t,a){let d=document.createElement("div");d.className="alloc";let s=staffSelect("atech");s.value=t||"";let i=document.createElement("input");i.type="number";i.className="aamt";i.value=Number(a||0).toFixed(3);let b=document.createElement("button");b.className="remove";b.innerHTML="×";b.onclick=()=>{if(r.querySelectorAll(".alloc").length>2){d.remove();totals()}};s.onchange=i.oninput=totals;d.append(s,i,b);r.querySelector(".alist").append(d)}
 function rowNet(r){let p=Number(r.querySelector(".pricebox input").value)||0,d=Number(r.querySelector(".discounts input").value)||0;return p*(1-d/100)}
@@ -363,7 +422,7 @@ function totals(){let g=0,d=0,n=0,c=0;document.querySelectorAll(".service-row").
 function payFull(id){cash.value=knet.value=link.value=0;document.getElementById(id).value=currentNet.toFixed(3);totals()}
 function fullPhone(){let code=cc.value,num=phone.value.replace(/\D/g,""),cd=code.replace(/\D/g,"");if(num.startsWith(cd)&&num.length>cd.length+4)num=num.slice(cd.length);if(num.startsWith("0"))num=num.slice(1);return num?code+num:""}
 function clientLookup(){let p=fullPhone();if(!p)return;google.script.run.withSuccessHandler(x=>{clientInfo.style.display="block";let loyalty=Number(x.loyaltyPoints||0);let reward=Number(x.rewardsAvailable||0);clientInfo.innerHTML=x.found?"<b>Returning Client • "+esc(x.name)+"</b><br>"+x.visits+" visits • "+kd(x.spent)+" • "+loyalty+" loyalty pts"+(reward>0?" • <b>"+reward+" reward available</b>":""):"<b>New Client</b>";if(x.found&&!client.value)client.value=x.name}).webClient(authToken,p)}
-function formServices(){return [...document.querySelectorAll(".service-row")].filter(r=>r.querySelector(".svc").value).map(r=>{let x={service:r.querySelector(".svc").value,price:r.querySelector(".pricebox input").value,discount:r.querySelector(".discounts input").value,staffMode:r.dataset.mode,technician:"",allocations:[]};if(r.dataset.mode==="single")x.technician=r.querySelector(".tech").value;else r.querySelectorAll(".alloc").forEach(a=>x.allocations.push({technician:a.querySelector(".atech").value,amount:a.querySelector(".aamt").value}));return x})}
+function formServices(){return [...document.querySelectorAll(".service-row")].filter(r=>r.querySelector(".svc").value).map(r=>{let x={category:(r.querySelector(".svc-category")?r.querySelector(".svc-category").value:""),service:r.querySelector(".svc").value,price:r.querySelector(".pricebox input").value,discount:r.querySelector(".discounts input").value,staffMode:r.dataset.mode,technician:"",allocations:[]};if(r.dataset.mode==="single")x.technician=r.querySelector(".tech").value;else r.querySelectorAll(".alloc").forEach(a=>x.allocations.push({technician:a.querySelector(".atech").value,amount:a.querySelector(".aamt").value}));return x})}
 function saveSale(){let f={date:date.value,name:client.value,phone:fullPhone(),services:formServices(),cash:cash.value,knet:knet.value,link:link.value,note:note.value};overlay.classList.add("show");google.script.run.withSuccessHandler(x=>{overlay.classList.remove("show");lastReceiptData={form:JSON.parse(JSON.stringify(f)),result:x};successTotal.textContent=kd(x.total);successText.textContent=x.client+" • "+x.paymentMethod+" • "+x.saleId;success.classList.add("show")}).withFailureHandler(err).webSave(authToken,f)}
 function resetForm(){client.value=phone.value=note.value="";cc.value="+965";cash.value=knet.value=link.value=0;clientInfo.style.display="none";services.innerHTML="";rowId=0;addService()}function newSale(){success.classList.remove("show");resetForm()}
 function loadDash(){
@@ -379,7 +438,7 @@ function loadDash(){
   else staffMonthlyData=null;
   google.script.run.withSuccessHandler(renderDash).withFailureHandler(err)[fn](authToken,v);
 }
-function renderDash(d){overlay.classList.remove("show");lastDashData=JSON.parse(JSON.stringify(d));dTotal.textContent=kd(d.total);dCount.textContent=d.count;dAvg.textContent=kd(d.average);dCash.textContent=kd(d.cash);dKnet.textContent=kd(d.knet);dLink.textContent=kd(d.link);bars(topStaff,d.topStaff);bars(topServices,d.topServices);if(dashMode==="monthly"){trend.innerHTML="";let max=Math.max(...d.daily.map(x=>x.sales),1);d.daily.forEach(x=>{let b=document.createElement("div");b.className="day";b.style.height=Math.max(2,x.sales/max*140)+"px";b.title=x.date+" "+kd(x.sales);trend.append(b)})}}
+function renderDash(d){overlay.classList.remove("show");lastDashData=JSON.parse(JSON.stringify(d));if(typeof dashPeriodLabel!=="undefined"&&dashPeriodLabel){dashPeriodLabel.textContent=dashMode==="daily"?"Daily performance • "+dashDate.value:"Monthly performance • "+(dashMonth.options[dashMonth.selectedIndex]?dashMonth.options[dashMonth.selectedIndex].text:dashMonth.value)}dTotal.textContent=kd(d.total);dCount.textContent=d.count;dAvg.textContent=kd(d.average);dCash.textContent=kd(d.cash);dKnet.textContent=kd(d.knet);dLink.textContent=kd(d.link);bars(topStaff,d.topStaff);bars(topServices,d.topServices);if(dashMode==="monthly"){trend.innerHTML="";let max=Math.max(...d.daily.map(x=>x.sales),1);d.daily.forEach(x=>{let b=document.createElement("div");b.className="day";b.style.height=Math.max(2,x.sales/max*140)+"px";b.title=x.date+" "+kd(x.sales);trend.append(b)})}}
 
 function loadStaffMonthlySales(monthValue){
   staffMonthlyResult.innerHTML='<div class="manager-empty">Loading complete staff sales...</div>';
@@ -412,28 +471,23 @@ function renderStaffMonthlySales(data){
 
 function bars(el,a){el.innerHTML="";if(!a.length){el.innerHTML='<div class="muted">No data yet.</div>';return}let m=Math.max(...a.map(x=>x.sales),1);a.forEach(x=>{let r=document.createElement("div");r.className="bar";r.innerHTML='<b>'+esc(x.name)+'</b><div class="track"><div class="fill" style="width:'+Math.max(2,x.sales/m*100)+'%"></div></div><b>'+Number(x.sales).toFixed(3)+'</b>';el.append(r)})}
 
-function printableLogo(){return '../assets/images/page1-logo.png'}
+function printableLogo(){return new URL("../assets/images/page1-logo.png",location.href).href}
 
 function printWindow(title,content){
-  const w=window.open("","_blank","width=900,height=900");
+  const w=window.open("","_blank","width=920,height=940");
   if(!w){alert("Please allow pop-ups to print or save PDF.");return}
   const logo=printableLogo();
   w.document.write(`<!DOCTYPE html><html><head><title>${esc(title)}</title><meta name="viewport" content="width=device-width,initial-scale=1"><style>
-  @page{size:A4;margin:14mm}
+  @page{size:A4;margin:13mm}
   *{box-sizing:border-box}
-  body{font-family:Arial,Helvetica,sans-serif;color:#1D1D1B;margin:0;background:#fff;font-size:12px}
-  .head{display:flex;justify-content:space-between;align-items:flex-start;border-bottom:2px solid #1D1D1B;padding-bottom:12px;margin-bottom:18px}
-  .logo{width:210px;max-height:70px;object-fit:contain}
-  .doc-title{text-align:right}.doc-title h1{font-size:18px;margin:0 0 5px}.muted{color:#756E65}
-  .box{border:1px solid #D6C9BD;border-radius:10px;padding:12px;margin-bottom:12px}
-  .grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-  .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}
-  .kpi{background:#F6F0E6;border-radius:8px;padding:10px}.kpi small{display:block;color:#756E65;text-transform:uppercase;font-size:9px;font-weight:bold}.kpi b{display:block;font-size:16px;margin-top:4px}
-  table{width:100%;border-collapse:collapse;margin-top:8px}th{background:#1D1D1B;color:#E9E2D0;text-align:left;padding:7px;font-size:10px}td{padding:7px;border-bottom:1px solid #E5DDD3;vertical-align:top}.right{text-align:right}
-  .total{font-size:18px;font-weight:bold}.summary-row{display:flex;justify-content:space-between;padding:5px 0}
-  .ar{font-family:Arial,Tahoma,sans-serif;font-weight:600;line-height:1.45}
-  .foot{margin-top:20px;padding-top:10px;border-top:1px solid #D6C9BD;text-align:center;color:#756E65;font-size:10px}
-  @media print{button{display:none!important}}
+  :root{--ink:#1D1D1B;--cream:#E9E2D0;--taupe:#CABAAD;--paper:#FFFEFB;--muted:#756E65;--line:#DED4C8}
+  body{font-family:Arial,Helvetica,sans-serif;color:var(--ink);margin:0;background:#fff;font-size:11.5px;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .head{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--line);padding:0 0 16px;margin-bottom:18px}.logo{width:175px;max-height:62px;object-fit:contain}.doc-title{text-align:right}.doc-title h1{font-size:16px;margin:0 0 5px}.muted{color:var(--muted)}
+  .box{border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:12px;background:#fff}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:12px}.kpi{background:#F6F0E6;border-radius:10px;padding:11px}.kpi small{display:block;color:var(--muted);text-transform:uppercase;font-size:8px;font-weight:bold;letter-spacing:.08em}.kpi b{display:block;font-size:16px;margin-top:4px}
+  table{width:100%;border-collapse:separate;border-spacing:0;margin-top:8px;overflow:hidden;border-radius:9px}th{background:var(--ink);color:var(--cream);text-align:left;padding:8px;font-size:9px}td{padding:8px;border-bottom:1px solid #EEE7DF;vertical-align:top}.right{text-align:right}.total{font-size:18px;font-weight:bold}.summary-row{display:flex;justify-content:space-between;gap:12px;padding:6px 0;border-bottom:1px dashed #E7DED5}.summary-row:last-child{border-bottom:0}.ar{font-family:Tahoma,Arial,sans-serif;font-weight:650;line-height:1.5}.foot{margin-top:18px;padding-top:10px;border-top:1px solid var(--line);text-align:center;color:var(--muted);font-size:9px}
+  .receipt-shell{border:1px solid var(--line);border-radius:18px;overflow:hidden;background:var(--paper)}.receipt-hero{background:var(--ink);color:var(--cream);padding:20px;display:flex;justify-content:space-between;align-items:flex-end;gap:20px}.receipt-hero span{font-size:9px;letter-spacing:.16em;text-transform:uppercase;opacity:.72}.receipt-hero strong{display:block;font-size:28px;margin-top:5px}.receipt-id{text-align:right}.receipt-id b{font-size:13px;display:block}.receipt-id small{opacity:.72}.receipt-body{padding:16px}.receipt-meta{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin-bottom:14px}.receipt-meta div{background:#F6F0E6;border-radius:10px;padding:10px}.receipt-meta small{display:block;color:var(--muted);font-size:8px;text-transform:uppercase;letter-spacing:.06em}.receipt-meta b{display:block;margin-top:4px;font-size:11px}.receipt-section-title{display:flex;justify-content:space-between;align-items:flex-end;margin:17px 0 7px}.receipt-section-title b{font-size:12px}.receipt-section-title span{font-family:Tahoma,Arial,sans-serif;color:var(--muted);direction:rtl}.service-sub{display:block;color:var(--muted);font-size:8px;margin-top:2px}.receipt-summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}.receipt-total-card{background:var(--ink);color:var(--cream);border-radius:12px;padding:13px}.receipt-total-card .summary-row{border-color:rgba(255,255,255,.14)}.receipt-total-card .grand{font-size:21px;padding-top:10px}.receipt-thanks{text-align:center;margin-top:14px;padding:14px;border:1px dashed var(--taupe);border-radius:12px}.receipt-thanks b{font-size:12px}.receipt-thanks .ar{display:block;margin-top:5px;font-size:13px}
+  @media(max-width:700px){.grid,.receipt-summary,.receipt-meta{grid-template-columns:1fr}.receipt-hero{align-items:flex-start;flex-direction:column}.receipt-id{text-align:left}}
+  @media print{button{display:none!important}.receipt-shell{break-inside:avoid}}
   </style></head><body><div class="head"><img class="logo" src="${logo}"><div class="doc-title"><h1>${esc(title)}</h1><div class="muted">PAGE.1 BEAUTY SALON</div></div></div>${content}<div class="foot">PAGE.1 Beauty Salon • Generated from PAGE.1 Salon System</div><script>window.onload=function(){setTimeout(function(){window.print()},250)};<\/script></body></html>`);
   w.document.close();
 }
@@ -447,19 +501,20 @@ function printReceipt(){
   const serviceRows=(f.services||[]).map(s=>{
     const price=Number(s.price)||0,discount=Number(s.discount)||0,net=price*(1-discount/100);
     let staff="";
-    if(s.staffMode==="split"){
-      staff=(s.allocations||[]).map(a=>esc(a.technician)+" ("+Number(a.amount||0).toFixed(3)+" KD)").join("<br>");
-    }else{staff=esc(s.technician||"")}
-    return `<tr><td>${esc(s.service)}</td><td>${staff}</td><td class="right">${price.toFixed(3)}</td><td class="right">${discount.toFixed(2)}%</td><td class="right"><b>${net.toFixed(3)}</b></td></tr>`;
+    if(s.staffMode==="split")staff=(s.allocations||[]).map(a=>esc(a.technician)+" ("+Number(a.amount||0).toFixed(3)+" KD)").join("<br>");
+    else staff=esc(s.technician||"");
+    const serviceLabel=`<b>${esc(s.service)}</b>${s.category?`<span class="service-sub">${esc(s.category)}</span>`:""}`;
+    return `<tr><td>${serviceLabel}</td><td>${staff}</td><td class="right">${price.toFixed(3)}</td><td class="right">${discount.toFixed(2)}%</td><td class="right"><b>${net.toFixed(3)}</b></td></tr>`;
   }).join("");
   const gross=(f.services||[]).reduce((x,s)=>x+(Number(s.price)||0),0);
   const totalDiscount=(f.services||[]).reduce((x,s)=>{let p=Number(s.price)||0,d=Number(s.discount)||0;return x+p*d/100},0);
-  const body=`<div class="box"><div class="grid"><div><b>${bi("Client","العميل")}</b><br>${esc(f.name)}</div><div><b>${bi("Mobile","الهاتف")}</b><br>${esc(f.phone)}</div><div><b>${bi("Date","التاريخ")}</b><br>${esc(f.date)}</div><div><b>${bi("Transaction ID","رقم العملية")}</b><br>${esc(r.saleId)}</div></div></div>
-  <div class="box"><b>${bi("Services","الخدمات")}</b><table><thead><tr><th>${bi("Service","الخدمة")}</th><th>${bi("Technician","الفني")}</th><th class="right">${bi("Price","السعر")}</th><th class="right">${bi("Discount","الخصم")}</th><th class="right">${bi("Net","الصافي")}</th></tr></thead><tbody>${serviceRows}</tbody></table></div>
-  <div class="grid"><div class="box"><b>${bi("Payment","الدفع")}</b><div class="summary-row"><span>${bi("Cash","نقداً")}</span><b>${Number(f.cash||0).toFixed(3)} KD</b></div><div class="summary-row"><span>${bi("Knet","كي نت")}</span><b>${Number(f.knet||0).toFixed(3)} KD</b></div><div class="summary-row"><span>${bi("Link","رابط الدفع")}</span><b>${Number(f.link||0).toFixed(3)} KD</b></div><div class="summary-row"><span>${bi("Method","طريقة الدفع")}</span><b>${paymentLabel}</b></div></div>
-  <div class="box"><b>${bi("Summary","الملخص")}</b><div class="summary-row"><span>${bi("Gross","الإجمالي قبل الخصم")}</span><b>${gross.toFixed(3)} KD</b></div><div class="summary-row"><span>${bi("Discount","الخصم")}</span><b>${totalDiscount.toFixed(3)} KD</b></div><div class="summary-row total"><span>${bi("Total","الإجمالي")}</span><span>${Number(r.total||0).toFixed(3)} KD</span></div></div></div>
+  const body=`<div class="receipt-shell"><div class="receipt-hero"><div><span>PAGE.1 BEAUTY SALON • SALES RECEIPT</span><strong>${Number(r.total||0).toFixed(3)} KD</strong></div><div class="receipt-id"><small>Transaction / رقم العملية</small><b>${esc(r.saleId)}</b></div></div><div class="receipt-body">
+  <div class="receipt-meta"><div><small>${bi("Client","العميل")}</small><b>${esc(f.name)}</b></div><div><small>${bi("Mobile","الهاتف")}</small><b>${esc(f.phone)}</b></div><div><small>${bi("Date","التاريخ")}</small><b>${esc(f.date)}</b></div><div><small>${bi("Payment","الدفع")}</small><b>${paymentLabel}</b></div></div>
+  <div class="receipt-section-title"><b>Services</b><span>الخدمات</span></div><table><thead><tr><th>${bi("Service","الخدمة")}</th><th>${bi("Technician","الفني")}</th><th class="right">${bi("Price","السعر")}</th><th class="right">${bi("Discount","الخصم")}</th><th class="right">${bi("Net","الصافي")}</th></tr></thead><tbody>${serviceRows}</tbody></table>
+  <div class="receipt-summary"><div class="box"><b>${bi("Payment Breakdown","تفاصيل الدفع")}</b><div class="summary-row"><span>${bi("Cash","نقداً")}</span><b>${Number(f.cash||0).toFixed(3)} KD</b></div><div class="summary-row"><span>${bi("Knet","كي نت")}</span><b>${Number(f.knet||0).toFixed(3)} KD</b></div><div class="summary-row"><span>${bi("Link","رابط الدفع")}</span><b>${Number(f.link||0).toFixed(3)} KD</b></div></div>
+  <div class="receipt-total-card"><b>${bi("Summary","الملخص")}</b><div class="summary-row"><span>${bi("Gross","قبل الخصم")}</span><b>${gross.toFixed(3)} KD</b></div><div class="summary-row"><span>${bi("Discount","الخصم")}</span><b>${totalDiscount.toFixed(3)} KD</b></div><div class="summary-row grand"><span>${bi("Total","الإجمالي")}</span><b>${Number(r.total||0).toFixed(3)} KD</b></div></div></div>
   ${f.note?`<div class="box"><b>${bi("Note","ملاحظة")}</b><br>${esc(f.note)}</div>`:""}
-  <div class="box" style="text-align:center"><b>Thank you for visiting PAGE.1</b><br><span class="ar" dir="rtl">شكراً لزيارتكم صالون PAGE.1</span></div>`;
+  <div class="receipt-thanks"><b>Thank you for visiting PAGE.1</b><span class="ar" dir="rtl">شكراً لزيارتكم صالون PAGE.1</span></div></div></div>`;
   printWindow("Sales Receipt | إيصال المبيعات",body);
 }
 
@@ -489,8 +544,17 @@ function printDashboard(){
 
 function toggleNotificationPanel(){
   if(!notificationPanel)return;
-  notificationPanel.classList.toggle("show");
-  if(notificationPanel.classList.contains("show"))loadSalonNotifications();
+  const willOpen=!notificationPanel.classList.contains("show");
+  notificationPanel.classList.toggle("show",willOpen);
+  document.body.classList.toggle("notifications-open",willOpen);
+  if(typeof notificationScrim!=="undefined"&&notificationScrim)notificationScrim.classList.toggle("show",willOpen);
+  if(willOpen)loadSalonNotifications();
+}
+
+function closeNotificationPanel(){
+  if(notificationPanel)notificationPanel.classList.remove("show");
+  document.body.classList.remove("notifications-open");
+  if(typeof notificationScrim!=="undefined"&&notificationScrim)notificationScrim.classList.remove("show");
 }
 
 function loadSalonNotifications(){
@@ -506,27 +570,40 @@ function loadSalonNotifications(){
 function renderSalonNotifications(data){
   salonNotifications=data||{counts:{},expiredProducts:[],birthdaysToday:[],birthdaysUpcoming:[]};
   const c=salonNotifications.counts||{};
-  const total=Number(c.total||0);
+  const total=Number(c.total||0), expiredCount=Number(c.expired||0), todayCount=Number(c.birthdayToday||0), upcomingCount=Number(c.birthdayUpcoming||0);
   notificationBadge.textContent=total>99?"99+":String(total);
   notificationBadge.classList.toggle("show",total>0);
 
-  const expired=(salonNotifications.expiredProducts||[]).map(x=>`<div class="notification-item danger"><div class="notification-icon">⚠️</div><div class="notification-copy"><b>${esc(x.itemName)}</b><span>Expired ${esc(x.expiryDate||"")} • ${Number(x.qtyRemaining||0).toFixed(2)} remaining${Number(x.daysExpired||0)>0?" • "+Number(x.daysExpired||0)+" day(s) expired":""}</span></div></div>`).join("");
+  const expired=(salonNotifications.expiredProducts||[]).map(x=>`<div class="notification-item danger"><div class="notification-icon">!</div><div class="notification-copy"><b>${esc(x.itemName)}</b><span>Expired ${esc(x.expiryDate||"")} • ${Number(x.qtyRemaining||0).toFixed(2)} remaining${Number(x.daysExpired||0)>0?" • "+Number(x.daysExpired||0)+" day(s) overdue":""}</span></div></div>`).join("");
   const today=(salonNotifications.birthdaysToday||[]).map(x=>`<div class="notification-item birthday"><div class="notification-icon">🎂</div><div class="notification-copy"><b>${esc(x.name)} — Birthday today</b><span>${esc(x.phone||"")}${x.age?" • Turning "+Number(x.age):""}</span></div></div>`).join("");
-  const upcoming=(salonNotifications.birthdaysUpcoming||[]).map(x=>`<div class="notification-item birthday"><div class="notification-icon">🎁</div><div class="notification-copy"><b>${esc(x.name)}</b><span>Birthday in ${Number(x.daysUntil||0)} day(s) • ${esc(x.birthday||"")}${x.phone?" • "+esc(x.phone):""}</span></div></div>`).join("");
+  const upcoming=(salonNotifications.birthdaysUpcoming||[]).map(x=>`<div class="notification-item upcoming"><div class="notification-icon">◷</div><div class="notification-copy"><b>${esc(x.name)}</b><span>Birthday in ${Number(x.daysUntil||0)} day(s) • ${esc(x.birthday||"")}${x.phone?" • "+esc(x.phone):""}</span></div></div>`).join("");
 
-  let html="";
-  if(expired)html+=`<div class="notification-group"><h4>Expired Products (${Number(c.expired||0)})</h4>${expired}</div>`;
-  if(today)html+=`<div class="notification-group"><h4>Birthdays Today (${Number(c.birthdayToday||0)})</h4>${today}</div>`;
-  if(upcoming)html+=`<div class="notification-group"><h4>Upcoming Birthdays — 7 Days (${Number(c.birthdayUpcoming||0)})</h4>${upcoming}</div>`;
-  notificationContent.innerHTML=html||'<div class="notification-empty">✓ No expired products or client birthdays due in the next 7 days.</div>';
+  let html=`<div class="notification-overview"><div><strong>${total}</strong><span>Total alerts</span></div><div><strong>${expiredCount}</strong><span>Urgent</span></div><div><strong>${todayCount}</strong><span>Today</span></div></div>`;
+  if(expired)html+=`<div class="notification-group urgent-group"><h4><span>Urgent</span><em>${expiredCount}</em></h4>${expired}</div>`;
+  if(today)html+=`<div class="notification-group"><h4><span>Today</span><em>${todayCount}</em></h4>${today}</div>`;
+  if(upcoming)html+=`<div class="notification-group"><h4><span>Upcoming</span><em>${upcomingCount}</em></h4>${upcoming}</div>`;
+  if(!expired&&!today&&!upcoming)html+='<div class="notification-empty notification-all-clear"><span>✓</span><b>Everything looks good</b><small>No expired products or client birthdays due in the next 7 days.</small></div>';
+  notificationContent.innerHTML=html;
+
+  if(typeof dashNotificationSummary!=="undefined"&&dashNotificationSummary){
+    if(total>0){
+      let pieces=[];
+      if(expiredCount)pieces.push(expiredCount+" expired product"+(expiredCount===1?"":"s"));
+      if(todayCount)pieces.push(todayCount+" birthday"+(todayCount===1?"":"s")+" today");
+      if(upcomingCount)pieces.push(upcomingCount+" upcoming birthday"+(upcomingCount===1?"":"s"));
+      dashNotificationSummary.innerHTML=`<span class="alert-warning">${total}</span><div><b>${esc(pieces.join(" • "))}</b><small>Open notifications for details</small></div>`;
+    }else{
+      dashNotificationSummary.innerHTML='<span class="alert-good">✓</span><div><b>No urgent alerts</b><small>Inventory and birthday reminders are clear.</small></div>';
+    }
+  }
 
   if(!notificationsToastShown&&total>0){
     notificationsToastShown=true;
     let parts=[];
-    if(Number(c.expired||0))parts.push(Number(c.expired||0)+" expired product"+(Number(c.expired||0)===1?"":"s"));
-    if(Number(c.birthdayToday||0))parts.push(Number(c.birthdayToday||0)+" birthday"+(Number(c.birthdayToday||0)===1?"":"s")+" today");
-    if(Number(c.birthdayUpcoming||0))parts.push(Number(c.birthdayUpcoming||0)+" upcoming birthday"+(Number(c.birthdayUpcoming||0)===1?"":"s"));
-    showPage1Toast("Notifications",parts.join(" • "));
+    if(expiredCount)parts.push(expiredCount+" expired product"+(expiredCount===1?"":"s"));
+    if(todayCount)parts.push(todayCount+" birthday"+(todayCount===1?"":"s")+" today");
+    if(upcomingCount)parts.push(upcomingCount+" upcoming birthday"+(upcomingCount===1?"":"s"));
+    showPage1Toast("Salon alerts",parts.join(" • "));
   }
 }
 
@@ -540,7 +617,7 @@ function showPage1Toast(title,text){
 
 document.addEventListener("click",e=>{
   if(notificationPanel&&notificationPanel.classList.contains("show")&&notificationWrap&&!notificationWrap.contains(e.target)){
-    notificationPanel.classList.remove("show");
+    closeNotificationPanel();
   }
 });
 
