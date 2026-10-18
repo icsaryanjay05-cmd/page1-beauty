@@ -283,8 +283,79 @@ function showView(v){
   if(v==="ops")loadOps();
 }
 function staffSelect(cls){let s=document.createElement("select");s.className=cls||"";s.add(new Option("Select staff...",""));initData.staff.forEach(x=>s.add(new Option(x,x)));return s}
-function addService(){rowId++;let r=document.createElement("div");r.className="service-row";r.dataset.mode="single";let s=document.createElement("select");s.className="svc";s.add(new Option("Select service...",""));initData.services.forEach(x=>s.add(new Option((x.category?x.category+" — ":"")+x.name,x.name)));let p=document.createElement("input");p.type="number";p.value="0.000";p.readOnly=true;p.title="Service price";let adj=document.createElement("button");adj.className="smallbtn price-edit";adj.textContent="✎";adj.title="Adjust service price";adj.onclick=()=>{p.readOnly=!p.readOnly;adj.classList.toggle("active",!p.readOnly);adj.textContent=p.readOnly?"✎":"Reset";if(!p.readOnly){p.focus();p.select()}else{let x=initData.services.find(a=>a.name===s.value);p.value=(x?x.price:0).toFixed(3);totals()}};let pb=document.createElement("div");pb.className="pricebox";pb.append(p,adj);let di=document.createElement("input");di.type="number";di.value=0;di.min=0;di.max=100;di.className="discount-custom";di.style.display="none";let chips=document.createElement("div");chips.className="discounts";chips.append(di);[0,10,20].forEach(x=>{let b=document.createElement("button");b.className="chip"+(x===0?" active":"");b.dataset.discount=String(x);b.textContent=x?x+"%":"None";b.onclick=()=>{di.value=x;di.style.display="none";chips.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));b.classList.add("active");totals()};chips.append(b)});let custom=document.createElement("button");custom.className="chip custom-discount";custom.textContent="Custom";custom.onclick=()=>{chips.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));custom.classList.add("active");di.style.display="block";di.focus();di.select()};chips.append(custom);let sw=document.createElement("div");sw.className="staff";let single=document.createElement("div");single.className="staff-single";let tech=staffSelect("tech");let split=document.createElement("button");split.className="smallbtn split-lite";split.textContent="+ Split";split.title="Split this service between staff";single.append(tech,split);let panel=document.createElement("div");panel.className="split-panel";panel.innerHTML='<div class="alist"></div><div class="split-actions"><button class="smallbtn addstaff">+ Staff</button><button class="smallbtn even">Split Evenly</button><button class="smallbtn back">Single Staff</button></div><div class="muted astat"></div>';sw.append(single,panel);let n=document.createElement("div");n.className="money service-net";n.textContent="0.000";let rm=document.createElement("button");rm.className="remove";rm.innerHTML="×";rm.title="Remove service";rm.onclick=()=>{if(document.querySelectorAll(".service-row").length>1){r.remove();totals()}};r.append(s,pb,chips,sw,n,rm);services.append(r);
-s.onchange=()=>{let x=initData.services.find(a=>a.name===s.value);p.value=(x?x.price:0).toFixed(3);p.readOnly=true;adj.textContent="✎";adj.classList.remove("active");totals()};p.oninput=di.oninput=totals;tech.onchange=totals;split.onclick=()=>{r.dataset.mode="split";single.style.display="none";panel.classList.add("show");if(!panel.querySelector(".alloc")){addAlloc(r,tech.value,0);addAlloc(r,"",0);splitEven(r)};totals()};panel.querySelector(".addstaff").onclick=()=>{addAlloc(r,"",0);totals()};panel.querySelector(".even").onclick=()=>splitEven(r);panel.querySelector(".back").onclick=()=>{r.dataset.mode="single";single.style.display="flex";panel.classList.remove("show");totals()};totals()}
+
+function serviceCategoryName_(service){
+  const value=String(service&&service.category||"").trim();
+  return value||"Other";
+}
+
+function serviceCategories_(){
+  const seen=new Set(),list=[];
+  (initData.services||[]).forEach(service=>{
+    const category=serviceCategoryName_(service);
+    const key=category.toLowerCase();
+    if(!seen.has(key)){
+      seen.add(key);
+      list.push(category);
+    }
+  });
+  return list;
+}
+
+function populateCategorySelect_(select){
+  select.innerHTML="";
+  select.add(new Option("Select category...",""));
+  serviceCategories_().forEach(category=>select.add(new Option(category,category)));
+}
+
+function populateServiceSelect_(select,category){
+  select.innerHTML="";
+  select.add(new Option(category?"Select service...":"Select category first...",""));
+  select.disabled=!category;
+  if(!category)return;
+  (initData.services||[])
+    .filter(service=>serviceCategoryName_(service)===category)
+    .forEach(service=>select.add(new Option(service.name,service.name)));
+}
+
+function findSelectedService_(category,name){
+  return (initData.services||[]).find(service=>
+    serviceCategoryName_(service)===category &&
+    String(service.name||"")===String(name||"")
+  )||null;
+}
+
+function addService(){
+  rowId++;
+  let r=document.createElement("div");r.className="service-row";r.dataset.mode="single";
+
+  let picker=document.createElement("div");picker.className="service-picker";
+  let category=document.createElement("select");category.className="svc-category";category.setAttribute("aria-label","Service category");category.title="Choose a service category";populateCategorySelect_(category);
+  let s=document.createElement("select");s.className="svc";s.setAttribute("aria-label","Service");s.title="Choose a service";populateServiceSelect_(s,"");
+  picker.append(category,s);
+
+  let p=document.createElement("input");p.type="number";p.value="0.000";p.readOnly=true;p.title="Service price";
+  let adj=document.createElement("button");adj.className="smallbtn price-edit";adj.textContent="✎";adj.title="Adjust service price";
+  adj.onclick=()=>{p.readOnly=!p.readOnly;adj.classList.toggle("active",!p.readOnly);adj.textContent=p.readOnly?"✎":"Reset";if(!p.readOnly){p.focus();p.select()}else{let x=findSelectedService_(category.value,s.value);p.value=(x?x.price:0).toFixed(3);totals()}};
+  let pb=document.createElement("div");pb.className="pricebox";pb.append(p,adj);
+
+  let di=document.createElement("input");di.type="number";di.value=0;di.min=0;di.max=100;di.className="discount-custom";di.style.display="none";
+  let chips=document.createElement("div");chips.className="discounts";chips.append(di);
+  [0,10,20].forEach(x=>{let b=document.createElement("button");b.className="chip"+(x===0?" active":"");b.dataset.discount=String(x);b.textContent=x?x+"%":"None";b.onclick=()=>{di.value=x;di.style.display="none";chips.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));b.classList.add("active");totals()};chips.append(b)});
+  let custom=document.createElement("button");custom.className="chip custom-discount";custom.textContent="Custom";custom.onclick=()=>{chips.querySelectorAll(".chip").forEach(c=>c.classList.remove("active"));custom.classList.add("active");di.style.display="block";di.focus();di.select()};chips.append(custom);
+
+  let sw=document.createElement("div");sw.className="staff";let single=document.createElement("div");single.className="staff-single";let tech=staffSelect("tech");let split=document.createElement("button");split.className="smallbtn split-lite";split.textContent="+ Split";split.title="Split this service between staff";single.append(tech,split);
+  let panel=document.createElement("div");panel.className="split-panel";panel.innerHTML='<div class="alist"></div><div class="split-actions"><button class="smallbtn addstaff">+ Staff</button><button class="smallbtn even">Split Evenly</button><button class="smallbtn back">Single Staff</button></div><div class="muted astat"></div>';sw.append(single,panel);
+  let n=document.createElement("div");n.className="money service-net";n.textContent="0.000";
+  let rm=document.createElement("button");rm.className="remove";rm.innerHTML="×";rm.title="Remove service";rm.onclick=()=>{if(document.querySelectorAll(".service-row").length>1){r.remove();totals()}};
+  r.append(picker,pb,chips,sw,n,rm);services.append(r);
+
+  category.onchange=()=>{populateServiceSelect_(s,category.value);s.value="";p.value="0.000";p.readOnly=true;adj.textContent="✎";adj.classList.remove("active");totals();if(category.value)setTimeout(()=>s.focus(),0)};
+  s.onchange=()=>{let x=findSelectedService_(category.value,s.value);p.value=(x?x.price:0).toFixed(3);p.readOnly=true;adj.textContent="✎";adj.classList.remove("active");totals()};
+  p.oninput=di.oninput=totals;tech.onchange=totals;
+  split.onclick=()=>{r.dataset.mode="split";single.style.display="none";panel.classList.add("show");if(!panel.querySelector(".alloc")){addAlloc(r,tech.value,0);addAlloc(r,"",0);splitEven(r)};totals()};
+  panel.querySelector(".addstaff").onclick=()=>{addAlloc(r,"",0);totals()};panel.querySelector(".even").onclick=()=>splitEven(r);panel.querySelector(".back").onclick=()=>{r.dataset.mode="single";single.style.display="flex";panel.classList.remove("show");totals()};totals()
+}
 function addAlloc(r,t,a){let d=document.createElement("div");d.className="alloc";let s=staffSelect("atech");s.value=t||"";let i=document.createElement("input");i.type="number";i.className="aamt";i.value=Number(a||0).toFixed(3);let b=document.createElement("button");b.className="remove";b.innerHTML="×";b.onclick=()=>{if(r.querySelectorAll(".alloc").length>2){d.remove();totals()}};s.onchange=i.oninput=totals;d.append(s,i,b);r.querySelector(".alist").append(d)}
 function rowNet(r){let p=Number(r.querySelector(".pricebox input").value)||0,d=Number(r.querySelector(".discounts input").value)||0;return p*(1-d/100)}
 function splitEven(r){let a=[...r.querySelectorAll(".alloc")],net=rowNet(r),base=Math.floor(net/a.length*1000)/1000,used=0;a.forEach((x,i)=>{let v=i===a.length-1?net-used:base;if(i<a.length-1)used+=v;x.querySelector(".aamt").value=v.toFixed(3)});totals()}

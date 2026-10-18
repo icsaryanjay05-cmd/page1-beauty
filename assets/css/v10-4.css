@@ -1,0 +1,9 @@
+/* PAGE.1 V10.4 — Category > Service selector */
+#sale .service-picker{display:grid!important;grid-template-columns:1fr!important;gap:6px!important;width:100%!important;min-width:0!important}
+#sale .service-picker select{width:100%!important;min-width:0!important;height:40px!important}
+#sale .svc-category{background:#F4EDE3!important;border-color:#D5C7BA!important;color:#504940!important;font-weight:850!important}
+#sale .svc{background:#fff!important;font-weight:700!important}
+#sale .svc:disabled{background:#F7F4EF!important;color:#9A9188!important;cursor:not-allowed!important}
+#sale .service-row{align-items:center!important}
+#sale .service-head>div:first-child{color:#5F574F!important}
+@media(max-width:899px){#sale .service-picker{grid-column:1/-1!important}#sale .service-picker::before{content:"CATEGORY / SERVICE";display:block;font-size:8px;font-weight:900;letter-spacing:.75px;color:#8A8076;margin-bottom:-1px}}
