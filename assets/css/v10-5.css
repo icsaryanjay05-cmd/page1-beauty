@@ -41,3 +41,102 @@ body:not(.auth-locked) .card{border-color:rgba(202,186,173,.58)!important;border
 @media(max-width:560px){.workspace-heading>small{max-width:140px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.dash-summary-grid{grid-template-columns:1fr}.dash-total-card{grid-column:auto}.dash-payment-card{grid-template-columns:1fr}.dash-payment-card>div{border-right:0;border-bottom:1px solid #EEE6DD}.dashboard-controls input,.dashboard-controls select{max-width:145px}.quick-actions button{min-height:92px}.notification-overview{grid-template-columns:1fr 1fr 1fr}.service-quick-grid{grid-template-columns:repeat(2,minmax(0,1fr));max-height:180px}}
 
 @media(prefers-reduced-motion:reduce){.notification-panel,.service-quick-card,.quick-actions button,.app-sidebar .main-nav button{transition:none!important}.salon-pro-dashboard{animation:none!important}}
+
+
+/* =========================================================
+   PAGE.1 V10.5.2 — HARD SIDEBAR + POS ROW LAYOUT FIX
+   Integrated here so legacy .main-nav width rules cannot win.
+   ========================================================= */
+@media (min-width:901px){
+  body:not(.auth-locked) .app-sidebar{
+    box-sizing:border-box!important;
+    overflow:hidden!important;
+  }
+
+  body:not(.auth-locked) .app-sidebar > nav.main-nav{
+    display:flex!important;
+    flex-direction:column!important;
+    align-self:stretch!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:100%!important;
+    inline-size:auto!important;
+    min-inline-size:0!important;
+    max-inline-size:100%!important;
+    grid-template-columns:none!important;
+    overflow:hidden!important;
+    margin:22px 0 0!important;
+    padding:0!important;
+    gap:7px!important;
+  }
+
+  body:not(.auth-locked) .app-sidebar > nav.main-nav > button{
+    display:flex!important;
+    align-self:stretch!important;
+    flex:0 0 auto!important;
+    width:auto!important;
+    min-width:0!important;
+    max-width:100%!important;
+    inline-size:auto!important;
+    min-inline-size:0!important;
+    max-inline-size:100%!important;
+    box-sizing:border-box!important;
+    margin:0!important;
+    transform:none!important;
+    overflow:hidden!important;
+  }
+
+  body:not(.auth-locked) .app-sidebar > nav.main-nav > button:hover{
+    transform:none!important;
+  }
+
+  body:not(.auth-locked) .app-sidebar > nav.main-nav .nav-label{
+    min-width:0!important;
+    overflow:hidden!important;
+    text-overflow:ellipsis!important;
+  }
+}
+
+/* POS service row: keep Net comfortably inside the card. */
+@media (min-width:1101px){
+  #sale .service-head,
+  #sale .service-row{
+    grid-template-columns:
+      minmax(205px,1.55fr)
+      120px
+      190px
+      minmax(180px,1fr)
+      88px
+      36px!important;
+    column-gap:8px!important;
+  }
+
+  #sale .service-head > div:nth-child(5){
+    text-align:center!important;
+  }
+
+  #sale .service-row .service-net,
+  #sale .service-row > .money{
+    justify-content:center!important;
+    text-align:center!important;
+    padding:0 5px!important;
+    min-width:0!important;
+    border-radius:9px!important;
+    background:rgba(255,255,255,.58)!important;
+    border:1px solid rgba(214,201,189,.72)!important;
+  }
+}
+
+@media (min-width:901px) and (max-width:1280px){
+  #sale .service-head,
+  #sale .service-row{
+    grid-template-columns:
+      minmax(175px,1.4fr)
+      105px
+      170px
+      minmax(155px,.95fr)
+      78px
+      34px!important;
+    column-gap:6px!important;
+  }
+}

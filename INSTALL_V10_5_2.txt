@@ -1,0 +1,31 @@
+PAGE.1 V10.5.2 — SIDEBAR + NET COLUMN LAYOUT FIX
+================================================
+
+WHAT THIS FIXES
+---------------
+1. Active sidebar item (for example New Sale) can no longer stretch out of the black sidebar.
+2. The Net column in New Sale is moved inward and centered so it does not sit against the far-right edge.
+3. The fix is integrated directly into the existing staff.css and v10-5.css files instead of relying on another add-on CSS file.
+
+GITHUB FILES TO REPLACE
+-----------------------
+staff/index.html
+assets/css/staff.css
+assets/css/v10-5.css
+service-worker.js
+
+You do NOT need to change assets/js/config.js.
+You do NOT need to update Apps Script.
+You do NOT need to redeploy the backend.
+
+AFTER UPLOADING
+---------------
+1. Commit the four files.
+2. Wait for GitHub Pages to finish deploying.
+3. Open the Staff Portal.
+4. Press Ctrl + Shift + R.
+
+OPTIONAL CLEANUP
+----------------
+You may delete assets/css/v10-5-1.css from GitHub after this update.
+V10.5.2 no longer loads or needs it.
